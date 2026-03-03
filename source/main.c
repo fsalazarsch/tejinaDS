@@ -62,13 +62,23 @@ void draw_screen_sub(void)
     setBackdropColorSub(clrLightBlue);
 
 
-    uint16_t *fb = bgGetGfxPtr(bg_sub);
-    
+    const char *menu_options[] = {
+        "(Y) Vocabulario inicial",
+        "(X) Vocabulario intermedio",
+        "(A) Kanji básicos",
+        "(B) Configuración"
+    };
 
-    draw_button(fb, 10, 13, SCREEN_WIDTH_DS-30, SCREEN_HEIGHT_DS/7, 2,
-                clrLightBlue, clrBlue,
-                handle_tloz, tloz_0Bitmap, 256, 256,
-                "(Y) Vocabulario inicial", 20, 20);
+    draw_menu(bg_sub, handle_tloz, tloz_0Bitmap,
+              menu_options,
+              sizeof(menu_options) / sizeof(menu_options[0]));
+
+    //draw_menu(bg_sub, handle_tloz, tloz_0Bitmap );
+
+    //draw_button(fb, 10, 13, SCREEN_WIDTH_DS-30, SCREEN_HEIGHT_DS/7, 2,
+    //            clrLightBlue, clrBlue,
+    //            handle_tloz, tloz_0Bitmap, 256, 256,
+    //            "(Y) Vocabulario inicial", 20, 20);
 
 
 }
