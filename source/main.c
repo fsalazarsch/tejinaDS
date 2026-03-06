@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <nds.h>
 #include "loadFonts.h"
-
+#include "menu.h"
 
 
 
@@ -13,10 +13,7 @@ void draw_screen_main(void)
 {
     int bg_main = bgInit(2, BgType_Bmp8, BgSize_B8_256x256, 4, 0);
 
-    // Load the palette used by the font
     memcpy(BG_PALETTE, font_0_256Pal, font_0_256PalLen);
-
-    // Set the last color of the palette to white (for the console)
     BG_PALETTE[255] = RGB5(31, 31, 31);
 
     setBackdropColor(RGB5(10, 5, 10));
@@ -25,7 +22,7 @@ void draw_screen_main(void)
     size_t out_width, out_height;
 
     dsf_error r = DSF_StringRenderToTexture(handle,
-                            "VAWATa\ntajl", GL_RGB256 ,
+                            "Testing font\notro testing", GL_RGB256 ,
                             font_0_256Bitmap, 256, 256,
                             &out_texture, &out_width, &out_height);
     if (r != DSF_NO_ERROR)
@@ -62,17 +59,20 @@ void draw_screen_sub(void)
     setBackdropColorSub(clrLightBlue);
 
 
+    display_menu(bg_sub, 0);
+
+    /*
     const char *menu_options[] = {
-        "(Y) Vocabulario inicial",
-        "(X) Vocabulario intermedio",
-        "(A) Kanji básicos",
-        "(B) Configuración"
+        "(A) Quiz",
+        "(B) Diccionario",
+        "(X) Práctica",
+        "(Y) Config"
     };
 
     draw_menu(bg_sub, handle_tloz, tloz_0Bitmap,
               menu_options,
               sizeof(menu_options) / sizeof(menu_options[0]));
-
+    */
     //draw_menu(bg_sub, handle_tloz, tloz_0Bitmap );
 
     //draw_button(fb, 10, 13, SCREEN_WIDTH_DS-30, SCREEN_HEIGHT_DS/7, 2,

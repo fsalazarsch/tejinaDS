@@ -8,6 +8,16 @@
 #define clrBlue   RGB15(0,  0,  31) | BIT(15)
 #define clrLightBlue RGB15(19, 25, 31) | BIT(15)
 
+typedef struct {
+    int x, y;
+    int w, h;
+} Button;
+
+// Detección de toque sobre botón
+static inline int button_hit(Button *btn, touchPosition *touch) {
+    return (touch->px >= btn->x && touch->px <= btn->x + btn->w &&
+            touch->py >= btn->y && touch->py <= btn->y + btn->h);
+}
 
 void wait_forever(void);
 
@@ -53,7 +63,7 @@ void draw_void_rect(uint16_t *fb, int x1, int y1, int w, int h, int border, u16 
 
 
 void draw_button(uint16_t *fb, int x1, int y1, int w, int h, int border,
-                 u16 color, u16 borderColor,
+                 u16 color, u16 borderColor, u16 fontColor,
                  dsf_handle font, const void *bitmap, int bmp_w, int bmp_h,
                  const char *text, int text_x, int text_y)
 {
@@ -77,7 +87,13 @@ void draw_button(uint16_t *fb, int x1, int y1, int w, int h, int border,
         dst += (j + text_y) * 256 + text_x;
         src += j * out_width;
         for (int i = 0; i < out_width; i++)
-            *dst++ = *src++;
+        {
+            uint16_t pixel = *src++;
+            if (pixel & 1)
+                *dst++ = fontColor;
+            else
+                dst++;
+        }
     }
 
     //draw_void_rect(fb, x1, y1, x2, y2, border, borderColor);
@@ -104,9 +120,9 @@ void draw_menu(int bg_sub,
     for (int i = 0; i < total_options; i++)
     {
         draw_button(fb, x, y, button_width, button_height, 2,
-                    clrLightBlue, clrBlue,
+                    clrLightBlue, clrBlue, clrBlack,
                     font, bitmap, 256, 256,
-                    options[i], x + 10, y + 5);
+                    options[i], x + 10, y );
 
         y += button_height + spacing;
     }

@@ -4,5 +4,5 @@
 
 #include <stdint.h>
 
-#define tloz_fnt_bin_size (2764)
-extern const uint8_t tloz_fnt_bin[2764];
+#define tloz_fnt_bin_size (2784)
+extern const uint8_t tloz_fnt_bin[2784];

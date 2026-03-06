@@ -68,7 +68,8 @@ build/tejinaDS/source/main.c.o: source/main.c \
  build/tejinaDS/graphics/font2_0_16bit.h build/tejinaDS/graphics/tloz_0.h \
  build/tejinaDS/graphics/keyboard.h build/tejinaDS/data/font_fnt_bin.h \
  build/tejinaDS/data/font2_fnt_bin.h build/tejinaDS/data/tloz_fnt_bin.h \
- build/tejinaDS/data/keyboard_fnt_bin.h source/backgrounds.h
+ build/tejinaDS/data/keyboard_fnt_bin.h source/backgrounds.h \
+ source/menu.h
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds.h:
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds/bios.h:
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds/ndstypes.h:
@@ -143,3 +144,4 @@ build/tejinaDS/data/font2_fnt_bin.h:
 build/tejinaDS/data/tloz_fnt_bin.h:
 build/tejinaDS/data/keyboard_fnt_bin.h:
 source/backgrounds.h:
+source/menu.h:
