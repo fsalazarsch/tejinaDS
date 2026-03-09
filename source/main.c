@@ -4,9 +4,11 @@
 
 #include <stdio.h>
 #include <nds.h>
+#include <maxmod9.h>
 #include "loadFonts.h"
 #include "menu.h"
-
+#include "soundbank.h"
+#include "soundbank_bin.h"
 
 
 void draw_screen_main(void)
@@ -57,34 +59,17 @@ void draw_screen_sub(void)
     BG_PALETTE_SUB[255] = RGB5(31, 31, 31);
 
     setBackdropColorSub(clrLightBlue);
-
-
     display_menu(bg_sub, 0);
-
-    /*
-    const char *menu_options[] = {
-        "(A) Quiz",
-        "(B) Diccionario",
-        "(X) Práctica",
-        "(Y) Config"
-    };
-
-    draw_menu(bg_sub, handle_tloz, tloz_0Bitmap,
-              menu_options,
-              sizeof(menu_options) / sizeof(menu_options[0]));
-    */
-    //draw_menu(bg_sub, handle_tloz, tloz_0Bitmap );
-
-    //draw_button(fb, 10, 13, SCREEN_WIDTH_DS-30, SCREEN_HEIGHT_DS/7, 2,
-    //            clrLightBlue, clrBlue,
-    //            handle_tloz, tloz_0Bitmap, 256, 256,
-    //            "(Y) Vocabulario inicial", 20, 20);
-
 
 }
 
 int main(int argc, char *argv[])
 {
+    soundEnable();
+    mmInitDefaultMem((mm_addr)soundbank_bin);
+    
+
+
     // Mode 5 lets you use layer 2 as an 8 or 16-bit bitmap
     videoSetMode(MODE_5_2D);
     videoSetModeSub(MODE_5_2D);
@@ -97,13 +82,15 @@ int main(int argc, char *argv[])
 
     libdsf_fonts_load();
     draw_screen_main();
-    draw_screen_sub();
+    
 
     consoleSetCursor(NULL, 0, 0);
     printf("This example uses 8-bit and\n16-bit backgrounds.\n\n");
     consoleSetCursor(NULL, 0, 23);
     printf("START: Exit to loader");
-
+    
+    draw_screen_sub();
+    
     while (1)
     {
         swiWaitForVBlank();

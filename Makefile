@@ -15,11 +15,13 @@ GAME_SUBTITLE	:= LibDSF example
 
 GFXDIRS		:= graphics
 BINDIRS		:= data
+AUDIODIRS	:= audio
 
 # Libraries
 
-LIBS		:= -ldsf -lnds9
+LIBS		:= -ldsf -lnds9 -lmm9
 LIBDIRS		:= $(BLOCKSDS)/libs/libnds \
+				$(BLOCKSDS)/libs/maxmod \
 			/opt/wonderful/thirdparty/blocksds/external/libdsf
 
 include $(BLOCKSDS)/sys/default_makefiles/rom_arm9/Makefile
