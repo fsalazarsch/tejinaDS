@@ -9,16 +9,20 @@
 #include "menu.h"
 #include "soundbank.h"
 #include "soundbank_bin.h"
+#include "themes.h"
 
+ThemeID currentTheme = THEME_DAY; // ||THEME_NIGHT
 
 void draw_screen_main(void)
 {
-    int bg_main = bgInit(2, BgType_Bmp8, BgSize_B8_256x256, 4, 0);
+    int bg_main = bgInit(2, BgType_Bmp16, BgSize_B16_256x256, 4, 0);
 
     memcpy(BG_PALETTE, font_0_256Pal, font_0_256PalLen);
-    BG_PALETTE[255] = RGB5(31, 31, 31);
+    
+    BG_PALETTE[255] = themes[currentTheme].kanaText;
+    //BG_PALETTE[1] = themes[currentTheme].kanaText;
 
-    setBackdropColor(RGB5(10, 5, 10));
+    setBackdropColor(themes[currentTheme].bg);
 
     void *out_texture;
     size_t out_width, out_height;
@@ -46,7 +50,14 @@ void draw_screen_main(void)
         src += j * out_width / 2;
 
         for (int i = 0; i < out_width; i += 2)
-            *dst++ = *src++;
+             {
+            uint16_t pixel = *src++;
+            if (pixel & 1)
+                *dst++ = themes[currentTheme].kanaText;
+            else
+                dst++;
+        }
+            //*dst++ = *src++;
     }
 
     free(out_texture);
@@ -58,8 +69,8 @@ void draw_screen_sub(void)
 
     BG_PALETTE_SUB[255] = RGB5(31, 31, 31);
 
-    setBackdropColorSub(clrLightBlue);
-    display_menu(bg_sub, 0);
+    setBackdropColorSub(themes[currentTheme].bg);
+    display_menu(bg_sub, 0, themes[currentTheme]);
 
 }
 

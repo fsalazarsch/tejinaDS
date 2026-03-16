@@ -68,12 +68,13 @@ build/tejinaDS/source/main.c.o: source/main.c \
  C:/msys64/opt/wonderful/thirdparty/blocksds/external/libdsf/include/dsf.h \
  build/tejinaDS/graphics/font_0_256.h \
  build/tejinaDS/graphics/font2_0_16bit.h \
- build/tejinaDS/graphics/nunito_0.h build/tejinaDS/graphics/keyboard.h \
- build/tejinaDS/data/font_fnt_bin.h build/tejinaDS/data/font2_fnt_bin.h \
- build/tejinaDS/data/nunito_fnt_bin.h \
+ build/tejinaDS/graphics/nunito_0.h build/tejinaDS/graphics/kana_0.h \
+ build/tejinaDS/graphics/keyboard.h build/tejinaDS/data/font_fnt_bin.h \
+ build/tejinaDS/data/font2_fnt_bin.h build/tejinaDS/data/nunito_fnt_bin.h \
+ build/tejinaDS/data/kana_fnt_bin.h \
  build/tejinaDS/data/keyboard_fnt_bin.h source/backgrounds.h \
- source/menu.h source/sections.h build/tejinaDS/maxmod/soundbank.h \
- build/tejinaDS/maxmod/soundbank_bin.h
+ source/themes.h source/menu.h source/sections.h \
+ build/tejinaDS/maxmod/soundbank.h build/tejinaDS/maxmod/soundbank_bin.h
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds.h:
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds/bios.h:
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds/ndstypes.h:
@@ -144,12 +145,15 @@ C:/msys64/opt/wonderful/thirdparty/blocksds/external/libdsf/include/dsf.h:
 build/tejinaDS/graphics/font_0_256.h:
 build/tejinaDS/graphics/font2_0_16bit.h:
 build/tejinaDS/graphics/nunito_0.h:
+build/tejinaDS/graphics/kana_0.h:
 build/tejinaDS/graphics/keyboard.h:
 build/tejinaDS/data/font_fnt_bin.h:
 build/tejinaDS/data/font2_fnt_bin.h:
 build/tejinaDS/data/nunito_fnt_bin.h:
+build/tejinaDS/data/kana_fnt_bin.h:
 build/tejinaDS/data/keyboard_fnt_bin.h:
 source/backgrounds.h:
+source/themes.h:
 source/menu.h:
 source/sections.h:
 build/tejinaDS/maxmod/soundbank.h:

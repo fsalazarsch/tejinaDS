@@ -1,26 +1,33 @@
 
+#include <nds.h>
 #include <maxmod9.h>
 #include "soundbank.h"
 #include "soundbank_bin.h"
+#include "themes.h"
+extern ThemeID currentTheme;
 
 #define AUDIO_DELAY 2500000
 
-void run_quiz_hiragana(){
 
-    consoleSetCursor(NULL, 0, 50);
-    mmLoadEffect(SFX_KYO);
-	mmLoadEffect(SFX_NE);
-    mmLoadEffect(SFX_N);
+
+
+void run_quiz_hiragana(){
+    int bg_main = bgInit(2, BgType_Bmp16, BgSize_B16_256x256, 4, 0);
+    //consoleSetCursor(NULL, 0, 50);
+
+
+    mmLoadEffect(SFX_TO);
+	mmLoadEffect(SFX_KE);
+    mmLoadEffect(SFX_I);
     //mm_sfxhand h = mmEffect(SFX_KA);
 	//printf("sfx handle: %d", h);
-    //speak("とけい");
-   
+    draw_text_font(bg_main, 20, 80, "行とけい", handle_kana, kana_0Bitmap, themes[currentTheme].kanaText);
 
-   	mmEffect(SFX_KYO);
+   	mmEffect(SFX_TO);
    	swiDelay(AUDIO_DELAY);
-   	mmEffect(SFX_NE);
+   	mmEffect(SFX_KE);
    	swiDelay(AUDIO_DELAY);
-   	mmEffect(SFX_N);
+   	mmEffect(SFX_I);
    	
     /*soundPlaySample(
     ka_raw_bin,
@@ -34,7 +41,7 @@ void run_quiz_hiragana(){
 	);*/
 	//mmEffect(SFX_KA);
 
-    printf("Haz iniciado la opcion run quiz hiragana");
+    //printf("Haz iniciado la opcion run quiz hiragana");
 
 }
 

@@ -2,7 +2,7 @@
 fileVersion=1
 
 # font settings
-fontName=Nunito SemiBold
+fontName=Arial Unicode MS
 fontFile=../../../../../Users/Conosur/Documents/Nunito-SemiBold-extended.ttf
 charSet=0
 fontSize=30
@@ -34,7 +34,7 @@ forceZero=0
 widthPaddingFactor=0.00
 
 # output file
-outWidth=256
+outWidth=512
 outHeight=256
 outBitDepth=32
 fontDescFormat=2
@@ -55,7 +55,7 @@ outlineThickness=0
 
 # selected chars
 chars=32-126,165,193,201,205,209,211,218,225,233,237,241,243,250,256-257,274-275,298-299,332-333,362-363
-chars=8199-8203,8208,8210-8213,8216-8218,8220-8222,8224-8226,8230,8240,8242-8243,8249-8250,8260,8274,8592
-chars=8593-8595,9398-9399,9409,9415,9421-9422
+chars=8199-8203,8208,8210-8213,8216-8218,8220-8222,8224-8226,8230,8240,8242-8243,8249-8250,8260,9398-9399
+chars=9409,9415,9421-9422,12353-12436,12441-12446,12449-12542,34892
 
 # imported icon images

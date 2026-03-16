@@ -1,5 +1,7 @@
 #include "loadFonts.h"
 #include "sections.h"
+#include "themes.h"
+
 
 const char **get_menu(int noptn)
 {
@@ -144,7 +146,7 @@ int handle_menu_action(int opc, int button_index)
 }   
 
 
-void display_menu(int bg_sub, int initial_opc)
+void display_menu(int bg_sub, int initial_opc, KanaTheme theme)
 {
     int opc = initial_opc;
 
@@ -157,8 +159,8 @@ void display_menu(int bg_sub, int initial_opc)
         uint16_t *fb = bgGetGfxPtr(bg_sub);
 
         // limpiar pantalla
-        dmaFillHalfWords(clrLightBlue, fb, SCREEN_WIDTH_DS * SCREEN_HEIGHT_DS * 2);
-        draw_menu(bg_sub, handle_nunito, nunito_0Bitmap, menu_options, total);
+        dmaFillHalfWords(theme.bg, fb, SCREEN_WIDTH_DS * SCREEN_HEIGHT_DS * 2);
+        draw_menu(bg_sub, handle_nunito, nunito_0Bitmap, menu_options, total, theme);
 
         int menu_changed = 0;
 
@@ -200,16 +202,15 @@ void display_menu(int bg_sub, int initial_opc)
                     if (button_hit(&btn, &touch))
                     {
                         draw_button(fb, x, y, button_width, button_height, 2,
-                                    clrBlue, clrGreen, clrBlue,
                                     handle_nunito, nunito_0Bitmap, 256, 256,
-                                    menu_options[i], x + 10, y);
+                                    menu_options[i], x + 10, y, theme, 1);
 
                         swiWaitForVBlank();
                         swiDelay(10000);
 
                         int next_opc = handle_menu_action(opc, i);
-                            consoleSetCursor(NULL, 0, 50);
-                        printf("La opcion es %i.\n\n", opc);
+                        //consoleSetCursor(NULL, 0, 50);
+                        //printf("La opcion es %i.\n\n", opc);
 
                         switch(next_opc)
                         {
