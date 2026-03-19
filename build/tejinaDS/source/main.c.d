@@ -74,7 +74,13 @@ build/tejinaDS/source/main.c.o: source/main.c \
  build/tejinaDS/data/kana_fnt_bin.h \
  build/tejinaDS/data/keyboard_fnt_bin.h source/backgrounds.h \
  source/themes.h source/menu.h source/sections.h \
- build/tejinaDS/maxmod/soundbank.h build/tejinaDS/maxmod/soundbank_bin.h
+ build/tejinaDS/maxmod/soundbank.h build/tejinaDS/maxmod/soundbank_bin.h \
+ build/tejinaDS/data/nitech_jp_atr503_m001_htsvoice_bin.h \
+ source/nds_tts.h \
+ C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/fat.h \
+ source/nds_hts_patch.h \
+ C:/msys64/opt/blocksds/external/htsengine/include/HTS_engine.h \
+ source/hiragana_phoneme.h
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds.h:
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds/bios.h:
 C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/nds/ndstypes.h:
@@ -158,3 +164,9 @@ source/menu.h:
 source/sections.h:
 build/tejinaDS/maxmod/soundbank.h:
 build/tejinaDS/maxmod/soundbank_bin.h:
+build/tejinaDS/data/nitech_jp_atr503_m001_htsvoice_bin.h:
+source/nds_tts.h:
+C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/fat.h:
+source/nds_hts_patch.h:
+C:/msys64/opt/blocksds/external/htsengine/include/HTS_engine.h:
+source/hiragana_phoneme.h:

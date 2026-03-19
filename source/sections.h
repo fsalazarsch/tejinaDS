@@ -4,9 +4,18 @@
 #include "soundbank.h"
 #include "soundbank_bin.h"
 #include "themes.h"
-extern ThemeID currentTheme;
+
+#include "nitech_jp_atr503_m001_htsvoice_bin.h"
+
+#include "nds_tts.h"
+#include <nds/memory.h>
 
 #define AUDIO_DELAY 2500000
+
+extern ThemeID currentTheme;
+
+
+NDS_TTS tts;
 
 
 
@@ -15,6 +24,7 @@ void run_quiz_hiragana(){
     int bg_main = bgInit(2, BgType_Bmp16, BgSize_B16_256x256, 4, 0);
     //consoleSetCursor(NULL, 0, 50);
 
+    
 
     mmLoadEffect(SFX_TO);
 	mmLoadEffect(SFX_KE);
@@ -38,12 +48,12 @@ void run_quiz_hiragana(){
     64,
     false,
     0
-	);*/
+	);
 	//mmEffect(SFX_KA);
 
     //printf("Haz iniciado la opcion run quiz hiragana");
 
-}
+}*/
 
 void run_quiz_katakana(){
 

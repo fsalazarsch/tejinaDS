@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
 {
     soundEnable();
     mmInitDefaultMem((mm_addr)soundbank_bin);
-    
+    fatInitDefault();
 
 
     // Mode 5 lets you use layer 2 as an 8 or 16-bit bitmap
