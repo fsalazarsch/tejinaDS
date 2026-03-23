@@ -1,0 +1,109 @@
+Menú Principal
+1) Quiz
+Sección de evaluaciones y pruebas para medir el progreso y aprendizaje del usuario.
+
+1.1) Evaluación inicial: Prueba para determinar el nivel inicial del usuario.
+
+1.1.1) Reconocer Hiragana: Identificar los caracteres básicos del alfabeto Hiragana.
+1.1.2) Reconocer Katakana: Identificar los caracteres básicos del alfabeto Katakana.
+1.1.3) Reconocer Kanji básicos: Evaluar el conocimiento de los Kanji más comunes.
+1.1.4) Vocabulario inicial: Prueba de palabras comunes para medir el vocabulario básico.
+1.2) Simulación NOKEN: Exámenes basados en el formato oficial del NOKEN.
+
+1.2.1) Nivel N5: Evaluación para principiantes.
+1.2.2) Nivel N4: Prueba de nivel intermedio bajo.
+1.2.3) Nivel N3: Prueba para usuarios avanzados intermedios.
+1.2.4) Nivel N2/N1: Simulación de los niveles más avanzados.
+1.3) Quiz temático: Cuestionarios enfocados en temas específicos del idioma.
+
+1.3.1) Gramática: Evaluar partículas y estructuras gramaticales.
+1.3.2) Vocabulario por tema: Pruebas sobre categorías como comida, colores, etc.
+1.3.3) Kanji por nivel: Identificar y leer Kanji de dificultad creciente.
+1.3.4) Lectura de frases: Evaluación de comprensión lectora.
+1.4) Progreso y estadísticas: Información sobre el desempeño del usuario.
+
+1.4.1) Resumen de evaluaciones: Resultados generales de las pruebas realizadas.
+1.4.2) Puntos fuertes y débiles: Identificación de áreas para mejorar.
+1.4.3) Objetivos sugeridos: Recomendaciones para continuar aprendiendo.
+1.4.4) Gráficos comparativos: Visualización del progreso a lo largo del tiempo.
+2) Diccionario
+Repositorio de información clave sobre el idioma japonés.
+
+2.1) Hiragana y Katakana: Recursos sobre los dos alfabetos básicos japoneses.
+
+2.1.1) Tabla completa: Visualización de todos los caracteres.
+2.1.2) Escritura y trazos: Guía para escribir correctamente.
+2.1.3) Práctica de sonidos: Escuchar y practicar la pronunciación.
+2.1.4) Asociaciones visuales: Técnicas para memorizar caracteres.
+2.2) Kanji: Información detallada sobre Kanji.
+
+2.2.1) Kanji básicos (N5/N4): Lista de los Kanji más simples.
+2.2.2) Kanji intermedios (N3): Kanji más complejos para usuarios intermedios.
+2.2.3) Kanji avanzados (N2/N1): Kanji difíciles para niveles avanzados.
+2.2.4) Herramienta de búsqueda por trazos: Localizar Kanji escribiendo sus trazos.
+2.3) Vocabulario: Palabras y expresiones esenciales del japonés.
+
+2.3.1) Palabras comunes: Vocabulario básico y frecuente.
+2.3.2) Categorías: Palabras agrupadas por temas como números, días, etc.
+2.3.3) Verbos y adjetivos esenciales: Vocabulario fundamental para crear frases.
+2.3.4) Expresiones idiomáticas: Frases hechas y proverbios japoneses.
+2.4) Frases útiles: Oraciones prácticas para la vida cotidiana.
+
+2.4.1) Diálogos cotidianos: Frases típicas para conversaciones comunes.
+2.4.2) Frases de supervivencia: Expresiones para viajar o situaciones urgentes.
+2.4.3) Honoríficos y formalidades: Cómo dirigirse respetuosamente a otros.
+2.4.4) Respuestas rápidas: Frases cortas para reaccionar rápidamente.
+3) Práctica
+Herramientas interactivas para desarrollar habilidades específicas.
+
+3.1) Escritura: Ejercicios para mejorar la escritura en japonés.
+
+3.1.1) Práctica de Hiragana: Escribir caracteres del alfabeto Hiragana.
+3.1.2) Práctica de Katakana: Ejercicios enfocados en Katakana.
+3.1.3) Práctica de Kanji: Escribir Kanji y aprender trazos correctos.
+3.1.4) Creación de frases: Construir oraciones completas en japonés.
+3.2) Lectura: Actividades para desarrollar la comprensión lectora.
+
+3.2.1) Hiragana y Katakana: Lectura básica de los dos alfabetos.
+3.2.2) Kanji con furigana: Leer Kanji con ayuda de pronunciaciones.
+3.2.3) Lectura de textos básicos: Historias y frases simples.
+3.2.4) Lectura de textos avanzados: Artículos y ensayos más complejos.
+3.3) Escucha: Ejercicios de comprensión auditiva.
+
+3.3.1) Audios básicos: Escuchar frases simples.
+3.3.2) Audios intermedios: Historias más elaboradas.
+3.3.3) Audios avanzados: Conversaciones naturales y rápidas.
+3.3.4) Dictados: Escribir lo escuchado para reforzar aprendizaje.
+3.4) Roleplay: Simulaciones para practicar el idioma en contexto.
+
+3.4.1) Diálogos básicos: Situaciones simples, como saludos.
+3.4.2) Interacción con NPCs: Hablar con personajes generados por la app.
+3.4.3) Escenarios reales: Simulaciones como compras o restaurantes.
+3.4.4) Evaluación de respuestas: Calificación del desempeño en las simulaciones.
+4) Configuración
+Opciones para personalizar y optimizar la experiencia de usuario.
+
+4.1) Idioma: Cambiar el idioma de la interfaz.
+
+4.1.1) Español: Interfaz en español.
+4.1.2) Inglés: Interfaz en inglés.
+4.1.3) Japonés: Interfaz en japonés.
+4.1.4) Personalizado: Configuración híbrida o avanzada.
+4.2) Preferencias: Ajustes personales para la experiencia de aprendizaje.
+
+4.2.1) Dificultad de quizzes: Elegir niveles fácil, intermedio o avanzado.
+4.2.2) Orden de aprendizaje: Configurar prioridad de temas.
+4.2.3) Modo oscuro/claro: Cambiar la apariencia visual.
+4.2.4) Recordatorios diarios: Activar notificaciones para estudiar.
+4.3) Gestión de datos: Control de progreso y respaldo.
+
+4.3.1) Guardar progreso: Almacenar avances localmente o en la nube.
+4.3.2) Cargar progreso: Recuperar datos previamente guardados.
+4.3.3) Exportar/importar datos: Compartir o transferir avances entre dispositivos.
+4.3.4) Reiniciar progreso: Comenzar desde cero.
+4.4) Créditos y soporte: Información sobre la app y asistencia técnica.
+
+4.4.1) Equipo desarrollador: Créditos del equipo que creó la app.
+4.4.2) Manual del usuario: Guía para entender todas las funciones.
+4.4.3) Reportar errores: Canal para comunicar fallos o problemas.
+4.4.4) Actualizaciones: Información sobre nuevas versiones.
