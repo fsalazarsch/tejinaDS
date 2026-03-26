@@ -10,7 +10,6 @@
 //config teclas 	"\n"
 
 
-
 //static const char sent[] ="\t\t日\n\t\t本\n\t\t語\n\t\t文\n";
 
 C2D_Font font, font2, fontkbd;;
@@ -52,7 +51,12 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 
  	if (currentScene == SCENE_TABLA_HIRAGANA) {
         mostrar_tabla(top, bottom, g_staticBuf, font2, font, &tablaState);
-    	} else {
+    	}
+    else if (currentScene == SCENE_TEST_KANA) {
+    	C2D_SceneBegin(bottom);
+    	mostrar_ideograma();
+		} 
+	else {
        		menu = display_menu(g_staticBuf, menusel, font, fontkbd, font2, top, bottom);
         	flag_display_menu = 1;
     	}
@@ -177,6 +181,11 @@ int main()
 			strcpy(menusel, menu_ant);
 		}
 
+
+		if (currentScene == SCENE_TEST_KANA) {
+    		if (kDown & KEY_B)
+        		currentScene = SCENE_MENU;
+		}
 
 		if (currentScene == SCENE_TABLA_HIRAGANA) {
 

@@ -200,6 +200,11 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 		    mostrar_tabla(top, bottom, g_staticBuf, font3, font, &tablaState);
    		}
 
+   	if (strcmp(optn, "  Ⓑ  Escritura y Trazos") == 0)
+   		{
+   			currentScene = SCENE_TEST_KANA;
+    		init_ideograma();
+   		}
    	 
 
    	//strcpy(menu_ant, optn);

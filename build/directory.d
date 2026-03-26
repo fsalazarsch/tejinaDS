@@ -1,4 +1,4 @@
-directory.o: C:/laragon/www/personal/projects_nds/source/directory.c \
+directory.o: C:/laragon/www/personal/tejinaDS/source/directory.c \
  C:/devkitPro/libctru/include/3ds.h \
  C:/devkitPro/libctru/include/3ds/types.h \
  C:/devkitPro/libctru/include/3ds/result.h \
@@ -110,13 +110,15 @@ directory.o: C:/laragon/www/personal/projects_nds/source/directory.c \
  C:/devkitPro/libctru/include/c2d/sprite.h \
  C:/devkitPro/libctru/include/c2d/text.h \
  C:/devkitPro/libctru/include/c2d/font.h \
- C:/laragon/www/personal/projects_nds/source/menu.h \
- C:/laragon/www/personal/projects_nds/source/functions.h \
- C:/laragon/www/personal/projects_nds/source/keyboard.h \
- C:/laragon/www/personal/projects_nds/source/themes.h \
- C:/laragon/www/personal/projects_nds/source/menu_functions.h \
- C:/laragon/www/personal/projects_nds/source/tabla.h \
- C:/laragon/www/personal/projects_nds/source/scene.h
+ C:/laragon/www/personal/tejinaDS/source/menu.h \
+ C:/laragon/www/personal/tejinaDS/source/functions.h \
+ C:/laragon/www/personal/tejinaDS/source/keyboard.h \
+ C:/laragon/www/personal/tejinaDS/source/themes.h \
+ C:/laragon/www/personal/tejinaDS/source/menu_functions.h \
+ C:/laragon/www/personal/tejinaDS/source/tabla.h \
+ C:/laragon/www/personal/tejinaDS/source/kanji_data.h \
+ C:/laragon/www/personal/tejinaDS/source/kanji_stroke.h \
+ C:/laragon/www/personal/tejinaDS/source/scene.h
 C:/devkitPro/libctru/include/3ds.h:
 C:/devkitPro/libctru/include/3ds/types.h:
 C:/devkitPro/libctru/include/3ds/result.h:
@@ -228,10 +230,12 @@ C:/devkitPro/libctru/include/c2d/spritesheet.h:
 C:/devkitPro/libctru/include/c2d/sprite.h:
 C:/devkitPro/libctru/include/c2d/text.h:
 C:/devkitPro/libctru/include/c2d/font.h:
-C:/laragon/www/personal/projects_nds/source/menu.h:
-C:/laragon/www/personal/projects_nds/source/functions.h:
-C:/laragon/www/personal/projects_nds/source/keyboard.h:
-C:/laragon/www/personal/projects_nds/source/themes.h:
-C:/laragon/www/personal/projects_nds/source/menu_functions.h:
-C:/laragon/www/personal/projects_nds/source/tabla.h:
-C:/laragon/www/personal/projects_nds/source/scene.h:
+C:/laragon/www/personal/tejinaDS/source/menu.h:
+C:/laragon/www/personal/tejinaDS/source/functions.h:
+C:/laragon/www/personal/tejinaDS/source/keyboard.h:
+C:/laragon/www/personal/tejinaDS/source/themes.h:
+C:/laragon/www/personal/tejinaDS/source/menu_functions.h:
+C:/laragon/www/personal/tejinaDS/source/tabla.h:
+C:/laragon/www/personal/tejinaDS/source/kanji_data.h:
+C:/laragon/www/personal/tejinaDS/source/kanji_stroke.h:
+C:/laragon/www/personal/tejinaDS/source/scene.h:

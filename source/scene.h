@@ -3,7 +3,8 @@
 
 typedef enum {
     SCENE_MENU,
-    SCENE_TABLA_HIRAGANA
+    SCENE_TABLA_HIRAGANA,
+    SCENE_TEST_KANA
 } SceneID;
 
 extern SceneID currentScene;

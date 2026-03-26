@@ -1,5 +1,10 @@
 #include "tabla.h"
 #include "themes.h"
+#include "kanji_data.h"
+
+Kanji k;
+KanjiAnimState anim;
+
 
 extern ThemeID currentTheme;
 
@@ -99,5 +104,25 @@ void mostrar_tabla(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     C2D_TextOptimize(&debugText);
     C2D_DrawText(&debugText, C2D_AtBaseline, 20, 50, 0.0f, 0.8f, 0.8f, 0xFF000000);
 	}
+}
+
+
+
+void init_ideograma(void) {
+    //kanji_load_hiragana_a(&k);
+    //kanji_load(0x30B7, &k);  // シ katakana shi
+    //kanji_load(0x66C7, &k);  // 曇
+    //kanji_load(0x5FC3, &k);  // 心
+    //kanji_load(0x604B, &k);  // 恋
+    kanji_load(0x611B, &k);  // 愛
+    //kanji_load(0x862D, &k);  // 蘭
+
+    kanji_anim_init(&anim);
+}
+
+void mostrar_ideograma(void) {
+
+
+    animate_kanji(&k, &anim);
 }
 

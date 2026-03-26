@@ -195,14 +195,13 @@ $(GFXBUILD)/%.t3x	$(BUILD)/%.h	:	%.t3s
 $(GFXBUILD)/%.bcfnt :		%.ttf
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
-	#@mkbcfnt -o $(GFXBUILD)/$*.bcfnt $<
-
-
 	@if [ "$(notdir $<)" = "NotoSansJP-Regular.ttf" ]; then \
 		mkbcfnt -s 24 -w $(GRAPHICS)/whitelist.txt -o $(GFXBUILD)/$*.bcfnt $< ; \
-	else \
-		mkbcfnt -o $(GFXBUILD)/$*.bcfnt $< ; \
-	fi
+	elif [ "$(notdir $<)" = "MPLUS1p-Regular.ttf" ]; then \
+        mkbcfnt -s 24 -o $(GFXBUILD)/$*.bcfnt $< ; \
+    else \
+        mkbcfnt -o $(GFXBUILD)/$*.bcfnt $< ; \
+    fi \
 
 
 #---------------------------------------------------------------------------------
