@@ -6,6 +6,7 @@
 #include "menu.h"
 #include "themes.h"
 #include "scene.h"
+#include "tts_engine.h"
 
 //config teclas 	"\n"
 
@@ -34,6 +35,9 @@ SceneID currentScene = SCENE_MENU;
 TablaState tablaState = {0, 0, 0};
 
 
+
+
+
 static void sceneInit(void)
 {
 	// Create two text buffers: one for static text, and another one for
@@ -54,7 +58,8 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
     	}
     else if (currentScene == SCENE_TEST_KANA) {
     	C2D_SceneBegin(bottom);
-    	mostrar_ideograma();
+		mostrar_ideograma(false, 90.0f, 35.0f, 130.0f);
+
 		} 
 	else {
        		menu = display_menu(g_staticBuf, menusel, font, fontkbd, font2, top, bottom);
@@ -99,16 +104,21 @@ static void sceneExit(void)
 
 int main()
 {
-	
-	// Initialize the libs
+	gfxInitDefault();
 	romfsInit();
+	cfguInit(); // Allow C2D_FontLoadSystem to work
+	ndspInit();
+
+	// Initialize the libs
+	
 	font = C2D_FontLoad("romfs:/the-legend-of-zelda-a-link-to-the-past-ext.bcfnt");
 	font2 = C2D_FontLoad("romfs:/NotoSansJP-Regular.bcfnt");
 	fontkbd = C2D_FontLoad("romfs:/AppleJapaneseKeyboard.bcfnt");
+	tts_engine_init("romfs:/nitech_jp_atr503_m001.htsvoice");
 	
-	cfguInit(); // Allow C2D_FontLoadSystem to work
+	
 	// Initialize the libs
-	gfxInitDefault();
+	
 
 	//consoleInit(GFX_TOP, NULL);
 
@@ -196,26 +206,29 @@ int main()
 		    if (kDown & KEY_R) tablaState.categoria = (tablaState.categoria + 1) % 4;
 		    if (kDown & KEY_UP) {
 			    tablaState.fila = (tablaState.fila - 1 + 5) % 5;
-			    if (strcmp(hiragana[tablaState.fila][tablaState.col], " ") == 0)
+			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
 			        tablaState.fila = (tablaState.fila - 1 + 5) % 5;
 			}
 			if (kDown & KEY_DOWN) {
 			    tablaState.fila = (tablaState.fila + 1) % 5;
-			    if (strcmp(hiragana[tablaState.fila][tablaState.col], " ") == 0)
+			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
 			        tablaState.fila = (tablaState.fila + 1) % 5;
 			}
 			if (kDown & KEY_LEFT) {
 			    tablaState.col = (tablaState.col - 1 + 10) % 10;
-			    if (strcmp(hiragana[tablaState.fila][tablaState.col], " ") == 0)
+			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
 			        tablaState.col = (tablaState.col - 1 + 10) % 10;
 			}
 			if (kDown & KEY_RIGHT) {
 			    tablaState.col = (tablaState.col + 1) % 10;
-			    if (strcmp(hiragana[tablaState.fila][tablaState.col], " ") == 0)
+			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
 			        tablaState.col = (tablaState.col + 1) % 10;
 			}
-			if (kDown & KEY_A)
+			if (kDown & KEY_A){
 			    tablaState.seleccionado = !tablaState.seleccionado;
+			    tts_engine_speak("konnichiwa");
+			}
+				
 		    if (kDown & KEY_B) {
 		        currentScene = SCENE_MENU;
 		        strcpy(menusel, " Ⓐ Tabla completa"); // vuelve al menú anterior
@@ -291,5 +304,7 @@ int main()
 	C2D_Fini();
 	C3D_Fini();
 	gfxExit();
+	ndspExit();
+	tts_engine_exit();
 	return 0;
 }

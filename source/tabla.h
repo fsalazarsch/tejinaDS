@@ -8,7 +8,13 @@ typedef struct {
     bool seleccionado;
 } TablaState;
 
+typedef struct {
+    const char* kana;
+    const char* romaji;
+    unsigned int codepoint;
+} KanaEntry;
+
 extern TablaState tablaState;
-extern const char* hiragana[5][10];
+extern const KanaEntry hiragana[5][10];
 
 #endif

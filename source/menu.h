@@ -203,7 +203,8 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
    	if (strcmp(optn, "  Ⓑ  Escritura y Trazos") == 0)
    		{
    			currentScene = SCENE_TEST_KANA;
-    		init_ideograma();
+   			init_ideograma(0x611B, false);  // 愛 estático
+			//init_ideograma(0x611B, true);   // 愛 animado
    		}
    	 
 

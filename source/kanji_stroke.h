@@ -5,14 +5,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "themes.h"
+
+extern ThemeID currentTheme;
+
 
 // ─── Estructuras ─────────────────────────────────────────────────────────────
 
-#define MAX_POINTS_PER_STROKE 128
+#define MAX_POINTS_PER_STROKE 256
 #define MAX_STROKES_PER_KANJI 32
 
 typedef struct {
-    float x, y;
+    float x, y;  // coordenadas raw KanjiVG (0-109)
 } Point;
 
 typedef struct {
@@ -25,22 +29,10 @@ typedef struct {
     u8     num_strokes;
 } Kanji;
 
-// ─── Escala KanjiVG (0-109) → pantalla bottom 3DS (320x240) ─────────────────
-// Ajusta SIZE, OFFSET_X, OFFSET_Y para posicionar el kanji donde quieras
-
-#define KANJI_SIZE     180.0f
-#define KANJI_OFFSET_X 30.0f
-#define KANJI_OFFSET_Y 60.0f
-
-#define SCALE_X(x) ((x) * KANJI_SIZE / 109.0f + KANJI_OFFSET_X)
-#define SCALE_Y(y) ((y) * KANJI_SIZE / 109.0f + KANJI_OFFSET_Y)
-
 // ─── Colores ─────────────────────────────────────────────────────────────────
 
-#define KANJI_COLOR_CURR C2D_Color32(0,   0,   0,   255)  // negro — stroke actual
-#define KANJI_COLOR_DONE C2D_Color32(180, 180, 180, 255)  // gris  — strokes previos
-
-// Grosor de línea en píxeles
+#define KANJI_COLOR_CURR themes[currentTheme].kanaText
+#define KANJI_COLOR_DONE themes[currentTheme].hintText
 #define KANJI_LINE_WIDTH 3.0f
 
 // ─── Bézier cúbica ───────────────────────────────────────────────────────────
@@ -60,7 +52,7 @@ static inline void _cubic_bezier(float p0x, float p0y,
     *oy = u3*p0y + 3*u2*t*p1y + 3*u*t2*p2y + t3*p3y;
 }
 
-// ─── Parser de path SVG ──────────────────────────────────────────────────────
+// ─── Parser de path SVG (guarda coords raw 0-109) ────────────────────────────
 
 static inline void parse_svg_path(const char *path_data, Stroke *stroke)
 {
@@ -89,23 +81,22 @@ static inline void parse_svg_path(const char *path_data, Stroke *stroke)
             p = end;
         }
 
+        #define PUSH(px, py) \
+            if (stroke->num_points < MAX_POINTS_PER_STROKE) { \
+                stroke->points[stroke->num_points].x = (px); \
+                stroke->points[stroke->num_points].y = (py); \
+                stroke->num_points++; \
+            }
+
         if (cmd == 'M' || cmd == 'm') {
             cx = (cmd == 'm') ? cx + args[0] : args[0];
             cy = (cmd == 'm') ? cy + args[1] : args[1];
-            if (stroke->num_points < MAX_POINTS_PER_STROKE) {
-                stroke->points[stroke->num_points].x = SCALE_X(cx);
-                stroke->points[stroke->num_points].y = SCALE_Y(cy);
-                stroke->num_points++;
-            }
+            PUSH(cx, cy);
 
         } else if (cmd == 'L' || cmd == 'l') {
             float tx = (cmd == 'l') ? cx + args[0] : args[0];
             float ty = (cmd == 'l') ? cy + args[1] : args[1];
-            if (stroke->num_points < MAX_POINTS_PER_STROKE) {
-                stroke->points[stroke->num_points].x = SCALE_X(tx);
-                stroke->points[stroke->num_points].y = SCALE_Y(ty);
-                stroke->num_points++;
-            }
+            PUSH(tx, ty);
             cx = tx; cy = ty;
 
         } else if (cmd == 'C' || cmd == 'c') {
@@ -119,11 +110,7 @@ static inline void parse_svg_path(const char *path_data, Stroke *stroke)
                 float t = (float)i / steps;
                 float ox, oy;
                 _cubic_bezier(cx, cy, p1x, p1y, p2x, p2y, p3x, p3y, t, &ox, &oy);
-                if (stroke->num_points < MAX_POINTS_PER_STROKE) {
-                    stroke->points[stroke->num_points].x = SCALE_X(ox);
-                    stroke->points[stroke->num_points].y = SCALE_Y(oy);
-                    stroke->num_points++;
-                }
+                PUSH(ox, oy);
             }
             lc2x = p2x; lc2y = p2y;
             cx = p3x;   cy = p3y;
@@ -139,41 +126,46 @@ static inline void parse_svg_path(const char *path_data, Stroke *stroke)
                 float t = (float)i / steps;
                 float ox, oy;
                 _cubic_bezier(cx, cy, p1x, p1y, p2x, p2y, p3x, p3y, t, &ox, &oy);
-                if (stroke->num_points < MAX_POINTS_PER_STROKE) {
-                    stroke->points[stroke->num_points].x = SCALE_X(ox);
-                    stroke->points[stroke->num_points].y = SCALE_Y(oy);
-                    stroke->num_points++;
-                }
+                PUSH(ox, oy);
             }
             lc2x = p2x; lc2y = p2y;
             cx = p3x;   cy = p3y;
         }
+
+        #undef PUSH
     }
 }
 
-// ─── Dibujo interno de un stroke parcial ─────────────────────────────────────
+// ─── Dibujo con offset y size dinámicos ──────────────────────────────────────
 
-static inline void _draw_stroke_partial(Stroke *stroke, int up_to, u32 color)
+static inline void _draw_stroke_partial_at(Stroke *stroke, int up_to, u32 color,
+                                            float ox, float oy, float size)
 {
+    float scale = size / 109.0f;
     for (int i = 0; i < up_to - 1 && i < stroke->num_points - 1; i++) {
-        C2D_DrawRectSolid(
-            stroke->points[i].x - 2,
-            stroke->points[i].y - 2,
-            0, 4, 4, color
-        );
+        float x0 = stroke->points[i].x   * scale + ox;
+        float y0 = stroke->points[i].y   * scale + oy;
+        float x1 = stroke->points[i+1].x * scale + ox;
+        float y1 = stroke->points[i+1].y * scale + oy;
+        C2D_DrawRectSolid(x0 - 2, y0 - 2, 0, 4, 4, color);
+        (void)x1; (void)y1; // usar cuando C2D_DrawLine funcione
     }
 }
 
 // ─── Dibujo estático ─────────────────────────────────────────────────────────
-// Dibuja el kanji completo de una vez
-// Llamar dentro de C2D_SceneBegin(bottom)
 
-static inline void draw_kanji_static(Kanji *kanji)
+static inline void draw_kanji_static_at(Kanji *kanji, float x, float y, float size)
 {
     for (int s = 0; s < kanji->num_strokes; s++)
-        _draw_stroke_partial(&kanji->strokes[s],
-                              kanji->strokes[s].num_points,
-                              KANJI_COLOR_CURR);
+        _draw_stroke_partial_at(&kanji->strokes[s],
+                                 kanji->strokes[s].num_points,
+                                 KANJI_COLOR_CURR, x, y, size);
+}
+
+// Versión con defaults (compatibilidad)
+static inline void draw_kanji_static(Kanji *kanji)
+{
+    draw_kanji_static_at(kanji, 80.0f, 40.0f, 160.0f);
 }
 
 // ─── Estado de animación ─────────────────────────────────────────────────────
@@ -191,28 +183,25 @@ static inline void kanji_anim_init(KanjiAnimState *state)
     state->delay  = 0;
 }
 
-// ─── Animación (stroke por stroke progresivo) ────────────────────────────────
-// Llamar UNA VEZ POR FRAME dentro de C2D_SceneBegin(bottom)
-// Retorna 1 cuando terminó, 0 si sigue
+// ─── Animación ───────────────────────────────────────────────────────────────
 
-static inline int animate_kanji(Kanji *kanji, KanjiAnimState *state)
+static inline int animate_kanji_at(Kanji *kanji, KanjiAnimState *state,
+                                    float x, float y, float size)
 {
     if (state->stroke >= kanji->num_strokes) {
-        draw_kanji_static(kanji);
+        draw_kanji_static_at(kanji, x, y, size);
         return 1;
     }
-    // Strokes anteriores completos en gris
+
     for (int s = 0; s < state->stroke; s++)
-        _draw_stroke_partial(&kanji->strokes[s],
-                              kanji->strokes[s].num_points,
-                              KANJI_COLOR_DONE);
+        _draw_stroke_partial_at(&kanji->strokes[s],
+                                 kanji->strokes[s].num_points,
+                                 KANJI_COLOR_DONE, x, y, size);
 
-    // Stroke actual parcial en negro
-    _draw_stroke_partial(&kanji->strokes[state->stroke],
-                          state->point,
-                          KANJI_COLOR_CURR);
+    _draw_stroke_partial_at(&kanji->strokes[state->stroke],
+                             state->point,
+                             KANJI_COLOR_CURR, x, y, size);
 
-    // Avanzar estado
     if (state->delay > 0) {
         state->delay--;
     } else {
@@ -225,6 +214,12 @@ static inline int animate_kanji(Kanji *kanji, KanjiAnimState *state)
     }
 
     return 0;
+}
+
+// Versión con defaults (compatibilidad)
+static inline int animate_kanji(Kanji *kanji, KanjiAnimState *state)
+{
+    return animate_kanji_at(kanji, state, 80.0f, 40.0f, 160.0f);
 }
 
 #endif // KANJI_STROKE_H
