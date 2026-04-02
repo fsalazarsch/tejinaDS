@@ -16,5 +16,22 @@ typedef struct {
 
 extern TablaState tablaState;
 extern const KanaEntry hiragana[5][10];
+extern const KanaEntry hiragana_dakuten[5][10];
+extern const KanaEntry hiragana_comb[4][10];
+extern const KanaEntry katakana[5][10];
+extern const KanaEntry katakana_dakuten[5][10];
+extern const KanaEntry katakana_comb[4][10];
+
+static inline const KanaEntry* get_tabla(int categoria, int fila) {
+    switch(categoria) {
+        case 0: return hiragana[fila];
+        case 1: return hiragana_dakuten[fila];
+        case 2: return hiragana_comb[fila];
+        case 3: return katakana[fila];
+        case 4: return katakana_dakuten[fila];
+        case 5: return katakana_comb[fila];
+        default: return hiragana[fila];
+    }
+}
 
 #endif

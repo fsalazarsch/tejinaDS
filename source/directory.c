@@ -203,11 +203,19 @@ fclose(f);
 
 		if (currentScene == SCENE_TABLA_HIRAGANA) {
 
+			tablaState.seleccionado = true;
 
 
-
-		    if (kDown & KEY_L) tablaState.categoria = (tablaState.categoria - 1 + 4) % 4;
-		    if (kDown & KEY_R) tablaState.categoria = (tablaState.categoria + 1) % 4;
+		    if (kDown & KEY_L){ 
+				tablaState.fila = 0;
+				tablaState.col = 0;
+		    	tablaState.categoria = (tablaState.categoria - 1 + 6) % 6;
+			}
+		    if (kDown & KEY_R){ 
+				tablaState.fila = 0;
+				tablaState.col = 0;
+		    	tablaState.categoria = (tablaState.categoria + 1) % 6;
+			}
 		    if (kDown & KEY_UP) {
 			    tablaState.fila = (tablaState.fila - 1 + 5) % 5;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
@@ -229,10 +237,10 @@ fclose(f);
 			        tablaState.col = (tablaState.col + 1) % 10;
 			}
 			if (kDown & KEY_A){
-			    tablaState.seleccionado = !tablaState.seleccionado;
+			    //tablaState.seleccionado = !tablaState.seleccionado;
 			    //tts_engine_speak("はな", "HL");  // flor
 				//tts_engine_speak("はな", "LH");  // nariz
-				tts_engine_speak("あたらしい", NULL);  // neutro
+				//tts_engine_speak("あたらしい", NULL);  // neutro
 			}
 				
 		    if (kDown & KEY_B) {
