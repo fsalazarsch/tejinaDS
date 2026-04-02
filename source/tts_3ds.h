@@ -33,7 +33,7 @@ typedef struct {
     int        ready;
 } TTS_3DS;
 
-static int _tts_make_labels(const char *hira, char ***out) {
+static int _tts_make_labels(const char *hira, const char *accent, char ***out) {
     char ph[2048];
     int  n = hiragana_str_to_phonemes(hira, ph, sizeof(ph));
     if (n <= 0) return -1;
@@ -52,7 +52,20 @@ static int _tts_make_labels(const char *hira, char ***out) {
             for (int j = 0; j < i; j++) free(labels[j]);
             free(labels); free(tmp); free(tok); return -1;
         }
-        snprintf(labels[i], 512, TTS_LABEL_FMT, tok[i]);
+        /* Determinar acento */
+        int cur = 0, prv = 0, nxt = 0;
+        if (accent != NULL) {
+            if (i   < (int)strlen(accent)) cur = (accent[i]   == 'H') ? 1 : 0;
+            if (i-1 >= 0 && i-1 < (int)strlen(accent)) prv = (accent[i-1] == 'H') ? 1 : 0;
+            if (i+1 < (int)strlen(accent)) nxt = (accent[i+1] == 'H') ? 1 : 0;
+        } else {
+            cur = 1; prv = 0; nxt = 1; /* neutro */
+        }
+        snprintf(labels[i], 512,
+            "xx^xx-%s+xx=xx/A:%d+%d+%d/B:xx-xx_xx/C:xx_xx+xx/D:xx+xx_xx/"
+            "E:xx_xx!xx_xx-xx/F:xx_xx#xx_xx@xx_xx|xx_xx/"
+            "G:xx_xx%%xx_xx_xx/H:xx_xx/I:xx-xx@xx+xx&xx-xx|xx+xx/J:1_1/K:1+1-1",
+            tok[i], prv, cur, nxt);
     }
     free(tmp); free(tok);
     *out = labels;
@@ -93,19 +106,19 @@ static inline int tts_init(TTS_3DS *tts, const char *voice_path) {
 /*
  * tts_speak — sintetiza hiragana y reproduce via ndsp
  */
-static inline int tts_speak(TTS_3DS *tts, const char *hiragana) {
+static inline int tts_speak(TTS_3DS *tts, const char *hiragana, const char *accent) {
     if (!tts || !tts->ready || !hiragana) return 0;
-    if (tts->pcm) { free(tts->pcm); tts->pcm = NULL; tts->pcm_len = 0; }
+    if (tts->pcm) { linearFree(tts->pcm); tts->pcm = NULL; tts->pcm_len = 0; }
     char **labels = NULL;
-    int n = _tts_make_labels(hiragana, &labels);
+    int n = _tts_make_labels(hiragana, accent, &labels);
     if (n <= 0) return 0;
+    HTS_Engine_refresh(&tts->engine);
     HTS_Boolean ok = HTS_Engine_synthesize_from_strings(
                          &tts->engine, labels, (size_t)n);
     _tts_free_labels(labels, n);
     if (!ok) { HTS_Engine_refresh(&tts->engine); return 0; }
     size_t ns = HTS_Engine_get_nsamples(&tts->engine);
     if (!ns) { HTS_Engine_refresh(&tts->engine); return 0; }
-    /* Alinear a 16 bytes para ndsp */
     size_t buf_size = (ns * sizeof(short) + 15) & ~15;
     tts->pcm = (short*)linearAlloc(buf_size);
     if (!tts->pcm) { HTS_Engine_refresh(&tts->engine); return 0; }
@@ -117,23 +130,20 @@ static inline int tts_speak(TTS_3DS *tts, const char *hiragana) {
     }
     tts->pcm_len = ns;
     HTS_Engine_refresh(&tts->engine);
-    /* Reproducir con ndsp canal 0 */
-    ndspChnReset(0);
-    ndspChnSetInterp(0, NDSP_INTERP_LINEAR);
-    ndspChnSetRate(0, (float)TTS_SAMPLE_RATE);
-    ndspChnSetFormat(0, NDSP_FORMAT_MONO_PCM16);
-    ndspWaveBuf wb;
-    memset(&wb, 0, sizeof(wb));
-    wb.data_vaddr = tts->pcm;
-    wb.nsamples   = (u32)ns;
-    wb.looping    = false;
-    wb.status     = NDSP_WBUF_FREE;
+    CSND_SetPlayState(0, 0);
     DSP_FlushDataCache(tts->pcm, buf_size);
-    ndspChnWaveBufAdd(0, &wb);
-    /* Esperar que termine */
-    while (wb.status != NDSP_WBUF_DONE) svcSleepThread(1000000);
+    csndPlaySound(0, SOUND_FORMAT_16BIT | SOUND_ONE_SHOT,
+                  (float)TTS_SAMPLE_RATE, 1.0f, 0.0f,
+                  tts->pcm, NULL, tts->pcm_len * sizeof(short));
+    CSND_UpdateInfo(1);
+
+    FILE *f = fopen("sdmc:/tts_log.txt", "a");
+    fprintf(f, "audio enviado a csnd\n");
+    fclose(f);
+
     return 1;
 }
+
 
 /*
  * tts_set_speed — velocidad (1.0 = normal)

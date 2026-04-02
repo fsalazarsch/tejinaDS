@@ -107,8 +107,12 @@ int main()
 	gfxInitDefault();
 	romfsInit();
 	cfguInit(); // Allow C2D_FontLoadSystem to work
-	ndspInit();
+	//csndInit();
 
+	Result ndspResult = csndInit();
+FILE *f = fopen("sdmc:/ndsp_log.txt", "w");
+fprintf(f, "ndsp: %08lX\n", ndspResult);
+fclose(f);
 	// Initialize the libs
 	
 	font = C2D_FontLoad("romfs:/the-legend-of-zelda-a-link-to-the-past-ext.bcfnt");
@@ -226,7 +230,9 @@ int main()
 			}
 			if (kDown & KEY_A){
 			    tablaState.seleccionado = !tablaState.seleccionado;
-			    tts_engine_speak("konnichiwa");
+			    //tts_engine_speak("はな", "HL");  // flor
+				//tts_engine_speak("はな", "LH");  // nariz
+				tts_engine_speak("あたらしい", NULL);  // neutro
 			}
 				
 		    if (kDown & KEY_B) {
@@ -304,7 +310,8 @@ int main()
 	C2D_Fini();
 	C3D_Fini();
 	gfxExit();
-	ndspExit();
 	tts_engine_exit();
+	csndExit();
+	
 	return 0;
 }
