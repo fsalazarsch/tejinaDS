@@ -11,16 +11,20 @@ typedef struct {
 typedef struct {
     const char* kana;
     const char* romaji;
-    unsigned int codepoint;
+    unsigned int codepoints[2];
+    int len;
 } KanaEntry;
+
+#define KANA1(k, r, c) {k, r, {c, 0}, 1}
+#define KANA2(k, r, c1, c2) {k, r, {c1, c2}, 2}
 
 extern TablaState tablaState;
 extern const KanaEntry hiragana[5][10];
-extern const KanaEntry hiragana_dakuten[5][10];
-extern const KanaEntry hiragana_comb[4][10];
+extern const KanaEntry hiragana_dakuten[5][5];
+extern const KanaEntry hiragana_comb[6][6];
 extern const KanaEntry katakana[5][10];
-extern const KanaEntry katakana_dakuten[5][10];
-extern const KanaEntry katakana_comb[4][10];
+extern const KanaEntry katakana_dakuten[5][5];
+extern const KanaEntry katakana_comb[6][6];
 
 static inline const KanaEntry* get_tabla(int categoria, int fila) {
     switch(categoria) {

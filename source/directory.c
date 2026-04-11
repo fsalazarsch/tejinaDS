@@ -33,7 +33,7 @@ int opc = 0;
 ThemeID currentTheme = THEME_DAY;
 SceneID currentScene = SCENE_MENU;
 TablaState tablaState = {0, 0, 0};
-
+bool showHelp = false;
 
 
 
@@ -203,7 +203,36 @@ fclose(f);
 
 		if (currentScene == SCENE_TABLA_HIRAGANA) {
 
+
+		    // 👉 TOUCH SOLO PARA TABLA
+		    if (kDown & KEY_TOUCH) {
+		        touchPosition touch;
+		        hidTouchRead(&touch);
+
+		        int tx = touch.px;
+		        int ty = touch.py;
+
+		        // --- BOTONES ---
+		        if (isTouchInRect(tx, ty, 10, 197, 95, 36)) {
+		            // AUDIO
+		        }
+
+		        if (isTouchInRect(tx, ty, 110, 197, 95, 36)) {
+		            // TRAZOS
+		        }
+
+		        if (isTouchInRect(tx, ty, 210, 197, 95, 36)) {
+		            tablaState.seleccionado = false;
+		        }
+
+		        if (isTouchInRect(tx, ty, 270, 10, 30, 30)) {
+		            showHelp = !showHelp;
+		        }
+		    }
+
 			tablaState.seleccionado = true;
+			int max_columnas = 0;
+			int max_filas = 0;
 
 
 		    if (kDown & KEY_L){ 
@@ -217,24 +246,34 @@ fclose(f);
 		    	tablaState.categoria = (tablaState.categoria + 1) % 6;
 			}
 		    if (kDown & KEY_UP) {
-			    tablaState.fila = (tablaState.fila - 1 + 5) % 5;
+		    	max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
+
+			    tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
-			        tablaState.fila = (tablaState.fila - 1 + 5) % 5;
+			        tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
 			}
 			if (kDown & KEY_DOWN) {
-			    tablaState.fila = (tablaState.fila + 1) % 5;
+				max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
+
+			    tablaState.fila = (tablaState.fila + 1) % max_filas;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
-			        tablaState.fila = (tablaState.fila + 1) % 5;
+			        tablaState.fila = (tablaState.fila + 1) % max_filas;
 			}
 			if (kDown & KEY_LEFT) {
-			    tablaState.col = (tablaState.col - 1 + 10) % 10;
+				max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
+               				(tablaState.categoria == 1 || tablaState.categoria == 4) ? 5 : 10;
+
+			    tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
-			        tablaState.col = (tablaState.col - 1 + 10) % 10;
+			        tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
 			}
 			if (kDown & KEY_RIGHT) {
-			    tablaState.col = (tablaState.col + 1) % 10;
+				max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
+               (tablaState.categoria == 1 || tablaState.categoria == 4) ? 5 : 10;
+
+			    tablaState.col = (tablaState.col + 1) % max_columnas;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
-			        tablaState.col = (tablaState.col + 1) % 10;
+			        tablaState.col = (tablaState.col + 1) % max_columnas;
 			}
 			if (kDown & KEY_A){
 			    //tablaState.seleccionado = !tablaState.seleccionado;

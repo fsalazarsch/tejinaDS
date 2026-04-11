@@ -84,6 +84,9 @@ void draw_opts(C2D_TextBuf g_dynamicBuf, const char* alt1, const char* alt2, con
 }
 
 
-
+bool isTouchInRect(int touchX, int touchY, int x, int y, int w, int h) {
+    return (touchX >= x && touchX <= x + w &&
+            touchY >= y && touchY <= y + h);
+}
 
 #endif

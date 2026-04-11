@@ -61,6 +61,51 @@ static const HiraPhonemeEntry HIRAGANA_TABLE[] = {
     { NULL, NULL }
 };
 
+static const HiraPhonemeEntry KATAKANA_TABLE[] = {
+    /* Combinaciones */
+    { "キャ", "kya" }, { "キュ", "kyu" }, { "キョ", "kyo" },
+    { "シャ", "sha" }, { "シュ", "shu" }, { "ショ", "sho" },
+    { "チャ", "cha" }, { "チュ", "chu" }, { "チョ", "cho" },
+    { "ニャ", "nya" }, { "ニュ", "nyu" }, { "ニョ", "nyo" },
+    { "ヒャ", "hya" }, { "ヒュ", "hyu" }, { "ヒョ", "hyo" },
+    { "ミャ", "mya" }, { "ミュ", "myu" }, { "ミョ", "myo" },
+    { "リャ", "rya" }, { "リュ", "ryu" }, { "リョ", "ryo" },
+    { "ギャ", "gya" }, { "ギュ", "gyu" }, { "ギョ", "gyo" },
+    { "ジャ", "ja"  }, { "ジュ", "ju"  }, { "ジョ", "jo"  },
+    { "ビャ", "bya" }, { "ビュ", "byu" }, { "ビョ", "byo" },
+    { "ピャ", "pya" }, { "ピュ", "pyu" }, { "ピョ", "pyo" },
+    /* Simples */
+    { "ア", "a"   }, { "イ", "i"   }, { "ウ", "u"   },
+    { "エ", "e"   }, { "オ", "o"   },
+    { "カ", "ka"  }, { "キ", "ki"  }, { "ク", "ku"  },
+    { "ケ", "ke"  }, { "コ", "ko"  },
+    { "サ", "sa"  }, { "シ", "shi" }, { "ス", "su"  },
+    { "セ", "se"  }, { "ソ", "so"  },
+    { "タ", "ta"  }, { "チ", "ch"  }, { "ツ", "ts"  },
+    { "テ", "te"  }, { "ト", "to"  },
+    { "ナ", "na"  }, { "ニ", "ni"  }, { "ヌ", "nu"  },
+    { "ネ", "ne"  }, { "ノ", "no"  },
+    { "ハ", "ha"  }, { "ヒ", "hi"  }, { "フ", "f"   },
+    { "ヘ", "he"  }, { "ホ", "ho"  },
+    { "マ", "ma"  }, { "ミ", "mi"  }, { "ム", "mu"  },
+    { "メ", "me"  }, { "モ", "mo"  },
+    { "ヤ", "ya"  }, { "ユ", "yu"  }, { "ヨ", "yo"  },
+    { "ラ", "ra"  }, { "リ", "ri"  }, { "ル", "ru"  },
+    { "レ", "re"  }, { "ロ", "ro"  },
+    { "ワ", "wa"  }, { "ヲ", "o"   }, { "ン", "N"   },
+    { "ガ", "ga"  }, { "ギ", "gi"  }, { "グ", "gu"  },
+    { "ゲ", "ge"  }, { "ゴ", "go"  },
+    { "ザ", "za"  }, { "ジ", "j"   }, { "ズ", "z"   },
+    { "ゼ", "ze"  }, { "ゾ", "zo"  },
+    { "ダ", "da"  }, { "ヂ", "di"  }, { "ヅ", "du"  },
+    { "デ", "de"  }, { "ド", "do"  },
+    { "バ", "ba"  }, { "ビ", "bi"  }, { "ブ", "bu"  },
+    { "ベ", "be"  }, { "ボ", "bo"  },
+    { "パ", "pa"  }, { "ピ", "pi"  }, { "プ", "pu"  },
+    { "ペ", "pe"  }, { "ポ", "po"  },
+    { "ッ", "cl"  }, { "ー", "long"},
+    { NULL, NULL }
+};
 static inline const char* hiragana_to_phoneme(const char* src, int* consumed) {
     int i;
     for (i = 0; HIRAGANA_TABLE[i].hiragana != NULL; i++) {
@@ -70,6 +115,14 @@ static inline const char* hiragana_to_phoneme(const char* src, int* consumed) {
             return HIRAGANA_TABLE[i].phoneme;
         }
     }
+    for (i = 0; KATAKANA_TABLE[i].hiragana != NULL; i++) {
+        size_t len = strlen(KATAKANA_TABLE[i].hiragana);
+        if (strncmp(src, KATAKANA_TABLE[i].hiragana, len) == 0) {
+            if (consumed) *consumed = (int)len;
+            return KATAKANA_TABLE[i].phoneme;
+        }
+    }
+
     if (consumed) *consumed = 3;
     return NULL;
 }
