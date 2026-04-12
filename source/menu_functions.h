@@ -1,7 +1,7 @@
 #include "tabla.h"
 #include "themes.h"
 #include "kanji_data.h"
-
+#include "tts_engine.h"
 
 Kanji k;
 KanjiAnimState anim;
@@ -325,10 +325,11 @@ void mostrar_tabla(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
 static inline void handle_tabla_touch(u32 kDown, int tx, int ty, TablaState *estado)
 {
     if (!(kDown & KEY_TOUCH)) return;
-
+    KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
+    
     // --- BOTÓN AUDIO ---
     if (isTouchInRect(tx, ty, 10, 197, 95, 36)) {
-        // TODO
+        tts_engine_speak(entry.kana, NULL);
     }
 
     // --- BOTÓN OCULTAR ---
@@ -341,7 +342,6 @@ if (isTouchInRect(tx, ty, 210, 197, 95, 36)) {
     kanaOculto = false;
     mostrandoTrazos = !mostrandoTrazos;
     if (mostrandoTrazos) {
-        KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
         kanji_load(entry.codepoints[0], &k);
         kanji_anim_init(&anim);
         if (estado->categoria == 2 || estado->categoria == 5) {
