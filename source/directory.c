@@ -33,7 +33,6 @@ int opc = 0;
 ThemeID currentTheme = THEME_DAY;
 SceneID currentScene = SCENE_MENU;
 TablaState tablaState = {0, 0, 0};
-bool showHelp = false;
 
 
 
@@ -204,31 +203,7 @@ fclose(f);
 		if (currentScene == SCENE_TABLA_HIRAGANA) {
 
 
-		    // 👉 TOUCH SOLO PARA TABLA
-		    if (kDown & KEY_TOUCH) {
-		        touchPosition touch;
-		        hidTouchRead(&touch);
-
-		        int tx = touch.px;
-		        int ty = touch.py;
-
-		        // --- BOTONES ---
-		        if (isTouchInRect(tx, ty, 10, 197, 95, 36)) {
-		            // AUDIO
-		        }
-
-		        if (isTouchInRect(tx, ty, 110, 197, 95, 36)) {
-		            // TRAZOS
-		        }
-
-		        if (isTouchInRect(tx, ty, 210, 197, 95, 36)) {
-		            tablaState.seleccionado = false;
-		        }
-
-		        if (isTouchInRect(tx, ty, 270, 10, 30, 30)) {
-		            showHelp = !showHelp;
-		        }
-		    }
+		    handle_tabla_touch(kDown, lastTouchX, lastTouchY, &tablaState);
 
 			tablaState.seleccionado = true;
 			int max_columnas = 0;

@@ -5,8 +5,13 @@
 
 Kanji k;
 KanjiAnimState anim;
+Kanji k2;
+KanjiAnimState anim2;
+
 extern ThemeID currentTheme;
-extern bool showHelp;
+bool showHelp = false;
+bool kanaOculto = false;
+bool mostrandoTrazos = false;
 
 const KanaEntry hiragana[5][10] = {
     {
@@ -171,115 +176,94 @@ void mostrar_ideograma(bool animar, float x, float y, float size) {
 
 void draw_kana_detail(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Font font1, C2D_Font font2, TablaState *estado)
 {
-
    if(estado->categoria != 2 && estado->categoria != 5){
-    // --- FONDO CUADRÍCULA ---
     DrawRoundedRect(80, 32, 160, 150, 4, themes[currentTheme].cellIdle);
+    DrawRoundedRect(80, 32, 160, 150, 4, 0x00000000);
+    DrawRoundedRect(159, 32, 2, 150, 0, themes[currentTheme].borderCell);
+    DrawRoundedRect(80, 106, 160, 2, 0, themes[currentTheme].borderCell);
 
-
-    // --- BORDE CUADRÍCULA ---
-    // borde exterior
-    DrawRoundedRect(80, 32, 160, 150, 4, 0x00000000); // transparente, solo borde
-    // línea vertical
-    // línea horizontal
-    // (estas las dibujamos con rectángulos delgados)
-    DrawRoundedRect(159, 32, 2, 150, 0, themes[currentTheme].borderCell);  // vertical
-    DrawRoundedRect(80, 106, 160, 2, 0, themes[currentTheme].borderCell);  // horizontal
-
-    // --- KANA GRANDE TENUE ---
-    //C2D_Text kanaGuia;
-    //C2D_TextFontParse(&kanaGuia, font2, g_staticBuf, hiragana[estado->fila][estado->col]);
-    //C2D_TextOptimize(&kanaGuia);
-    //C2D_DrawText(&kanaGuia, C2D_AtBaseline | C2D_AlignCenter, 160.0f, 178.0f, 0.5f, 7.5f, 7.5f, 0x18000000);
-    KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
-
-    //init_ideograma(get_tabla(estado->categoria, estado->fila)[estado->col].codepoint, false);
-    init_ideograma(entry.codepoints[0], false);
-    //init_ideograma(entry.codepoints[1], false);
-    mostrar_ideograma(false, 90.0f, 35.0f, 130.0f);
-
+    if (!kanaOculto) {
+        if (mostrandoTrazos) {
+            int done = animate_kanji_at(&k, &anim, 90.0f, 35.0f, 130.0f);
+            if (done) mostrandoTrazos = false;
+        } else {
+            // carga estática solo cuando NO está animando
+            KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
+            kanji_load(entry.codepoints[0], &k);
+            draw_kanji_static_at(&k, 90.0f, 35.0f, 130.0f);
+        }
     }
-    else{
-    // --- FONDO CUADRÍCULA ---
+
+   } else {
     DrawRoundedRect(20, 32, 270, 150, 4, themes[currentTheme].cellIdle);
+    DrawRoundedRect(20, 32, 270, 150, 4, 0x00000000);
+    DrawRoundedRect(99, 32, 2, 150, 0, themes[currentTheme].borderCell);
+    DrawRoundedRect(20, 106, 270, 2, 0, themes[currentTheme].borderCell);
+    DrawRoundedRect(220, 32, 2, 150, 0, themes[currentTheme].borderCell);
 
+    if (!kanaOculto) {
+        if (mostrandoTrazos) {
+            int done1 = animate_kanji_at(&k,  &anim,  30.0f, 35.0f, 130.0f);
+            int done2 = 0;
+            if (done1) {
+                done2 = animate_kanji_at(&k2, &anim2, 150.0f, 50.0f, 100.0f);
+            }
 
-    // --- BORDE CUADRÍCULA ---
-    // borde exterior
-    DrawRoundedRect(20, 32, 270, 150, 4, 0x00000000); // transparente, solo borde
-    // línea vertical
-    // línea horizontal
-    // (estas las dibujamos con rectángulos delgados)
-    DrawRoundedRect(99, 32, 2, 150, 0, themes[currentTheme].borderCell);  // vertical
-    DrawRoundedRect(20, 106, 270, 2, 0, themes[currentTheme].borderCell);  // horizontal
-
-    DrawRoundedRect(220, 32, 2, 150, 0, themes[currentTheme].borderCell);  // vertical
-    
-    // --- KANA GRANDE TENUE ---
-    
-    KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
-    init_ideograma(entry.codepoints[0], false);
-    mostrar_ideograma(false, 30.0f, 35.0f, 130.0f);
-
-    init_ideograma(entry.codepoints[1], false);
-    mostrar_ideograma(false, 150.0f, 50.0f, 100.0f);
-    
+            if (done1 && done2) mostrandoTrazos = false;
+        } else {
+            KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
+            kanji_load(entry.codepoints[0], &k);
+            kanji_load(entry.codepoints[1], &k2);
+            draw_kanji_static_at(&k,  30.0f, 35.0f, 130.0f);
+            draw_kanji_static_at(&k2, 150.0f, 50.0f, 100.0f);
+        }
     }
+   }
 
- // --- TÍTULO ROMAJI ---
-    // (por ahora usamos el kana como placeholder hasta tener tabla romaji)
+    // --- TÍTULO ROMAJI ---
     C2D_Text romajiText;
-    C2D_TextFontParse(&romajiText, font2, g_staticBuf, get_tabla(estado->categoria, estado->fila)[estado->col].romaji);    C2D_TextOptimize(&romajiText);
+    C2D_TextFontParse(&romajiText, font2, g_staticBuf, get_tabla(estado->categoria, estado->fila)[estado->col].romaji);
+    C2D_TextOptimize(&romajiText);
     C2D_DrawText(&romajiText, C2D_AtBaseline | C2D_AlignCenter, 160.0f, 24.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
-
 
     DrawRoundedRect(270, 10, 30, 30, 6, themes[currentTheme].cellIdle);
     C2D_Text btnHelp;
     C2D_TextFontParse(&btnHelp, font2, g_staticBuf, "?");
     C2D_TextOptimize(&btnHelp);
-    C2D_DrawText(&btnHelp, C2D_AtBaseline | C2D_AlignCenter,
-                 285.0f, 30.0f,   // centro del botón
-                 0.5f,
-                 0.8f, 0.8f,
-                 themes[currentTheme].kanaText);
+    C2D_DrawText(&btnHelp, C2D_AtBaseline | C2D_AlignCenter, 285.0f, 30.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
 
-    // --- BOTÓN AUDIO ---
     DrawRoundedRect(10, 197, 95, 36, 8, themes[currentTheme].btnAudio);
     C2D_Text btnAudio;
     C2D_TextFontParse(&btnAudio, font2, g_staticBuf, "Audio");
     C2D_TextOptimize(&btnAudio);
     C2D_DrawText(&btnAudio, C2D_AtBaseline | C2D_AlignCenter, 57.0f, 222.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].btnAudioText);
 
-    // --- BOTÓN OCULTAR ---
     DrawRoundedRect(110, 197, 95, 36, 8, themes[currentTheme].cellIdle);
     C2D_Text btnOcultar;
-    C2D_TextFontParse(&btnOcultar, font2, g_staticBuf, "Ocultar");
+    C2D_TextFontParse(&btnOcultar, font2, g_staticBuf, kanaOculto ? "Mostrar" : "Ocultar");
     C2D_TextOptimize(&btnOcultar);
     C2D_DrawText(&btnOcultar, C2D_AtBaseline | C2D_AlignCenter, 157.0f, 222.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
 
-    // --- BOTÓN OCULTAR ---
     DrawRoundedRect(210, 197, 95, 36, 8, themes[currentTheme].btnAudio);
     C2D_Text btnTrazos;
     C2D_TextFontParse(&btnTrazos, font2, g_staticBuf, "Trazos");
     C2D_TextOptimize(&btnTrazos);
     C2D_DrawText(&btnTrazos, C2D_AtBaseline | C2D_AlignCenter, 257.0f, 222.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
 
-if (showHelp) {
-    DrawRoundedRect(20, 40, 280, 140, 10, themes[currentTheme].cellIdle);
-
-    C2D_Text helpText;
-    C2D_TextFontParse(&helpText, font2, g_staticBuf,
-        "Uso:\n\n"
-        "- Kana grande: lectura principal\n"
-        "- Boton Audio: escuchar\n"
-        "- Trazos: orden de escritura\n"
-        "- L/R: cambiar tabla\n"
-        "- D-Pad: mover cursor\n"
-    );
-    C2D_TextOptimize(&helpText);
-    C2D_DrawText(&helpText, C2D_AtBaseline, 30, 60, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
-}
-
+    if (showHelp) {
+        DrawRoundedRect(20, 40, 280, 140, 10, themes[currentTheme].cellIdle);
+        C2D_Text helpText;
+        C2D_TextFontParse(&helpText, font2, g_staticBuf,
+            "Uso:\n\n"
+            "- Kana grande: lectura principal\n"
+            "- Boton Audio: escuchar\n"
+            "- Trazos: orden de escritura\n"
+            "- L/R: cambiar tabla\n"
+            "- D-Pad: mover cursor\n"
+        );
+        C2D_TextOptimize(&helpText);
+        C2D_DrawText(&helpText, C2D_AtBaseline, 30, 60, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
+    }
 }
 
 
@@ -335,6 +319,41 @@ void mostrar_tabla(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     C2D_TextFontParse(&debugText, font2, g_staticBuf, debug);
     C2D_TextOptimize(&debugText);
     C2D_DrawText(&debugText, C2D_AtBaseline, 20, 50, 0.0f, 0.8f, 0.8f, themes[currentTheme].kanaText);
+    }
+}
+
+static inline void handle_tabla_touch(u32 kDown, int tx, int ty, TablaState *estado)
+{
+    if (!(kDown & KEY_TOUCH)) return;
+
+    // --- BOTÓN AUDIO ---
+    if (isTouchInRect(tx, ty, 10, 197, 95, 36)) {
+        // TODO
+    }
+
+    // --- BOTÓN OCULTAR ---
+    if (isTouchInRect(tx, ty, 110, 197, 95, 36)) {
+        kanaOculto = !kanaOculto;
+    }
+
+    // --- BOTÓN TRAZOS ---
+if (isTouchInRect(tx, ty, 210, 197, 95, 36)) {
+    kanaOculto = false;
+    mostrandoTrazos = !mostrandoTrazos;
+    if (mostrandoTrazos) {
+        KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
+        kanji_load(entry.codepoints[0], &k);
+        kanji_anim_init(&anim);
+        if (estado->categoria == 2 || estado->categoria == 5) {
+            kanji_load(entry.codepoints[1], &k2);
+            kanji_anim_init(&anim2);
+        }
+    }
+}
+
+    // --- BOTÓN HELP ---
+    if (isTouchInRect(tx, ty, 270, 10, 30, 30)) {
+        showHelp = !showHelp;
     }
 }
 
