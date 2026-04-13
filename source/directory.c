@@ -6,7 +6,7 @@
 #include "menu.h"
 #include "themes.h"
 #include "scene.h"
-
+#include "drawing.h"
 //config teclas 	"\n"
 
 
@@ -202,7 +202,7 @@ fclose(f);
 		if (currentScene == SCENE_TABLA_HIRAGANA) {
 
 
-		    handle_tabla_touch(kDown, lastTouchX, lastTouchY, &tablaState);
+		    handle_tabla_touch(kDown, kHeld, kUp, lastTouchX, lastTouchY, &tablaState);
 
 			tablaState.seleccionado = true;
 			int max_columnas = 0;
@@ -213,11 +213,13 @@ fclose(f);
 				tablaState.fila = 0;
 				tablaState.col = 0;
 		    	tablaState.categoria = (tablaState.categoria - 1 + 6) % 6;
+		    	drawing_clear();
 			}
 		    if (kDown & KEY_R){ 
 				tablaState.fila = 0;
 				tablaState.col = 0;
 		    	tablaState.categoria = (tablaState.categoria + 1) % 6;
+		    	drawing_clear();
 			}
 		    if (kDown & KEY_UP) {
 		    	max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
@@ -225,6 +227,7 @@ fclose(f);
 			    tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
 			        tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
+			    drawing_clear();
 			}
 			if (kDown & KEY_DOWN) {
 				max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
@@ -232,6 +235,7 @@ fclose(f);
 			    tablaState.fila = (tablaState.fila + 1) % max_filas;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
 			        tablaState.fila = (tablaState.fila + 1) % max_filas;
+			    drawing_clear();
 			}
 			if (kDown & KEY_LEFT) {
 				max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
@@ -240,6 +244,7 @@ fclose(f);
 			    tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
 			        tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
+			    drawing_clear();
 			}
 			if (kDown & KEY_RIGHT) {
 				max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
@@ -248,6 +253,7 @@ fclose(f);
 			    tablaState.col = (tablaState.col + 1) % max_columnas;
 			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
 			        tablaState.col = (tablaState.col + 1) % max_columnas;
+			    drawing_clear();
 			}
 			if (kDown & KEY_A){
 			    //tablaState.seleccionado = !tablaState.seleccionado;

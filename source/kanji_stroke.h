@@ -31,7 +31,7 @@ typedef struct {
 
 // ─── Colores ─────────────────────────────────────────────────────────────────
 
-#define KANJI_COLOR_CURR themes[currentTheme].kanaText
+#define KANJI_COLOR_CURR themes[currentTheme].accent
 #define KANJI_COLOR_DONE themes[currentTheme].hintText
 #define KANJI_LINE_WIDTH 3.0f
 
@@ -196,11 +196,11 @@ static inline int animate_kanji_at(Kanji *kanji, KanjiAnimState *state,
     for (int s = 0; s < state->stroke; s++)
         _draw_stroke_partial_at(&kanji->strokes[s],
                                  kanji->strokes[s].num_points,
-                                 KANJI_COLOR_DONE, x, y, size);
+                                 KANJI_COLOR_CURR, x, y, size);
 
     _draw_stroke_partial_at(&kanji->strokes[state->stroke],
                              state->point,
-                             KANJI_COLOR_CURR, x, y, size);
+                             KANJI_COLOR_DONE, x, y, size);
 
     if (state->delay > 0) {
         state->delay--;

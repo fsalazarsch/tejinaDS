@@ -2,6 +2,7 @@
 #include "themes.h"
 #include "kanji_data.h"
 #include "tts_engine.h"
+#include "drawing.h"
 
 Kanji k;
 KanjiAnimState anim;
@@ -193,6 +194,8 @@ void draw_kana_detail(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Fon
             draw_kanji_static_at(&k, 90.0f, 35.0f, 130.0f);
         }
     }
+    
+    drawing_draw(themes[currentTheme].kanaText);
 
    } else {
     DrawRoundedRect(20, 32, 270, 150, 4, themes[currentTheme].cellIdle);
@@ -218,6 +221,7 @@ void draw_kana_detail(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Fon
             draw_kanji_static_at(&k2, 150.0f, 50.0f, 100.0f);
         }
     }
+    drawing_draw(themes[currentTheme].kanaText);
    }
 
     // --- TÍTULO ROMAJI ---
@@ -322,10 +326,18 @@ void mostrar_tabla(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     }
 }
 
-static inline void handle_tabla_touch(u32 kDown, int tx, int ty, TablaState *estado)
+static inline void handle_tabla_touch(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, TablaState *estado)
 {
-    if (!(kDown & KEY_TOUCH)) return;
+    
     KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
+
+    int ax = (estado->categoria == 2 || estado->categoria == 5) ? 20 : 80;
+    int aw = (estado->categoria == 2 || estado->categoria == 5) ? 270 : 160;
+    //drawing_update(kHeld, tx, ty, ax, 32, aw, 150);
+    drawing_update(kHeld, kUp, tx, ty, ax, 32, aw, 150);
+
+    if (!(kDown & KEY_TOUCH)) return;
+    
     
     // --- BOTÓN AUDIO ---
     if (isTouchInRect(tx, ty, 10, 197, 95, 36)) {
@@ -355,6 +367,7 @@ if (isTouchInRect(tx, ty, 210, 197, 95, 36)) {
     if (isTouchInRect(tx, ty, 270, 10, 30, 30)) {
         showHelp = !showHelp;
     }
+
 }
 
 
