@@ -6,7 +6,8 @@
 #include "functions.h"
 #include "keyboard.h"
 #include "themes.h"
-#include "menu_functions.h"
+#include "kana_table_screen.h"
+#include "kanji_table_screen.h"
 #include "tabla.h"
 #include "scene.h"
 
@@ -147,18 +148,18 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
     	noptn = 0;
     }
 
-   	if (strcmp(optn, " Ⓐ Quiz") == 0)
+   	if (strcmp(optn, " Ⓐ Aprender") == 0)
    		noptn = 1;
-   	if (strcmp(optn, " Ⓐ Evaluación inicial") == 0)
+   	if (strcmp(optn, " Ⓐ Escritura") == 0)
    		noptn = 11;
-   	if (strcmp(optn, "  Ⓑ  Simulación NOKEN") == 0)
+   	if (strcmp(optn, "  Ⓑ  Gramática") == 0)
    		noptn = 12;
-   	if (strcmp(optn, "  Ⓧ  Quiz temático") == 0)
+   	if (strcmp(optn, "  Ⓧ  Vocabulario") == 0)
    		noptn = 13;
-   	if (strcmp(optn, "  Ⓨ  Estadísticas") == 0)
+   	if (strcmp(optn, "  Ⓨ  Cultura") == 0)
    		noptn = 14;
 
-   	if (strcmp(optn, "  Ⓑ  Diccionario") == 0)
+   	/*if (strcmp(optn, "  Ⓑ  Diccionario") == 0)
    		noptn = 2;
    	if (strcmp(optn, " Ⓐ Hirag y Katak.") == 0)
    		noptn = 21;
@@ -190,8 +191,9 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
    		noptn = 43;
    	if (strcmp(optn, "  Ⓨ  Créditos soporte") == 0)
    		noptn = 44;
+	*/
 
-   	if (strcmp(optn, " Ⓐ Tabla completa") == 0)
+   	if (strcmp(optn, " Ⓐ Hiragana Katakana") == 0)
    		{
    			currentScene = SCENE_TABLA_HIRAGANA;
 		    tablaState.col = 0;
@@ -219,26 +221,25 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 
     switch(noptn){
     	case 0:
-	        menu[0] = " Ⓐ Quiz";
-	        menu[1] = "  Ⓑ  Diccionario";
-	        menu[2] = "  Ⓧ  Práctica";
-	        menu[3] = "  Ⓨ  Config";
+	        menu[0] = " Ⓐ Aprender";
+	        menu[1] = "  Ⓑ  Practicar";
+	        menu[2] = "  Ⓧ  Quiz";
+	        menu[3] = "  Ⓨ  Configuración";
 
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
     		break;
-
     	case 1:
-	        menu[0] = " Ⓐ Evaluación inicial";
-	        menu[1] = "  Ⓑ  Simulación NOKEN";
-	        menu[2] = "  Ⓧ  Quiz temático";
-	        menu[3] = "  Ⓨ  Estadísticas";
+	        menu[0] = " Ⓐ Escritura";
+	        menu[1] = "  Ⓑ  Gramática";
+	        menu[2] = "  Ⓧ  Vocabulario";
+	        menu[3] = "  Ⓨ  Cultura";
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
     		break;
     	case 11:
-	        menu[0] = " Ⓐ Hiragana";
-	        menu[1] = "  Ⓑ  Katakana";
-	        menu[2] = "  Ⓧ  Kanji";
-	        menu[3] = "  Ⓨ  Vocabulario inicial";
+	        menu[0] = " Ⓐ Hiragana Katakana";
+	        menu[1] = "  Ⓑ  Kanji N5,N4";
+	        menu[2] = "  Ⓧ  Kanji N3";
+	        menu[3] = "  Ⓨ  Kanji N2,N1*";
 	        
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
 	        break;
@@ -417,7 +418,99 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 
 }
 
+
+
+
 /*
+
+Menú Principal
+├── 1) Aprender
+│   ├── 1.1) Escritura japonesa
+│   │   ├── 1.1.1) Hiragana y Katakana
+│   │   ├── 1.1.2) Kanji N5/N4
+│   │   ├── 1.1.3) Kanji N3
+│   │   └── 1.1.4) Kanji N2/N1
+│   ├── 1.2) Gramática
+│   │   ├── 1.2.1) Estructura de oraciones (SOV)
+│   │   ├── 1.2.2) Partículas (は、が、を、に、で...)
+│   │   ├── 1.2.3) Verbos y conjugación
+│   │   └── 1.2.4) Adjetivos い y な
+│   ├── 1.3) Vocabulario
+│   │   ├── 1.3.1) Números y tiempo
+│   │   ├── 1.3.2) Vida cotidiana
+│   │   ├── 1.3.3) Verbos esenciales
+│   │   └── 1.3.4) Expresiones básicas
+│   └── 1.4) Cultura
+│       ├── 1.4.1) Keigo (lenguaje formal)
+│       ├── 1.4.2) Costumbres sociales
+│       ├── 1.4.3) Anime y manga (contexto)
+│       └── 1.4.4) Japón cotidiano
+├── 2) Practicar
+│   ├── 2.1) Lectura
+│   │   ├── 2.1.1) Hiragana y Katakana
+│   │   ├── 2.1.2) Frases simples
+│   │   ├── 2.1.3) Textos con furigana
+│   │   └── 2.1.4) Textos sin furigana
+│   ├── 2.2) Escucha
+│   │   ├── 2.2.1) Pronunciación básica
+│   │   ├── 2.2.2) Diálogos cotidianos
+│   │   ├── 2.2.3) Dictado de kana
+│   │   └── 2.2.4) Dictado de palabras
+│   ├── 2.3) Escritura
+│   │   ├── 2.3.1) Práctica libre hiragana
+│   │   ├── 2.3.2) Práctica libre katakana
+│   │   ├── 2.3.3) Práctica libre kanji
+│   │   └── 2.3.4) Crear frases
+│   └── 2.4) Conversación
+│       ├── 2.4.1) Saludos y presentaciones
+│       ├── 2.4.2) Compras y restaurantes
+│       ├── 2.4.3) Transporte y viajes
+│       └── 2.4.4) Situaciones de emergencia
+├── 3) Quiz
+│   ├── 3.1) Evaluación inicial
+│   ├── 3.2) Por nivel JLPT
+│   │   ├── 3.2.1) N5 - Principiante
+│   │   ├── 3.2.2) N4 - Básico
+│   │   ├── 3.2.3) N3 - Intermedio
+│   │   └── 3.2.4) N2/N1 - Avanzado
+│   ├── 3.3) Temático
+│   │   ├── 3.3.1) Gramática
+│   │   ├── 3.3.2) Vocabulario
+│   │   ├── 3.3.3) Kanji
+│   │   └── 3.3.4) Lectura de frases
+│   └── 3.4) Progreso y estadísticas
+│       ├── 3.4.1) Resumen de evaluaciones
+│       ├── 3.4.2) Puntos fuertes y débiles
+│       ├── 3.4.3) Objetivos sugeridos
+│       └── 3.4.4) Historial
+└── 4) Configuración
+    ├── 4.1) Apariencia
+    │   ├── 4.1.1) Tema claro/oscuro
+    │   ├── 4.1.2) Tamaño de texto
+    │   ├── 4.1.3) Idioma de interfaz
+    │   └── 4.1.4) Animaciones
+    ├── 4.2) Preferencias de estudio
+    │   ├── 4.2.1) Mostrar romaji/furigana
+    │   └── 4.2.2) Modo quiz kanji
+    │           ├── Kun'yomi
+    │           ├── On'yomi
+    │           ├── Significado
+    │           ├── Voz (TTS)
+    │           └── Variado
+    ├── 4.3) Audio
+    │   ├── 4.3.1) Velocidad de voz
+    │   ├── 4.3.2) Tono de voz
+    │   ├── 4.3.3) Activar/desactivar TTS
+    │   └── 4.3.4) Volumen
+    └── 4.4) Información
+        ├── 4.4.1) Créditos
+        ├── 4.4.2) Manual de usuario
+        ├── 4.4.3) Reportar errores
+        └── 4.4.4) Versión y actualizaciones
+
+=================MENU ANTIGUO=======================
+
+
 
 Menú Principal
 ├── 1) Quiz

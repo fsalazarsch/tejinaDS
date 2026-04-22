@@ -55,8 +55,10 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
         mostrar_tabla(top, bottom, g_staticBuf, font2, font, &tablaState);
     	}
     else if (currentScene == SCENE_TEST_KANA) {
-    	C2D_SceneBegin(bottom);
-		mostrar_ideograma(false, 90.0f, 35.0f, 130.0f);
+
+    	
+    	mostrar_tabla_kanji(top, bottom, g_staticBuf, font2, font, &tablaState);
+		//C2D_SceneBegin(bottom);
 
 		} 
 	else {
@@ -189,9 +191,9 @@ fclose(f);
         	printf("\x1b[2;0H%03d; %03d", touch.px, touch.py);
     	}
 		
-		if (kHeld & KEY_L){
-			strcpy(menusel, menu_ant);
-		}
+		//if (kHeld & KEY_L){
+		//	strcpy(menusel, menu_ant);
+		//}
 
 
 		if (currentScene == SCENE_TEST_KANA) {
@@ -264,7 +266,7 @@ fclose(f);
 				
 		    if (kDown & KEY_B) {
 		        currentScene = SCENE_MENU;
-		        strcpy(menusel, " Ⓐ Tabla completa"); // vuelve al menú anterior
+		        strcpy(menusel, "  Ⓐ Hiragana Katakana"); // vuelve al menú anterior
 		    }
 		}
 
