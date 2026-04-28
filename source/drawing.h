@@ -3,6 +3,7 @@
 
 #include <citro2d.h>
 #include <3ds.h>
+#include "functions.h"
 
 #define MAX_DRAW_POINTS 512
 

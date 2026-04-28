@@ -7,6 +7,8 @@
 #include "themes.h"
 #include "scene.h"
 #include "drawing.h"
+
+
 //config teclas 	"\n"
 
 
@@ -31,7 +33,7 @@ int opc = 0;
 
 ThemeID currentTheme = THEME_DAY;
 SceneID currentScene = SCENE_MENU;
-TablaState tablaState = {0, 0, 0};
+TablaState tablaState = {0, 0, 0, false};
 
 
 
@@ -62,7 +64,7 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 
 		} 
 	else {
-       		menu = display_menu(g_staticBuf, menusel, font, fontkbd, font2, top, bottom);
+       		menu = display_menu(g_staticBuf, menusel, font, font2, top, bottom);
         	flag_display_menu = 1;
     	}
 	
@@ -118,9 +120,10 @@ fclose(f);
 	font = C2D_FontLoad("romfs:/the-legend-of-zelda-a-link-to-the-past-ext.bcfnt");
 	font2 = C2D_FontLoad("romfs:/NotoSansJP-Regular.bcfnt");
 	fontkbd = C2D_FontLoad("romfs:/AppleJapaneseKeyboard.bcfnt");
+
 	tts_engine_init("romfs:/nitech_jp_atr503_m001.htsvoice");
 	
-	
+	kbd_init();
 	// Initialize the libs
 	
 
@@ -197,6 +200,40 @@ fclose(f);
 
 
 		if (currentScene == SCENE_TEST_KANA) {
+    		
+    		if (kDown & KEY_L){ 
+    			if (tablaState.categoria == 0)
+    				tablaState.categoria =60;
+    			else
+    				tablaState.categoria = (tablaState.categoria - 1);
+		    	drawing_clear();
+			}
+
+    		if (kDown & KEY_R){ 
+		    	tablaState.categoria = (tablaState.categoria + 1) % 61;
+		    	drawing_clear();
+			}
+
+			if (kDown & KEY_RIGHT) {
+			    tablaState.col = (tablaState.col + 1) % 10;
+			    drawing_clear();
+			}
+
+			if (kDown & KEY_LEFT) {
+			    tablaState.col = (tablaState.col - 1 + 10) % 10;
+			    drawing_clear();
+			}
+
+		    if (kDown & KEY_UP) {
+			    tablaState.fila = (tablaState.fila - 1 + 5) % 5;
+			    drawing_clear();
+			}
+
+			if (kDown & KEY_DOWN) {
+			    tablaState.fila = (tablaState.fila + 1) % 5;
+			    drawing_clear();
+			}
+
     		if (kDown & KEY_B)
         		currentScene = SCENE_MENU;
 		}
@@ -332,6 +369,7 @@ fclose(f);
 
 	//free_menu();
 
+	kbd_exit();
 	// Deinitialize the scene
 	sceneExit();
 
