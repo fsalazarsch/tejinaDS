@@ -1,6 +1,5 @@
 #include "keyboard.h"
 
-
 static C2D_Font font_kbd;
 static C2D_TextBuf buf_kbd;
 
@@ -58,9 +57,7 @@ float* draw_kbdt(float pos_x, float pos_y, u32 color, u32 color2, u32 colorText,
 }
 
 
-
-
-void kbd_render(C2D_TextBuf g_staticBuf){
+void kbd_render(C2D_TextBuf g_staticBuf, Keyboard *kbd){
 
 
     C2D_Text teststring;
@@ -139,7 +136,7 @@ void kbd_render(C2D_TextBuf g_staticBuf){
 };
     
     
-    float **coords_kbd = (float **)malloc(55 * sizeof(float *));
+    //float **coords_kbd = (float **)malloc(55 * sizeof(float *));
     float span = 1;
     //ESTAS SON LAS COORDENADAS DE LAS TECLAS
     int coordsx[]= { 9, 36, 63, 90, 117, 144, 171, 198, 225, 252, 279 };
@@ -157,12 +154,62 @@ void kbd_render(C2D_TextBuf g_staticBuf){
             if (key == NULL || key[0] == '\0') continue;
 
             C2D_TextFontParse(&teststring, font_kbd, g_staticBuf, key);
-            coords_kbd[i] = draw_kbdt(coordsx[i], 30*(j+1), KANJI_COLOR_BORDER, KANJI_COLOR_BACK, KANJI_COLOR_KEY, &teststring, span, key);
+            float *coords = draw_kbdt(coordsx[i], 30*(j+1), KANJI_COLOR_BORDER, KANJI_COLOR_BACK, KANJI_COLOR_KEY, &teststring, span, key);
+            
+            int idx = kbd->key_count;
+            kbd->key_coords[idx][0] = coords[0]; // x1
+            kbd->key_coords[idx][1] = coords[1]; // y1
+            kbd->key_coords[idx][2] = coords[2]; // x2
+            kbd->key_coords[idx][3] = coords[3]; // y2
+            strncpy(kbd->key_chars[idx], key, 7);
+            kbd->key_chars[idx][7] = '\0';
+            kbd->key_count++;
+
+            free(coords);
+        }
+    }
+}
+
+
+const char* kbd_update(Keyboard *kbd, touchPosition *touch, u32 kDown, u32 kHeld, u32 kUp) {
+    if (!(kDown & KEY_TOUCH))
+        return NULL;  // no hubo toque
+
+    float tx = (float)touch->px;
+    float ty = (float)touch->py;
+
+    for (int i = 0; i < kbd->key_count; i++) {
+        if (tx >= kbd->key_coords[i][0] && tx <= kbd->key_coords[i][2] &&
+            ty >= kbd->key_coords[i][1] && ty <= kbd->key_coords[i][3]) {
+
+            // Teclas especiales
+            if (strcmp(kbd->key_chars[i], "⇧") == 0) {
+                kbd->kb_shift ^= 1;  // toggle shift
+                return NULL;
+            }
+            if (strcmp(kbd->key_chars[i], "かな") == 0) {
+                kbd->kb_mode = 0;    // hiragana
+                return NULL;
+            }
+            if (strcmp(kbd->key_chars[i], "カナ") == 0) {
+                kbd->kb_mode = 1;    // katakana
+                return NULL;
+            }
+            if (strcmp(kbd->key_chars[i], "漢") == 0) {
+                kbd->kb_mode = 2;    // romaji
+                return NULL;
+            }
+
+            // Tecla normal — resetear shift después de presionar
+            if (kbd->kb_shift) kbd->kb_shift = 0;
+
+            return kbd->key_chars[i];  // ← el caracter presionado
         }
     }
 
-
+    return NULL;  // toque fuera del teclado
 }
+
 
 void kbd_exit() {
     C2D_TextBufDelete(buf_kbd);

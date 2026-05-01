@@ -120,7 +120,7 @@ MenuResult build_menu(C2D_TextBuf g_staticBuf, char** menu, u32 *colors, C2D_Fon
 MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font, C2D_Font font2, C3D_RenderTarget *top, C3D_RenderTarget *bottom) {
     char *menu[4];  // El tamaño es 4 ya que tienes 4 opciones de menú
     u32 colors[4];  // El tamaño es 4 ya que tienes 4 colores
-
+	        
     int noptn = -1;
 
     if (strcmp(optn, "main") == 0){
@@ -178,13 +178,16 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 		    tablaState.col = 0;
 		    tablaState.fila = 0;
 		    tablaState.categoria = 0;
-		    mostrar_tabla(top, bottom, g_staticBuf, font2, font, &tablaState);
+		    //mostrar_tabla(top, bottom, g_staticBuf, font2, font, &tablaState);
    		}
 
-   	if (strcmp(optn, "  Ⓑ  Kanji N5,N4") == 0)
+   	if (strcmp(optn, "  Ⓑ  Kanji") == 0)
    		{
    			currentScene = SCENE_TEST_KANA;
-   			mostrar_tabla_kanji(top, bottom, g_staticBuf, font2, font, &tablaState);
+   			//mostrar_tabla_kanji(top, bottom, g_staticBuf, font2, font, &tablaState);
+
+   			
+
 
    			//init_ideograma(0x611B, false);  // 愛 estático
 			//init_ideograma(0x611B, true);   // 愛 animado
@@ -218,9 +221,9 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
     		break;
     	case 11:
 	        menu[0] = " Ⓐ Hiragana Katakana";
-	        menu[1] = "  Ⓑ  Kanji N5,N4";
-	        menu[2] = "  Ⓧ  Kanji N3";
-	        menu[3] = "  Ⓨ  Kanji N2,N1*";
+	        menu[1] = "  Ⓑ  Kanji";
+	        //menu[2] = "  Ⓧ  Kanji N3";
+	        //menu[3] = "  Ⓨ  Kanji N2,N1*";
 	        
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
 	        break;
@@ -248,7 +251,7 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 
     	case 2:
 	        menu[0] = " Ⓐ Hirag y Katak.";
-	        menu[1] = "  Ⓑ  Kanji";
+	        menu[1] = "  Ⓑ  Kanji2";
 	        menu[2] = "  Ⓧ  Vocabulario";
 	        menu[3] = "  Ⓨ  Frases Útiles";
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;;
@@ -375,9 +378,10 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 	        menu[0] = menu[1] = menu[2] = menu[3] = NULL;
 	        colors[0] = colors[1] = colors[2] = colors[3] = clrWhite;
 	        
-
-	        kbd_render(g_staticBuf);
+	        //Keyboard kbd;
+	        //kbd_render(g_staticBuf, kbd);
 	        //render_kbd(g_staticBuf, font2);
+
 
     		break;
 	        //menu[0] = " Ⓐ Quiz";

@@ -35,8 +35,8 @@ ThemeID currentTheme = THEME_DAY;
 SceneID currentScene = SCENE_MENU;
 TablaState tablaState = {0, 0, 0, false};
 
-
-
+Keyboard kbd;
+C2D_Text input_text;
 
 static void sceneInit(void)
 {
@@ -46,7 +46,7 @@ static void sceneInit(void)
 	g_dynamicBuf = C2D_TextBufNew(4096);
 }
 
-static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *bottom)
+static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *bottom, Keyboard kbd, touchPosition touch, u32 kDown, u32 kHeld, u32 kUp)
 {
 	C2D_TextBufClear(g_staticBuf);
 
@@ -59,12 +59,50 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
     else if (currentScene == SCENE_TEST_KANA) {
 
     	
-    	mostrar_tabla_kanji(top, bottom, g_staticBuf, font2, font, &tablaState);
-		//C2D_SceneBegin(bottom);
+    	mostrar_tabla_kanji(top, bottom, g_staticBuf, g_dynamicBuf, font2, font, &tablaState, &kbd, &touch, kDown, kHeld, kUp);
+		C2D_SceneBegin(bottom);
+
+		/*
+		//kayboard
+   			kbd_render(g_staticBuf, &kbd);
+	        const char *pressed = kbd_update(&kbd, &touch, kDown, kHeld, kUp);
+			if (pressed != NULL) {
+			    if (strcmp(pressed, "←") == 0) {
+			        
+		            int len = strlen(input_buffer);
+		            if (len > 0) {
+		                do { len--; } while (len > 0 && (input_buffer[len] & 0xC0) == 0x80);
+		                input_buffer[len] = '\0';
+		            }
+
+			    } else if (strcmp(pressed, "↵") == 0) {
+			        // enter
+			    } else {
+			        // agregar pressed al string de input
+			        strncat(input_buffer, pressed, sizeof(input_buffer) - strlen(input_buffer) - 1);
+			    }
+			}
+
+
+		C2D_TextBufClear(g_dynamicBuf);  // usa el buffer dinámico para esto
+    	C2D_Text dyn_input;
+    	C2D_TextFontParse(&dyn_input, font2, g_dynamicBuf, 
+                      strlen(input_buffer) > 0 ? input_buffer : "...");
+    	C2D_TextOptimize(&dyn_input);
+    	C2D_DrawText(&dyn_input, C2D_AtBaseline | C2D_WithColor,
+                 20.0f, 60.0f, 0.5f,
+                 0.7f, 0.7f,
+                 themes[currentTheme].kanaText);*/
+
+
+			//C2D_TextFontParse(&input_text, font, g_staticBuf, input_buffer);
+//C2D_TextOptimize(&input_text);
+//C2D_DrawText(&input_text, C2D_AtBaseline | C2D_WithColor, 10.0f, 20.0f, 0.5f, 0.7f, 0.7f, C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF));
+
 
 		} 
 	else {
-       		menu = display_menu(g_staticBuf, menusel, font, font2, top, bottom);
+        	menu = display_menu(g_staticBuf, menusel, font, font2, top, bottom);
         	flag_display_menu = 1;
     	}
 	
@@ -199,8 +237,12 @@ fclose(f);
 		//}
 
 
+
 		if (currentScene == SCENE_TEST_KANA) {
     		
+    		handle_tabla_touch_kanji(kDown, kHeld, kUp, lastTouchX, lastTouchY, &tablaState);
+    		
+
     		if (kDown & KEY_L){ 
     			if (tablaState.categoria == 0)
     				tablaState.categoria =60;
@@ -358,7 +400,7 @@ fclose(f);
 		DrawRoundedRect(2, 2, SCREEN_WIDTH_BOTTOM-4, SCREEN_HEIGHT_TOP-4, 10, themes[currentTheme].borderCell);
 		DrawRoundedRect(4, 4, SCREEN_WIDTH_BOTTOM-8, SCREEN_HEIGHT_TOP-8, 10, themes[currentTheme].bg);
 		
-		sceneRender(menusel, top, bottom);
+		sceneRender(menusel, top, bottom, kbd, touch, kDown, kHeld, kUp);
 
 		//sceneRender(size);
 		C3D_FrameEnd(0);

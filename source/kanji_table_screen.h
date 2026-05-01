@@ -5,7 +5,7 @@
 #include "themes.h"
 #include "kanji_data.h"
 #include "drawing.h"
-
+#include "keyboard.h"
 
 
 
@@ -28,8 +28,9 @@ void draw_kanji_detail(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Fo
 
 
 void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom, 
-                   C2D_TextBuf g_staticBuf, C2D_Font font1, C2D_Font font2, 
-                   TablaState *estado); //user la categoria como paginador
+                   C2D_TextBuf g_staticBuf, C2D_TextBuf g_dynamicBuf, C2D_Font font1, C2D_Font font2, 
+                   TablaState *estado, Keyboard *kbd,
+                   touchPosition *touch, u32 kDown, u32 kHeld, u32 kUp); //user la categoria como paginador
 
 void handle_tabla_touch_kanji(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, TablaState *estado);
 

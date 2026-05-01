@@ -116,7 +116,8 @@ kanji_table_screen.o: \
  C:/devkitPro/libctru/include/c2d/font.h \
  C:/laragon/www/personal/tejinaDS/source/kanji_data.h \
  C:/laragon/www/personal/tejinaDS/source/drawing.h \
- C:/laragon/www/personal/tejinaDS/source/functions.h
+ C:/laragon/www/personal/tejinaDS/source/functions.h \
+ C:/laragon/www/personal/tejinaDS/source/keyboard.h
 C:/laragon/www/personal/tejinaDS/source/kanji_table_screen.h:
 C:/laragon/www/personal/tejinaDS/source/tabla.h:
 C:/laragon/www/personal/tejinaDS/source/themes.h:
@@ -234,3 +235,4 @@ C:/devkitPro/libctru/include/c2d/font.h:
 C:/laragon/www/personal/tejinaDS/source/kanji_data.h:
 C:/laragon/www/personal/tejinaDS/source/drawing.h:
 C:/laragon/www/personal/tejinaDS/source/functions.h:
+C:/laragon/www/personal/tejinaDS/source/keyboard.h:
