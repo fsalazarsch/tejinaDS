@@ -7,7 +7,9 @@
 #include "themes.h"
 #include "scene.h"
 #include "drawing.h"
+#include "lessons/lesson.h"
 
+void lesson_render_block(Lesson* lesson, int index);
 
 //config teclas 	"\n"
 
@@ -22,6 +24,7 @@ bool flag_display_menu = 0;
 MenuResult menu;
 char menusel[100] = "main"; // Array de caracteres mutable
 char menu_ant[100] = ""; // Array de caracteres mutable
+char currentLessonPath[256];
 
 int lastTouchX, lastTouchY = -1;
 
@@ -34,9 +37,11 @@ int opc = 0;
 ThemeID currentTheme = THEME_DAY;
 SceneID currentScene = SCENE_MENU;
 TablaState tablaState = {0, 0, 0, false};
-
+Lesson lesson;
 Keyboard kbd;
 C2D_Text input_text;
+static int lessonLoaded = 0;
+int currentBlock = 0;
 
 static void sceneInit(void)
 {
@@ -52,6 +57,27 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 
 	//menu = display_menu(g_staticBuf, menusel, font, fontkbd, font2, top, bottom);
 	//flag_display_menu = 1;
+
+	if (currentScene == SCENE_GRAMMAR_001)
+	{
+	    if (!lessonLoaded)
+	    {
+	        strcpy(currentLessonPath, "romfs:/lessons/grammar_sov_001.txt");
+	        lesson_load(currentLessonPath, &lesson);
+	        currentBlock = 0;
+	        lessonLoaded = 1;
+	    }
+
+	    if (kDown & KEY_RIGHT) currentBlock++;
+	    if (kDown & KEY_LEFT)  currentBlock--;
+
+	    if (kDown & KEY_B)
+	    {
+	        currentScene = SCENE_MENU;
+	        lessonLoaded = 0;   /* para recargar si vuelves */
+	    }
+	}
+
 
  	if (currentScene == SCENE_TABLA_HIRAGANA) {
         mostrar_tabla(top, bottom, g_staticBuf, font2, font, &tablaState);
@@ -101,6 +127,13 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 
 
 		} 
+	else if(currentScene == SCENE_GRAMMAR_001){
+
+    	//lesson_render(&lesson);
+	    C2D_SceneBegin(top);
+	    lesson_render_block(&lesson, currentBlock);
+
+ 		}
 	else {
         	menu = display_menu(g_staticBuf, menusel, font, font2, top, bottom);
         	flag_display_menu = 1;
@@ -147,12 +180,10 @@ int main()
 	gfxInitDefault();
 	romfsInit();
 	cfguInit(); // Allow C2D_FontLoadSystem to work
-	//csndInit();
+	csndInit();
 
-	Result ndspResult = csndInit();
-FILE *f = fopen("sdmc:/ndsp_log.txt", "w");
-fprintf(f, "ndsp: %08lX\n", ndspResult);
-fclose(f);
+	//Result ndspResult = csndInit();
+
 	// Initialize the libs
 	
 	font = C2D_FontLoad("romfs:/the-legend-of-zelda-a-link-to-the-past-ext.bcfnt");
@@ -163,6 +194,8 @@ fclose(f);
 	
 	kbd_init();
 	// Initialize the libs
+
+
 	
 
 	//consoleInit(GFX_TOP, NULL);

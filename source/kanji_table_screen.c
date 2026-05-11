@@ -133,19 +133,19 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     static char input_buffer[256] = {0};
     C2D_SceneBegin(bottom);
 
-    DrawRoundedRect(10, 5, 95, 20, 8, themes[currentTheme].cellIdle);
+    DrawRoundedRect(10, 5, 95, 20, 8, tab_search_selected == 1 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
     C2D_Text btnAudio;
     C2D_TextFontParse(&btnAudio, font2, g_staticBuf, tab_search_selected == 1 ? "LECTURA" : "Lectura");
     C2D_TextOptimize(&btnAudio);
-    C2D_DrawText(&btnAudio, C2D_AtBaseline | C2D_AlignCenter, 57.0f, 22.0f, 0.5f, 0.7f, 0.7f, themes[currentTheme].btnAudioText);
+    C2D_DrawText(&btnAudio, C2D_AtBaseline | C2D_AlignCenter, 57.0f, 22.0f, 0.5f, 0.7f, 0.7f, themes[currentTheme].kanaText);
 
-    DrawRoundedRect(110, 5, 95, 20, 8, themes[currentTheme].cellIdle);
+    DrawRoundedRect(110, 5, 95, 20, 8, tab_search_selected == 2 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
     C2D_Text btnOcultar;
     C2D_TextFontParse(&btnOcultar, font2, g_staticBuf, tab_search_selected == 2 ? "INDICES" : "Indices");
     C2D_TextOptimize(&btnOcultar);
     C2D_DrawText(&btnOcultar, C2D_AtBaseline | C2D_AlignCenter, 157.0f, 22.0f, 0.5f, 0.7f, 0.7f, themes[currentTheme].kanaText);
 
-    DrawRoundedRect(210, 5, 95, 20, 8, themes[currentTheme].cellIdle);
+    DrawRoundedRect(210, 5, 95, 20, 8, tab_search_selected == 3 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
     C2D_Text btnTrazos;
     C2D_TextFontParse(&btnTrazos, font2, g_staticBuf, tab_search_selected == 3 ? "DIBUJAR" : "Dibujar");
     C2D_TextOptimize(&btnTrazos);
@@ -154,6 +154,7 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     if(tab_search_selected == 1){
 
                 //kayboard
+            C2D_TextBufClear(g_staticBuf);
             kbd_render(g_staticBuf, kbd);
             const char *pressed = kbd_update(kbd, touch, kDown, kHeld, kUp);
             if (pressed != NULL) {
@@ -165,7 +166,12 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
                         input_buffer[len] = '\0';
                     }
 
-                } else if (strcmp(pressed, "↵") == 0) {
+                }else if (strcmp(pressed, "↑") == 0) {
+                    //kbd->kb_shift = 1;
+                    //kbd_render(g_staticBuf, kbd);
+                    }
+
+                else if (strcmp(pressed, "↵") == 0) {
                     // enter
                 } else {
                     // agregar pressed al string de input

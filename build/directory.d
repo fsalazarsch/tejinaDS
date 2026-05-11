@@ -125,7 +125,8 @@ directory.o: C:/laragon/www/personal/tejinaDS/source/directory.c \
  C:/laragon/www/personal/tejinaDS/source/drawing.h \
  C:/laragon/www/personal/tejinaDS/source/kanji_table_screen.h \
  C:/laragon/www/personal/tejinaDS/source/kanji_data.h \
- C:/laragon/www/personal/tejinaDS/source/scene.h
+ C:/laragon/www/personal/tejinaDS/source/scene.h \
+ C:/laragon/www/personal/tejinaDS/source/lessons/lesson.h
 C:/devkitPro/libctru/include/3ds.h:
 C:/devkitPro/libctru/include/3ds/types.h:
 C:/devkitPro/libctru/include/3ds/result.h:
@@ -253,3 +254,4 @@ C:/laragon/www/personal/tejinaDS/source/drawing.h:
 C:/laragon/www/personal/tejinaDS/source/kanji_table_screen.h:
 C:/laragon/www/personal/tejinaDS/source/kanji_data.h:
 C:/laragon/www/personal/tejinaDS/source/scene.h:
+C:/laragon/www/personal/tejinaDS/source/lessons/lesson.h:

@@ -1,0 +1,244 @@
+# =========================================================
+# LECCION: ESTRUCTURA SOV
+# Archivo: grammar_sov.txt
+# =========================================================
+
+@lesson_id=GRAMMAR_SOV_001
+@title=Estructura SOV
+@category=grammar
+@bg=classroom_day
+
+# =========================================================
+# INTRO
+# =========================================================
+
+[dialog]
+portrait=happy
+name=Sensei
+text=¡Hoy aprenderemos cómo se organizan las oraciones en japonés!
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=neutral
+name=Sensei
+text=El japonés normalmente usa una estructura llamada SOV.
+
+# ---------------------------------------------------------
+
+[term]
+word=SOV
+meaning=Sujeto Objeto Verbo
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=thinking
+name=Sensei
+text=Eso significa que el verbo normalmente va al final.
+
+# =========================================================
+# COMPARACION VISUAL
+# =========================================================
+
+[compare]
+left_title=Español
+left=Yo como sushi
+
+right_title=Japonés
+right=Yo sushi como
+
+# ---------------------------------------------------------
+
+[example]
+jp=私は寿司を食べる
+romaji=watashi wa sushi o taberu
+es=Yo sushi como
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=focused
+name=Sensei
+text=Observa cómo la acción aparece al final de la oración.
+
+# =========================================================
+# VISUAL PROGRESIVO
+# =========================================================
+
+[sequence]
+step=YO
+
+# ---------------------------------------------------------
+
+[sequence]
+step=YO → SUSHI
+
+# ---------------------------------------------------------
+
+[sequence]
+step=YO → SUSHI → COMER
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=happy
+name=Sensei
+text=¡Ese es el orden básico japonés!
+
+# =========================================================
+# EXPLICACION SIMPLE
+# =========================================================
+
+[grammar_box]
+title=Orden Japonés
+content=Sujeto → Objeto → Verbo
+
+# ---------------------------------------------------------
+
+[grammar_box]
+title=Orden Español
+content=Sujeto → Verbo → Objeto
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=thinking
+name=Sensei
+text=En español el verbo suele ir antes del objeto.
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=focused
+name=Sensei
+text=Pero en japonés normalmente el verbo aparece al final.
+
+# =========================================================
+# PARTICULAS BASICAS
+# =========================================================
+
+[particle]
+symbol=は
+name=wa
+function=Marca el tema
+
+# ---------------------------------------------------------
+
+[particle]
+symbol=を
+name=o
+function=Marca el objeto directo
+
+# ---------------------------------------------------------
+
+[example]
+jp=私は水を飲む
+romaji=watashi wa mizu o nomu
+es=Yo agua bebo
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=focused
+name=Sensei
+text=飲む significa "beber".
+
+# =========================================================
+# MINI ANALISIS
+# =========================================================
+
+[breakdown]
+jp=私は水を飲む
+
+line1=私 は
+line1_es=Yo
+
+line2=水 を
+line2_es=Agua
+
+line3=飲む
+line3_es=Beber
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=thinking
+name=Sensei
+text=¿Notas que la acción aparece al final?
+
+# =========================================================
+# QUIZ 1
+# =========================================================
+
+[quiz]
+question=¿Dónde va normalmente el verbo en japonés?
+
+a=Al inicio
+b=Al medio
+c=Al final
+
+correct=c
+
+success_text=¡Correcto! El verbo normalmente va al final.
+fail_text=No exactamente. En japonés el verbo suele ir al final.
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=happy
+name=Sensei
+text=¡Muy bien!
+
+# =========================================================
+# QUIZ 2
+# =========================================================
+
+[quiz]
+question=¿Cuál de estas sigue el orden japonés?
+
+a=Yo como sushi
+b=Yo sushi como
+c=Como yo sushi
+
+correct=b
+
+success_text=¡Exacto!
+fail_text=Recuerda: sujeto → objeto → verbo.
+
+# =========================================================
+# RESUMEN FINAL
+# =========================================================
+
+[summary]
+line1=El japonés usa estructura SOV.
+line2=El verbo normalmente va al final.
+line3=Las partículas ayudan a identificar funciones.
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=triumphant
+name=Sensei
+text=¡Ya aprendiste la estructura básica japonesa!
+
+# ---------------------------------------------------------
+
+[sfx]
+id=lesson_complete
+
+# ---------------------------------------------------------
+
+[reward]
+type=xp
+value=50
+
+# ---------------------------------------------------------
+
+[unlock]
+lesson=GRAMMAR_PARTICLES_WA
+
+# =========================================================
+# FIN
+# =========================================================
+```
