@@ -16,10 +16,10 @@ void lesson_render_block(Lesson* lesson, int index);
 
 //static const char sent[] ="\t\t日\n\t\t本\n\t\t語\n\t\t文\n";
 
-C2D_Font font, font2, fontkbd;;
+C2D_Font font, font2, fontdialog;;
 C2D_TextBuf g_staticBuf, g_dynamicBuf;
 C2D_Text teststring;
-
+C2D_SpriteSheet portraits[5];
 bool flag_display_menu = 0;
 MenuResult menu;
 char menusel[100] = "main"; // Array de caracteres mutable
@@ -188,11 +188,18 @@ int main()
 	
 	font = C2D_FontLoad("romfs:/the-legend-of-zelda-a-link-to-the-past-ext.bcfnt");
 	font2 = C2D_FontLoad("romfs:/NotoSansJP-Regular.bcfnt");
-	fontkbd = C2D_FontLoad("romfs:/AppleJapaneseKeyboard.bcfnt");
+	fontdialog = C2D_FontLoad("romfs:/dialog.bcfnt");
 
 	tts_engine_init("romfs:/nitech_jp_atr503_m001.htsvoice");
-	
+
 	kbd_init();
+	
+	portraits[0] = C2D_SpriteSheetLoad("romfs:/portraits/neutral.t3x");
+	portraits[1] = C2D_SpriteSheetLoad("romfs:/portraits/happy.t3x");
+	portraits[2] = C2D_SpriteSheetLoad("romfs:/portraits/thinking.t3x");
+	portraits[3] = C2D_SpriteSheetLoad("romfs:/portraits/triunfante.t3x");
+	portraits[4] = C2D_SpriteSheetLoad("romfs:/portraits/thinking2.t3x");
+
 	// Initialize the libs
 
 

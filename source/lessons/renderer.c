@@ -12,10 +12,11 @@
    SETUP
    ========================================================= */
 
-extern C2D_Font font;
+extern C2D_Font fontdialog;
+extern C2D_Font font2;
 extern C2D_TextBuf g_dynamicBuf;
 
-
+extern C2D_SpriteSheet portraits[5];
 /* =========================================================
    COLORES
    ========================================================= */
@@ -24,12 +25,34 @@ extern C2D_TextBuf g_dynamicBuf;
 #define COL_YELLOW  C2D_Color32(255, 220,  80, 255)
 #define COL_CYAN    C2D_Color32( 80, 220, 255, 255)
 #define COL_GREEN   C2D_Color32(100, 230, 100, 255)
+#define COL_BLACK   C2D_Color32(0, 0, 0, 255)
 #define COL_GRAY    C2D_Color32(180, 180, 180, 255)
-#define COL_BG_DARK C2D_Color32( 20,  20,  60, 200)
+#define COL_BG_DARK C2D_Color32( 20,  20,  20, 50)
 
 /* =========================================================
    HELPER
    ========================================================= */
+
+static float portrait_x        = -150.0f;
+static float portrait_target_x = -150.0f;
+static int   portrait_current   = -1;
+
+static int   typewriter_len   = 0;
+static int   typewriter_timer = 0;
+static char  typewriter_buf[512];
+
+
+static void draw_text_f(const char* str,
+                        float x, float y,
+                        float sz, u32 color,
+                        C2D_Font fnt)
+{
+    if (!str || str[0] == '\0') return;
+    C2D_Text t;
+    C2D_TextFontParse(&t, fnt, g_dynamicBuf, str);
+    C2D_TextOptimize(&t);
+    C2D_DrawText(&t, C2D_WithColor, x, y, 0.5f, sz, sz, color);
+}
 
 static void draw_text(const char* str,
                       float x, float y,
@@ -38,9 +61,41 @@ static void draw_text(const char* str,
     if(!str || str[0] == '\0') return;
 
     C2D_Text t;
-    C2D_TextFontParse(&t, font, g_dynamicBuf, str);
+    C2D_TextFontParse(&t, fontdialog, g_dynamicBuf, str);
     C2D_TextOptimize(&t);
     C2D_DrawText(&t, C2D_WithColor, x, y, 0.5f, sz, sz, color);
+}
+
+static void draw_typewriter(float x, float y, float sz, u32 color)
+{
+    char visible[512];
+    strncpy(visible, typewriter_buf, typewriter_len);
+    visible[typewriter_len] = '\0';
+    draw_text_f(visible, x, y, sz, color, fontdialog);
+}
+
+static int portrait_index(const char* name) {
+    if (strcmp(name, "neutral")   == 0) return PORTRAIT_NEUTRAL;
+    if (strcmp(name, "happy")     == 0) return PORTRAIT_HAPPY;
+    if (strcmp(name, "thinking") == 0) return PORTRAIT_THINKING;
+    if (strcmp(name, "triunfante") == 0) return PORTRAIT_TRIUNFANTE;
+    return 0; // neutral por defecto
+}
+
+void portrait_set(int idx)
+{
+    portrait_current = idx;
+    if (idx >= 0)
+        portrait_target_x = 5.0f;   // posición final en pantalla
+    else
+        portrait_target_x = -150.0f; // fuera de pantalla
+}
+
+void typewriter_set(const char* text)
+{
+    strncpy(typewriter_buf, text, 511);
+    typewriter_len   = 0;
+    typewriter_timer = 0;
 }
 
 /* =========================================================
@@ -53,8 +108,27 @@ static void draw_text(const char* str,
    --------------------------------------------------------- */
 static void render_dialog(LessonBlock* b)
 {
-    draw_text(b->DIALOG_NAME, 10, 10, 0.6f, COL_YELLOW);
-    draw_text(b->DIALOG_TEXT, 10, 45, 0.5f, COL_WHITE);
+    //dibujar a  mai acá
+    /* --- Dibujar portrait --- */
+    //int portrait_current = portrait_index(b->DIALOG_PORTRAIT);
+
+
+    if (strcmp(typewriter_buf, b->DIALOG_TEXT) != 0)
+    {
+        typewriter_set(b->DIALOG_TEXT);
+        portrait_set(portrait_index(b->DIALOG_PORTRAIT));
+    }
+    
+
+    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+    draw_text_f(b->DIALOG_NAME, 10, 10, 0.6f, COL_YELLOW, fontdialog);
+
+    draw_typewriter(10, 170, 0.9f, COL_BLACK);
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+     
+     
+   
+    
 }
 
 /* ---------------------------------------------------------
@@ -63,8 +137,29 @@ static void render_dialog(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_term(LessonBlock* b)
 {
-    draw_text(b->TERM_WORD,    10, 20, 0.8f, COL_CYAN);
-    draw_text(b->TERM_MEANING, 10, 70, 0.5f, COL_WHITE);
+    //portrait_set(-1);
+
+    char msg[MAX_STR *2];
+    snprintf(msg, sizeof(msg), "%s\n%s", b->TERM_WORD, b->TERM_MEANING);
+    strncpy(b->DIALOG_TEXT, msg, MAX_STR*2 - 1);
+    b->DIALOG_TEXT[MAX_STR - 1] = '\0';
+
+
+    if (strcmp(typewriter_buf, b->DIALOG_TEXT) != 0)
+    {
+        typewriter_set(b->DIALOG_TEXT);
+        portrait_set(PORTRAIT_THINKING2);
+    }
+    
+
+    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+    draw_text_f(b->DIALOG_NAME, 10, 10, 0.6f, COL_YELLOW, fontdialog);
+
+    draw_typewriter(10, 170, 0.9f, COL_BLACK);
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+
+    //draw_text_f(b->TERM_WORD,  10, 20, 0.8f, COL_CYAN, font2);
+    //draw_text(b->TERM_MEANING, 10, 70, 0.5f, COL_BLACK);
 }
 
 /* ---------------------------------------------------------
@@ -74,7 +169,7 @@ static void render_term(LessonBlock* b)
 static void render_compare(LessonBlock* b)
 {
     draw_text(b->COMPARE_LEFT_TITLE,  10,  10, 0.5f, COL_GRAY);
-    draw_text(b->COMPARE_LEFT,        10,  38, 0.55f, COL_WHITE);
+    draw_text(b->COMPARE_LEFT,        10,  38, 0.55f, COL_BLACK);
 
     draw_text(b->COMPARE_RIGHT_TITLE, 170, 10, 0.5f, COL_GRAY);
     draw_text(b->COMPARE_RIGHT,       170, 38, 0.55f, COL_YELLOW);
@@ -184,9 +279,29 @@ static void render_sfx(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_reward(LessonBlock* b)
 {
-    char msg[MAX_STR];
-    snprintf(msg, sizeof(msg), "+%s %s!", b->REWARD_VALUE, b->REWARD_TYPE);
-    draw_text(msg, 80, 60, 0.7f, COL_YELLOW);
+    char msg[MAX_STR *2];
+    snprintf(msg, sizeof(msg), "¡Has ganado +%s %s!", b->REWARD_VALUE, b->REWARD_TYPE);
+    strncpy(b->DIALOG_TEXT, msg, MAX_STR*2 - 1);
+    b->DIALOG_TEXT[MAX_STR - 1] = '\0';
+
+
+    if (strcmp(typewriter_buf, b->DIALOG_TEXT) != 0)
+    {
+        typewriter_set(b->DIALOG_TEXT);
+        portrait_set(PORTRAIT_TRIUNFANTE);
+    }
+    
+
+    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+    draw_text_f(b->DIALOG_NAME, 10, 10, 0.6f, COL_YELLOW, fontdialog);
+
+    draw_typewriter(10, 170, 0.9f, COL_BLACK);
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+
+
+
+
+    //draw_text(msg, 80, 60, 0.7f, COL_YELLOW);
 }
 
 /* ---------------------------------------------------------
@@ -210,6 +325,24 @@ void lesson_render_block(Lesson* lesson, int index)
     C2D_TextBufClear(g_dynamicBuf);
 
     LessonBlock* b = &lesson->blocks[index];
+
+
+    // --- PORTRAIT: animar siempre (para que el slide-out funcione aunque cambie bloque)
+    portrait_x += (portrait_target_x - portrait_x) * 0.15f;
+    if (portrait_current >= 0 && portraits[portrait_current])
+    {
+        C2D_Image img = C2D_SpriteSheetGetImage(portraits[portrait_current], 0);
+        C2D_DrawImageAt(img, portrait_x, 40, 0.5f, NULL, 1.0f, 1.0f);
+    }
+
+    // --- TYPEWRITER: avanzar siempre (solo dibuja quien quiera)
+    typewriter_timer++;
+    if (typewriter_timer >= 2)
+    {
+        typewriter_timer = 0;
+        int total = strlen(typewriter_buf);
+        if (typewriter_len < total) typewriter_len++;
+    }
 
     switch(b->type)
     {

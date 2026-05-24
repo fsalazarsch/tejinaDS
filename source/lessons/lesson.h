@@ -167,6 +167,15 @@ typedef struct
 
 } Lesson;
 
+typedef enum {
+    PORTRAIT_NEUTRAL  = 0,
+    PORTRAIT_HAPPY    = 1,
+    PORTRAIT_THINKING = 2,
+    PORTRAIT_TRIUNFANTE = 3,
+    PORTRAIT_THINKING2 = 4,
+
+} PortraitID;
+
 int lesson_load(const char* filename, Lesson* lesson);
 
 #endif

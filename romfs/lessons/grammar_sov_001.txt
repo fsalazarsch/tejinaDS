@@ -1,4 +1,4 @@
-# =========================================================
+﻿# =========================================================
 # LECCION: ESTRUCTURA SOV
 # Archivo: grammar_sov.txt
 # =========================================================
@@ -15,14 +15,14 @@
 [dialog]
 portrait=happy
 name=Sensei
-text=¡Hoy aprenderemos cómo se organizan las oraciones en japonés!
+text=¡Hoy aprenderemos cómo se organizan\nlas oraciones en japonés!
 
 # ---------------------------------------------------------
 
 [dialog]
 portrait=neutral
 name=Sensei
-text=El japonés normalmente usa una estructura llamada SOV.
+text=El japonés normalmente usa una\nestructura llamada SOV.
 
 # ---------------------------------------------------------
 
@@ -35,7 +35,7 @@ meaning=Sujeto Objeto Verbo
 [dialog]
 portrait=thinking
 name=Sensei
-text=Eso significa que el verbo normalmente va al final.
+text=Eso significa que el verbo\nnormalmente va al final.
 
 # =========================================================
 # COMPARACION VISUAL
@@ -60,7 +60,7 @@ es=Yo sushi como
 [dialog]
 portrait=focused
 name=Sensei
-text=Observa cómo la acción aparece al final de la oración.
+text=Observa cómo la acción aparece al\nfinal de la oración.
 
 # =========================================================
 # VISUAL PROGRESIVO
@@ -84,7 +84,7 @@ step=YO → SUSHI → COMER
 [dialog]
 portrait=happy
 name=Sensei
-text=¡Ese es el orden básico japonés!
+text=\n¡Ese es el orden básico japonés!
 
 # =========================================================
 # EXPLICACION SIMPLE
@@ -105,14 +105,14 @@ content=Sujeto → Verbo → Objeto
 [dialog]
 portrait=thinking
 name=Sensei
-text=En español el verbo suele ir antes del objeto.
+text=En español el verbo suele ir\nantes del objeto.
 
 # ---------------------------------------------------------
 
 [dialog]
 portrait=focused
 name=Sensei
-text=Pero en japonés normalmente el verbo aparece al final.
+text=Pero en japonés normalmente el\nverbo aparece al final.
 
 # =========================================================
 # PARTICULAS BASICAS
@@ -220,7 +220,7 @@ line3=Las partículas ayudan a identificar funciones.
 [dialog]
 portrait=triumphant
 name=Sensei
-text=¡Ya aprendiste la estructura básica japonesa!
+text=¡Ya aprendiste la estructura\nbásica japonesa!
 
 # ---------------------------------------------------------
 

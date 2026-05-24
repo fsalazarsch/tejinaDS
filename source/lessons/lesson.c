@@ -8,6 +8,20 @@
 
 #include "lesson.h"
 
+static void unescape(char* str) {
+    char* src = str;
+    char* dst = str;
+    while (*src) {
+        if (src[0] == '\\' && src[1] == 'n') {
+            *dst++ = '\n';
+            src += 2;
+        } else {
+            *dst++ = *src++;
+        }
+    }
+    *dst = '\0';
+}
+
 static void trim_newline(char* str)
 {
     int len = strlen(str);
@@ -53,7 +67,10 @@ static void set_field(LessonBlock* block,
 
             if     (strcmp(key, "portrait") == 0) strcpy(block->DIALOG_PORTRAIT, value);
             else if(strcmp(key, "name")     == 0) strcpy(block->DIALOG_NAME,     value);
-            else if(strcmp(key, "text")     == 0) strcpy(block->DIALOG_TEXT,     value);
+            else if(strcmp(key, "text")     == 0){
+            strcpy(block->DIALOG_TEXT,     value);
+            unescape(block->DIALOG_TEXT);
+            }
             break;
 
         /* -----------------------------------------------------

@@ -1,0 +1,1 @@
+tex3ds -f rgba8 -z auto happy.png -o happy.t3x

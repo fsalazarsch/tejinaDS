@@ -1,0 +1,3 @@
+ - A la font K18X12L, agregarla la ñ, y los signos de acento
+ - Desplegar sprites de personaje en las kecciones, u
+- dejar LOS DIALOGOS ABAJO Y DE SER POSIBLE EN UN CAJITA PONER EL SIGONODE -> DESPUES DE TERMIANR DIALOGO
