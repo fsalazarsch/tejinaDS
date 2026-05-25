@@ -20,6 +20,9 @@ C2D_Font font, font2, fontdialog;;
 C2D_TextBuf g_staticBuf, g_dynamicBuf;
 C2D_Text teststring;
 C2D_SpriteSheet portraits[5];
+C3D_RenderTarget* top;
+C3D_RenderTarget* bottom;
+
 bool flag_display_menu = 0;
 MenuResult menu;
 char menusel[100] = "main"; // Array de caracteres mutable
@@ -212,8 +215,8 @@ int main()
 	C2D_Prepare();
 
 	// Create screen
-	C3D_RenderTarget* top = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
-	C3D_RenderTarget* bottom = C2D_CreateScreenTarget(GFX_BOTTOM, GFX_LEFT);
+	top = C2D_CreateScreenTarget(GFX_TOP, GFX_LEFT);
+	bottom = C2D_CreateScreenTarget(GFX_BOTTOM, GFX_LEFT);
 
 	// Initialize the scene
 

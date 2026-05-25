@@ -17,6 +17,9 @@ extern C2D_Font font2;
 extern C2D_TextBuf g_dynamicBuf;
 
 extern C2D_SpriteSheet portraits[5];
+extern C3D_RenderTarget *top;
+extern C3D_RenderTarget *bottom;
+
 /* =========================================================
    COLORES
    ========================================================= */
@@ -168,6 +171,9 @@ static void render_term(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_compare(LessonBlock* b)
 {
+    
+
+    C2D_SceneBegin(bottom);
     draw_text(b->COMPARE_LEFT_TITLE,  10,  10, 0.5f, COL_GRAY);
     draw_text(b->COMPARE_LEFT,        10,  38, 0.55f, COL_BLACK);
 
@@ -319,6 +325,7 @@ static void render_unlock(LessonBlock* b)
    ========================================================= */
 
 void lesson_render_block(Lesson* lesson, int index)
+
 {
     if(index < 0 || index >= lesson->totalBlocks) return;
 
