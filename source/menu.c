@@ -1,5 +1,7 @@
 #include "menu.h"
 
+extern int noptn;
+
 extern ThemeID currentTheme;
 
 MenuResult result;
@@ -121,22 +123,21 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
     char *menu[4];  // El tamaño es 4 ya que tienes 4 opciones de menú
     u32 colors[4];  // El tamaño es 4 ya que tienes 4 colores
 	        
-    int noptn = -1;
 
     if (strcmp(optn, "main") == 0){
     	noptn = 0;
     }
 
    	if (strcmp(optn, " Ⓐ Aprender") == 0)
-   		noptn = 1;
+   		noptn = 10000;
    	if (strcmp(optn, " Ⓐ Escritura") == 0)
-   		noptn = 11;
+   		noptn = 11000;
    	if (strcmp(optn, "  Ⓑ  Gramática") == 0)
-   		noptn = 12;
+   		noptn = 12000;
    	if (strcmp(optn, "  Ⓧ  Vocabulario") == 0)
-   		noptn = 13;
+   		noptn = 13000;
    	if (strcmp(optn, "  Ⓨ  Cultura") == 0)
-   		noptn = 14;
+   		noptn = 14000;
 
    	/*if (strcmp(optn, "  Ⓑ  Diccionario") == 0)
    		noptn = 2;
@@ -215,14 +216,14 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
     		break;
-    	case 1:
+    	case 10000:
 	        menu[0] = " Ⓐ Escritura";
 	        menu[1] = "  Ⓑ  Gramática";
 	        menu[2] = "  Ⓧ  Vocabulario";
 	        menu[3] = "  Ⓨ  Cultura";
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
     		break;
-    	case 11:
+    	case 11000:
 	        menu[0] = " Ⓐ Hiragana Katakana";
 	        menu[1] = "  Ⓑ  Kanji";
 	        //menu[2] = "  Ⓧ  Kanji N3";
@@ -230,13 +231,21 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 	        
 	        colors[0] = colors[1] = /*colors[2] = colors[3] =*/ themes[currentTheme].accent;
 	        break;
-    	case 12:
+    	case 12000:
 	        menu[0] = " Ⓐ Oraciones";
-	        menu[1] = "  Ⓑ  Particulas ";
-	        menu[2] = "  Ⓧ  Verbos ";
-	        menu[3] = "  Ⓨ  Preguntas....";
+	        menu[1] = "  Ⓑ  Particulas (10|12)";
+	        menu[2] = "  Ⓧ  Verbos (10|10)";
+	        menu[3] = "  Ⓨ  Adjetivos (10|14)";
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
 	        break;
+    	case 12100:
+	        menu[0] = " Ⓐ Sustantivos (0|4)";
+	        menu[1] = "  Ⓑ  Conectores (0|5)";
+	        menu[2] = "  Ⓧ  Tiempo (0|4)";
+	        menu[3] = "  Ⓨ  Comparaciones (0|7)";
+	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
+	        break;
+
     	case 13:
 	        menu[0] = " Ⓐ Gramática ";
 	        menu[1] = "  Ⓑ  Vocabulario ";
@@ -583,5 +592,166 @@ Menú Principal
         ├── 4.4.2) Manual del usuario
         ├── 4.4.3) Reportar errores
         └── 4.4.4) Actualizaciones
+
+
+
+
+
+=======================================
+
+
+Gramática
+│
+├── 1. Estructura de Oraciones
+│   ├── 1.1) Orden SOV
+│   ├── 1.2) Tema y comentario
+│   ├── 1.3) Omisión del sujeto
+│   └── 1.4) Preguntas básicas
+│
+├── 2. Partículas
+│   ├── 2.1) は (wa)
+│   ├── 2.2) が (ga)
+│   ├── 2.3) を (wo)
+│   ├── 2.4) に (ni)
+│   ├── 2.5) で (de)
+│   ├── 2.6) へ (e)
+│   ├── 2.7) と (to)
+│   ├── 2.8) も (mo)
+│   ├── 2.9) の (no)
+│   └── 2.10) Partículas combinadas
+│
+├── 3. Verbos
+│   ├── 3.1) Diccionario
+│   ├── 3.2) Forma ます
+│   ├── 3.3) Forma て
+│   ├── 3.4) Forma negativa
+│   ├── 3.5) Pasado
+│   ├── 3.6) Potencial
+│   ├── 3.7) Volitiva
+│   ├── 3.8) Imperativa
+│   ├── 3.9) Pasiva
+│   └── 3.10) Causativa
+│
+├── 4. Adjetivos
+│   ├── 4.1) Adjetivos い
+│   ├── 4.2) Adjetivos な
+│   ├── 4.3) Negación
+│   ├── 4.4) Pasado
+│   └── 4.5) Comparaciones
+│
+├── 5. Sustantivos
+│   ├── 5.1) Identificación
+│   ├── 5.2) Posesión con の
+│   ├── 5.3) Contadores básicos
+│   └── 5.4) Cuantificadores
+│
+├── 6. Conectores
+│   ├── 6.1) そして
+│   ├── 6.2) でも
+│   ├── 6.3) だから
+│   ├── 6.4) しかし
+│   └── 6.5) それに
+│
+├── 7. Expresiones de Tiempo
+│   ├── 7.1) Antes y después
+│   ├── 7.2) Frecuencia
+│   ├── 7.3) Duración
+│   └── 7.4) Fechas y horas
+│
+├── 8. Comparaciones
+│   ├── 8.1) より
+│   ├── 8.2) ほど
+│   ├── 8.3) Más que
+│   └── 8.4) Superlativos
+│
+├── 9. Condicionales
+│   ├── 9.1) と
+│   ├── 9.2) ば
+│   ├── 9.3) たら
+│   └── 9.4) なら
+│
+├── 10. Dar y Recibir
+│   ├── 10.1) あげる
+│   ├── 10.2) くれる
+│   ├── 10.3) もらう
+│   └── 10.4) Favor con てあげる
+│
+├── 11. Intención y Deseo
+│   ├── 11.1) たい
+│   ├── 11.2) ほしい
+│   ├── 11.3) つもり
+│   └── 11.4) 予定
+│
+├── 12. Experiencia y Estado
+│   ├── 12.1) ことがある
+│   ├── 12.2) ている
+│   ├── 12.3) てしまう
+│   └── 12.4) てみる
+│
+├── 13. Expresiones Cotidianas
+│   ├── 13.1) Debe hacerse
+│   ├── 13.2) No debe hacerse
+│   ├── 13.3) Está permitido
+│   └── 13.4) Está prohibido
+│
+└── 14. Gramática Avanzada
+    ├── 14.1) Nominalización
+    ├── 14.2) Relativas
+    ├── 14.3) Causalidad
+    ├── 14.4) Contraste
+    └── 14.5) Keigo básico
+*/
+
+
+
+
+/*
+
+1.2) Gramática
+│
+├── 1.2.1) Estructura de oraciones (SOV)
+│
+├── 1.2.2) Partículas
+│   ├── は・が
+│   ├── を
+│   ├── に・へ
+│   ├── で
+│   ├── と
+│   ├── も
+│   └── の・から・まで・より...
+│
+├── 1.2.3) Verbos y conjugación
+│   ├── Forma ます
+│   ├── Forma diccionario
+│   ├── Forma ない
+│   ├── Forma た
+│   ├── Forma て
+│   └── Potencial / pasiva / causativa...
+│
+├── 1.2.4) Adjetivos
+│   ├── い
+│   └── な
+│
+├── 1.2.5) Tiempo, aspecto y negación
+│   ├── Presente
+│   ├── Pasado
+│   ├── Negativo
+│   └── ている
+│
+├── 1.2.6) Preguntas
+│   ├── か
+│   ├── Palabras interrogativas
+│   └── Preguntas informales
+│
+├── 1.2.7) Existencia y ubicación
+│   ├── ある
+│   ├── いる
+│   └── に + existencia
+│
+└── 1.2.8) Comparación y cantidad
+    ├── より
+    ├── ほうが
+    ├── いちばん
+    └── Contadores
 
 */

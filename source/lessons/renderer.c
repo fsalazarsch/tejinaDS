@@ -7,11 +7,16 @@
 #include <stdio.h>
 
 #include "lesson.h"
+#include "..\functions.h"
+#include "..\themes.h"
+
+
 
 /* =========================================================
    SETUP
    ========================================================= */
 
+extern ThemeID currentTheme;
 extern C2D_Font fontdialog;
 extern C2D_Font font2;
 extern C2D_TextBuf g_dynamicBuf;
@@ -27,10 +32,16 @@ extern C3D_RenderTarget *bottom;
 #define COL_WHITE   C2D_Color32(255, 255, 255, 255)
 #define COL_YELLOW  C2D_Color32(255, 220,  80, 255)
 #define COL_CYAN    C2D_Color32( 80, 220, 255, 255)
+#define COL_BLUE    C2D_Color32( 0, 0, 255, 255)
+#define COL_RED    C2D_Color32( 255, 0, 0, 255)
 #define COL_GREEN   C2D_Color32(100, 230, 100, 255)
 #define COL_BLACK   C2D_Color32(0, 0, 0, 255)
 #define COL_GRAY    C2D_Color32(180, 180, 180, 255)
 #define COL_BG_DARK C2D_Color32( 20,  20,  20, 50)
+#define COL_BG_DARK2 C2D_Color32( 200,  188,  165, 255)
+
+#define MAX_ITEMS 50
+#define MAX_TEXT_LEN 64
 
 /* =========================================================
    HELPER
@@ -67,6 +78,110 @@ static void draw_text(const char* str,
     C2D_TextFontParse(&t, fontdialog, g_dynamicBuf, str);
     C2D_TextOptimize(&t);
     C2D_DrawText(&t, C2D_WithColor, x, y, 0.5f, sz, sz, color);
+}
+
+int extraer_texto(const char *origen, const char *tag_ini, const char *tag_fin, char *destino, size_t max_destino) {
+    const char *inicio = strstr(origen, tag_ini);
+    if (!inicio) return 0; 
+
+    inicio += strlen(tag_ini);
+
+    const char *fin = strstr(inicio, tag_fin);
+    if (!fin) return 0;
+
+    size_t longitud = fin - inicio;
+
+    if (longitud >= max_destino) {
+        longitud = max_destino - 1;
+    }
+
+    memcpy(destino, inicio, longitud);
+    destino[longitud] = '\0';
+
+    return 1;
+}
+
+// Función para convertir el nombre del color en un número entero
+int obtener_codigo_color(const char *nombre_color, size_t len) {
+    if (strncmp(nombre_color, "red", len) == 0) return 1;
+    if (strncmp(nombre_color, "blue", len) == 0) return 2;
+    if (strncmp(nombre_color, "green", len) == 0) return 3;
+    return 0; // Color desconocido
+}
+
+// Función principal de extracción
+int separar_tags_y_texto(const char *origen, char textos[MAX_ITEMS][MAX_TEXT_LEN], int colores[MAX_ITEMS]) {
+    const char *ptr = origen;
+    int contador = 0;
+
+    while (*ptr && contador < MAX_ITEMS) {
+        // 1. Buscar etiqueta de apertura '['
+        const char *ini_tag_apertura = strchr(ptr, '[');
+        if (!ini_tag_apertura) break;
+
+        const char *fin_tag_apertura = strchr(ini_tag_apertura, ']');
+        if (!fin_tag_apertura) break;
+
+        // 2. Extraer y mapear el color
+        const char *nombre_color = ini_tag_apertura + 1;
+        size_t color_len = fin_tag_apertura - nombre_color;
+        colores[contador] = obtener_codigo_color(nombre_color, color_len);
+
+        // 3. El texto inicia justo después de la etiqueta de apertura
+        const char *ini_texto = fin_tag_apertura + 1;
+
+        // 4. Buscar la etiqueta de cierre '[/'
+        const char *ini_tag_cierre = strstr(ini_texto, "[/");
+        if (!ini_tag_cierre) break;
+
+        const char *fin_tag_cierre = strchr(ini_tag_cierre, ']');
+        if (!fin_tag_cierre) break;
+
+        // 5. Calcular longitud del texto y copiarlo de forma segura
+        size_t texto_len = ini_tag_cierre - ini_texto;
+        if (texto_len >= MAX_TEXT_LEN) {
+            texto_len = MAX_TEXT_LEN - 1;
+        }
+
+        memcpy(textos[contador], ini_texto, texto_len);
+        textos[contador][texto_len] = '\0'; // Cerrar cadena
+
+        contador++;
+
+        // 6. Avanzar el puntero después del ']' de cierre para la siguiente iteración
+        ptr = fin_tag_cierre + 1;
+    }
+
+    return contador; // Retorna la cantidad total de elementos encontrados
+}
+
+void draw_colored_text(const char* str, float x, float y, float sz){
+    char lista_textos[MAX_ITEMS][MAX_TEXT_LEN];
+    int lista_colores[MAX_ITEMS];
+    u32 color = COL_BLACK;
+    int total = separar_tags_y_texto(str, lista_textos, lista_colores);
+
+
+    
+    // Mostrar resultados de los arreglos
+    for (int i = 0; i < total; i++) {
+        //printf("\"%s\"%s", lista_textos[i], (i == total - 1) ? "" : ", ");
+        if ( lista_colores[i] == 1)
+             color = COL_RED;
+        if ( lista_colores[i] == 2)
+             color = COL_BLUE;
+        if ( lista_colores[i] == 3)
+             color = COL_GREEN;
+         
+        draw_text(lista_textos[i], x, y, sz, color);
+        x += (6 *strlen(lista_textos[i]));
+    }
+    
+    /*printf("\n\n--- ARREGLO DE COLORES ---\n");
+    for (int i = 0; i < total; i++) {
+        printf("%d%s", lista_colores[i], (i == total - 1) ? "" : ", ");
+    }
+    printf("\n");*/
 }
 
 static void draw_typewriter(float x, float y, float sz, u32 color)
@@ -128,9 +243,25 @@ static void render_dialog(LessonBlock* b)
 
     draw_typewriter(10, 170, 0.9f, COL_BLACK);
     C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
-     
-     
-   
+    
+    C2D_SceneBegin(bottom);
+
+
+
+    
+
+    //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12, pos_y, SCREEN_WIDTH, SCREEN_HEIGHT/8, 10, color);
+    //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12+2, pos_y+2, SCREEN_WIDTH-4, SCREEN_HEIGHT/8-4, 10, color2);
+
+
+    DrawRoundedRect(15, 15, 290, 150, 10, COL_BLACK);
+    DrawRoundedRect(17, 17, 286, 146, 10, COL_BG_DARK2);
+    //C2D_DrawRectSolid(15, 15, 1.0f, 380, 150, COL_BG_DARK);
+
+    draw_text(b->DIALOG_LINE1, 25, 25, 0.9f, COL_RED);
+    draw_colored_text(b->DIALOG_LINE2, 25, 55, 0.9f);
+    //draw_text(b->DIALOG_LINE2, 25, 55, 0.9f, COL_BLACK);
+    draw_text(b->DIALOG_LINE3, 25, 85, 0.9f, COL_BLACK);
     
 }
 
@@ -171,7 +302,23 @@ static void render_term(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_compare(LessonBlock* b)
 {
+
+    char msg[MAX_STR];
+    snprintf(msg, sizeof(msg), "Observa el ejemplo");
+    strncpy(b->COMPARE_TEXT, msg, MAX_STR- 1);
+    b->COMPARE_TEXT[MAX_STR - 1] = '\0';
+
+    if (strcmp(typewriter_buf, b->COMPARE_TEXT) != 0)
+    {
+        typewriter_set(b->COMPARE_TEXT);
+        portrait_set(portrait_index(b->DIALOG_PORTRAIT));
+    }
+
+    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
     
+    draw_typewriter(10, 170, 0.9f, COL_BLACK);
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+
 
     C2D_SceneBegin(bottom);
     draw_text(b->COMPARE_LEFT_TITLE,  10,  10, 0.5f, COL_GRAY);
@@ -187,6 +334,21 @@ static void render_compare(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_example(LessonBlock* b)
 {
+    
+
+    //if (strcmp(typewriter_buf, b->EXAMPLE_JP) != 0)
+    //{
+    //    typewriter_set(b->EXAMPLE_JP);
+    //    portrait_set(portrait_index(b->DIALOG_PORTRAIT));
+    //}
+
+    //C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+    
+    //draw_typewriter(10, 170, 0.9f, COL_BLACK);
+    //C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+
+    C2D_SceneBegin(bottom);
+
     draw_text(b->EXAMPLE_JP,     10, 10, 0.65f, COL_CYAN);
     draw_text(b->EXAMPLE_ROMAJI, 10, 50, 0.5f,  COL_GRAY);
     draw_text(b->EXAMPLE_ES,     10, 78, 0.5f,  COL_WHITE);
@@ -218,6 +380,26 @@ static void render_grammar_box(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_particle(LessonBlock* b)
 {
+
+    char msg[MAX_STR];
+    snprintf(msg, sizeof(msg), "%s (%s)\n%s", b->PARTICLE_SYMBOL, b->PARTICLE_NAME, b->PARTICLE_FUNCTION);
+    strncpy(b->COMPARE_TEXT, msg, MAX_STR- 1);
+    b->COMPARE_TEXT[MAX_STR - 1] = '\0';
+
+
+    if (strcmp(typewriter_buf, b->COMPARE_TEXT) != 0)
+    {
+        typewriter_set(b->COMPARE_TEXT);
+        portrait_set(portrait_index(b->DIALOG_PORTRAIT));
+    }
+
+    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+    
+    draw_typewriter(10, 170, 0.9f, COL_BLACK);
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+
+    C2D_SceneBegin(bottom);
+
     draw_text(b->PARTICLE_SYMBOL,   10, 10, 0.9f, COL_YELLOW);
     draw_text(b->PARTICLE_NAME,     10, 60, 0.5f, COL_GRAY);
     draw_text(b->PARTICLE_FUNCTION, 10, 88, 0.5f, COL_WHITE);
@@ -247,6 +429,19 @@ static void render_breakdown(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_quiz(LessonBlock* b)
 {
+    
+    
+
+
+    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+    
+    draw_text(b->QUIZ_QUESTION, 10,  170,  1.0f, COL_BLACK);
+
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+
+    C2D_SceneBegin(bottom);
+
+
     draw_text(b->QUIZ_QUESTION, 10,  5,  0.5f, COL_WHITE);
 
     draw_text("A)",             10,  42, 0.5f, COL_GRAY);
@@ -265,6 +460,13 @@ static void render_quiz(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_summary(LessonBlock* b)
 {
+
+    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+    draw_text("Sumario: ", 10,  170,  1.0f, COL_BLACK);
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+
+    C2D_SceneBegin(bottom);
+
     draw_text(b->SUMMARY_LINE1, 10, 20, 0.5f, COL_WHITE);
     draw_text(b->SUMMARY_LINE2, 10, 50, 0.5f, COL_WHITE);
     draw_text(b->SUMMARY_LINE3, 10, 80, 0.5f, COL_WHITE);

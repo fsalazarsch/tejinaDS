@@ -50,6 +50,9 @@ typedef struct
 #define DIALOG_PORTRAIT  field1
 #define DIALOG_NAME      field2
 #define DIALOG_TEXT      field3
+#define DIALOG_LINE1     field4
+#define DIALOG_LINE2     field5
+#define DIALOG_LINE3     field6
 
 /* ---------------------------------------------------------
    TERM
@@ -66,6 +69,8 @@ typedef struct
 #define COMPARE_LEFT         field2
 #define COMPARE_RIGHT_TITLE  field3
 #define COMPARE_RIGHT        field4
+#define COMPARE_TEXT         field5
+
 
 /* ---------------------------------------------------------
    EXAMPLE

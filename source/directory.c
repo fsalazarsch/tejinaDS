@@ -31,7 +31,7 @@ char currentLessonPath[256];
 
 int lastTouchX, lastTouchY = -1;
 
-int opc = 0;
+int noptn = -1;
 
 #define SCREEN_WIDTH_TOP 400
 #define SCREEN_HEIGHT_TOP 240

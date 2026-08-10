@@ -1,4 +1,4 @@
-# =========================================================
+﻿# =========================================================
 # LECCION: ESTRUCTURA SOV
 # Archivo: grammar_sov.txt
 # =========================================================
@@ -16,10 +16,6 @@
 portrait=happy
 name=Sensei
 text=¡Hoy aprenderemos cómo se organizan\nlas oraciones en japonés!
-line1=私は寿司を食べる
-line2=[red]私[/red][blue]は[/blue][red]寿司[/red][green]を[/green][red]食[/red][blue]べる[/blue]
-line3=Yo sushi como
-
 
 # ---------------------------------------------------------
 
@@ -46,9 +42,6 @@ text=Eso significa que el verbo\nnormalmente va al final.
 # =========================================================
 
 [compare]
-
-text= Observa el ejemplo.
-
 left_title=Español
 left=Yo como sushi
 
@@ -70,14 +63,60 @@ name=Sensei
 text=Observa cómo la acción aparece al\nfinal de la oración.
 
 # =========================================================
-# PARTICULAS BASICAS
+# VISUAL PROGRESIVO
 # =========================================================
 
-[particle]
-symbol=私
-name=watashi
-function= Pronombre Yo (universal)
+[sequence]
+step=YO
 
+# ---------------------------------------------------------
+
+[sequence]
+step=YO → SUSHI
+
+# ---------------------------------------------------------
+
+[sequence]
+step=YO → SUSHI → COMER
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=happy
+name=Sensei
+text=\n¡Ese es el orden básico japonés!
+
+# =========================================================
+# EXPLICACION SIMPLE
+# =========================================================
+
+[grammar_box]
+title=Orden Japonés
+content=Sujeto → Objeto → Verbo
+
+# ---------------------------------------------------------
+
+[grammar_box]
+title=Orden Español
+content=Sujeto → Verbo → Objeto
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=thinking
+name=Sensei
+text=En español el verbo suele ir\nantes del objeto.
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=focused
+name=Sensei
+text=Pero en japonés normalmente el\nverbo aparece al final.
+
+# =========================================================
+# PARTICULAS BASICAS
+# =========================================================
 
 [particle]
 symbol=は
@@ -93,78 +132,47 @@ function=Marca el objeto directo
 
 # ---------------------------------------------------------
 
-[particle]
-symbol=食べる
-name=taberu
-function=Forma diccionario del verbo comer
-
-# ---------------------------------------------------------
-
-[dialog]
-portrait=focused
-name=Sensei
-text=Ahora otro ejemplo.
-
-# ---------------------------------------------------------
-
-# =========================================================
-# Ejemplo 2
-# =========================================================
-
 [example]
 jp=私は水を飲む
 romaji=watashi wa mizu o nomu
 es=Yo agua bebo
 
-[particle]
-symbol=私は
-name=watashi wa
-function= Yo + (tema)
-
-[particle]
-symbol=水 を
-name=mizu o
-function=Agua + (objeto)
-
-[particle]
-symbol=飲む
-name=nomu
-function=Forma diccionario del verbo beber
-
-# =========================================================
-# MINI ANALISIS (lo dejaremos para posibles necesidades futuras)
-# =========================================================
-
-#[breakdown]
-#jp=私は水を飲む
-
-#line1=私 は
-#line1_es=Yo
-
-#line2=水 を
-#line2_es=Agua
-
-#line3=飲む
-#line3_es=Beber
-
-
-# =========================================================
-# CORTINA
-# =========================================================
+# ---------------------------------------------------------
 
 [dialog]
 portrait=focused
 name=Sensei
-text=Reforcemos lo aprendido.
+text=飲む significa "beber".
+
+# =========================================================
+# MINI ANALISIS
+# =========================================================
+
+[breakdown]
+jp=私は水を飲む
+
+line1=私 は
+line1_es=Yo
+
+line2=水 を
+line2_es=Agua
+
+line3=飲む
+line3_es=Beber
 
 # ---------------------------------------------------------
+
+[dialog]
+portrait=thinking
+name=Sensei
+text=¿Notas que la acción aparece al final?
 
 # =========================================================
 # QUIZ 1
 # =========================================================
 
 [quiz]
-question=¿Dónde va normalmente el verbo\nen japonés?
+question=¿Dónde va normalmente el verbo en japonés?
 
 a=Al inicio
 b=Al medio
@@ -216,8 +224,8 @@ text=¡Ya aprendiste la estructura\nbásica japonesa!
 
 # ---------------------------------------------------------
 
-#[sfx]
-#id=lesson_complete
+[sfx]
+id=lesson_complete
 
 # ---------------------------------------------------------
 
@@ -233,3 +241,4 @@ lesson=GRAMMAR_PARTICLES_WA
 # =========================================================
 # FIN
 # =========================================================
+```

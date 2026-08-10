@@ -110,7 +110,9 @@ renderer.o: C:/laragon/www/personal/tejinaDS/source/lessons/renderer.c \
  C:/devkitPro/libctru/include/c2d/sprite.h \
  C:/devkitPro/libctru/include/c2d/text.h \
  C:/devkitPro/libctru/include/c2d/font.h \
- C:/laragon/www/personal/tejinaDS/source/lessons/lesson.h
+ C:/laragon/www/personal/tejinaDS/source/lessons/lesson.h \
+ C:/laragon/www/personal/tejinaDS/source/functions.h \
+ C:/laragon/www/personal/tejinaDS/source/themes.h
 C:/devkitPro/libctru/include/citro2d.h:
 C:/devkitPro/libctru/include/citro3d.h:
 C:/devkitPro/libctru/include/c3d/types.h:
@@ -223,3 +225,5 @@ C:/devkitPro/libctru/include/c2d/sprite.h:
 C:/devkitPro/libctru/include/c2d/text.h:
 C:/devkitPro/libctru/include/c2d/font.h:
 C:/laragon/www/personal/tejinaDS/source/lessons/lesson.h:
+C:/laragon/www/personal/tejinaDS/source/functions.h:
+C:/laragon/www/personal/tejinaDS/source/themes.h:
