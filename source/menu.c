@@ -193,7 +193,13 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
    			//init_ideograma(0x611B, false);  // 愛 estático
 			//init_ideograma(0x611B, true);   // 愛 animado
    		}
+
    	if (strcmp(optn, " Ⓐ Oraciones") == 0)
+   	{
+   		noptn = 12001;
+   	}
+   	
+   	if (strcmp(optn, " Ⓐ Orden SOV") == 0)
    	{
    		currentScene = SCENE_GRAMMAR_001;
    	}
@@ -206,6 +212,7 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 	//C2D_TextOptimize(&teststring);	
 	//C2D_DrawText(&teststring, C2D_AtBaseline, 20, 20, 0.0f, 1.0f, 1.0f, 0x000000FF);
 
+   	//codigo  
 
     switch(noptn){
     	case 0:
@@ -238,6 +245,17 @@ MenuResult display_menu(C2D_TextBuf g_staticBuf, const char* optn, C2D_Font font
 	        menu[3] = "  Ⓨ  Adjetivos (10|14)";
 	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
 	        break;
+
+
+	    case 12001: 
+	        menu[0] = " Ⓐ Orden SOV";
+	        menu[1] = "  Ⓑ  Tema y comentario";
+	        menu[2] = "  Ⓧ  Omisión del sujeto";
+	        menu[3] = "  Ⓨ  Preguntas básicas";
+	        colors[0] = colors[1] = colors[2] = colors[3] = themes[currentTheme].accent;
+	        break;
+	        
+
     	case 12100:
 	        menu[0] = " Ⓐ Sustantivos (0|4)";
 	        menu[1] = "  Ⓑ  Conectores (0|5)";

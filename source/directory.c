@@ -45,6 +45,7 @@ Keyboard kbd;
 C2D_Text input_text;
 static int lessonLoaded = 0;
 int currentBlock = 0;
+int totalBlocks = 0;
 
 static void sceneInit(void)
 {
@@ -63,26 +64,72 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 
 	if (currentScene == SCENE_GRAMMAR_001)
 	{
-	    if (!lessonLoaded)
+	    
+	    if (lessonLoaded == 0)
 	    {
 	        strcpy(currentLessonPath, "romfs:/lessons/grammar_sov_001.txt");
-	        lesson_load(currentLessonPath, &lesson);
+	        totalBlocks = lesson_load(currentLessonPath, &lesson);
 	        currentBlock = 0;
 	        lessonLoaded = 1;
 	    }
 
-	    if (kDown & KEY_RIGHT) currentBlock++;
-	    if (kDown & KEY_LEFT)  currentBlock--;
+	     /* =====================================================
+       INPUT SEGÚN TIPO DE BLOQUE
+       ===================================================== */
+
+    if (lesson.blocks[currentBlock].type == BLOCK_QUIZ)
+    {
+        /* SOLO A/B/X/Y */
+        if (kDown & KEY_A)
+        {
+            // respuesta A
+        }
+
+        if (kDown & KEY_B)
+        {
+            // respuesta B
+        }
+
+        if (kDown & KEY_X)
+        {
+            // respuesta C
+        }
+
+        if (kDown & KEY_Y)
+        {
+            // respuesta D, si la agregas
+        }
+    }
+    else
+    {
+        /* BLOQUES NORMALES */
+
+	    if (kDown & KEY_RIGHT) 
+	    	if (currentBlock < totalBlocks-1 )
+	    		currentBlock++;
+
+
+	    if (kDown & KEY_LEFT)  
+	    	if (currentBlock > 0)
+	    		currentBlock--;
+	    
+	    if (currentBlock >= 0){
+	    	C2D_SceneBegin(top);
+	    	lesson_render_block(&lesson, currentBlock);
+		}
 
 	    if (kDown & KEY_B)
 	    {
+	    	currentBlock = -1;    
 	        currentScene = SCENE_MENU;
-	        lessonLoaded = 0;   /* para recargar si vuelves */
+	        lessonLoaded = -1;   /* para recargar si vuelves */
 	    }
+
+	}
 	}
 
 
- 	if (currentScene == SCENE_TABLA_HIRAGANA) {
+ 	else if (currentScene == SCENE_TABLA_HIRAGANA) {
         mostrar_tabla(top, bottom, g_staticBuf, font2, font, &tablaState);
     	}
     else if (currentScene == SCENE_TEST_KANA) {
@@ -133,8 +180,7 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 	else if(currentScene == SCENE_GRAMMAR_001){
 
     	//lesson_render(&lesson);
-	    C2D_SceneBegin(top);
-	    lesson_render_block(&lesson, currentBlock);
+
 
  		}
 	else {

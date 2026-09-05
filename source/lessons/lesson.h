@@ -53,6 +53,8 @@ typedef struct
 #define DIALOG_LINE1     field4
 #define DIALOG_LINE2     field5
 #define DIALOG_LINE3     field6
+#define DIALOG_LINE4     field7
+
 
 /* ---------------------------------------------------------
    TERM

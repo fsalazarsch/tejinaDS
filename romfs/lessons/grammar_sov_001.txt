@@ -16,87 +16,98 @@
 portrait=happy
 name=Sensei
 text=¡Hoy aprenderemos cómo se organizan\nlas oraciones en japonés!
-line1=私は寿司を食べる
-line2=[red]私[/red][blue]は[/blue][red]寿司[/red][green]を[/green][red]食[/red][blue]べる[/blue]
-line3=Yo sushi como
-
+line1=[red]Yo [/red][green] como [/green][blue]  sushi[/blue]
+line2=[red]watashi    [/red][black]wa  [/black][blue]sushi  [/blue][black] o [/black][green] taberu[/green]
+line3=[red]わたし [/red][black]は [/black][blue]すし [/blue][black]を [/black][green]たべる[/green]
+line4=[red]私[/red][black]は [/black][blue]寿司 [/blue][black]を [/black][green]食べる[/green]
 
 # ---------------------------------------------------------
 
 [dialog]
 portrait=neutral
 name=Sensei
-text=El japonés normalmente usa una\nestructura llamada SOV.
+text=En español normalmente decimos\n"Yo como sushi".
+line1=[red]Yo [/red][green] como [/green][blue]  sushi[/blue]
+line2=[red]watashi    [/red][black]wa  [/black][blue]sushi  [/blue][black] o [/black][green] taberu[/green]
+line3=[red]わたし [/red][black]は [/black][blue]すし [/blue][black]を [/black][green]たべる[/green]
+line4=[red]私[/red][black]は [/black][blue]寿司 [/blue][black]を [/black][green]食べる[/green]
 
 # ---------------------------------------------------------
 
-[term]
-word=SOV
-meaning=Sujeto Objeto Verbo
+[dialog]
+portrait=neutral
+name=Sensei
+text=Mientras que en el japonés el verbo \nnormalmente va al final.
+line1=[red]Yo [/red][green] como [/green][blue]  sushi[/blue]
+line2=[red]watashi    [/red][black]wa  [/black][blue]sushi  [/blue][black] o [/black][green] taberu[/green]
+line3=[red]わたし [/red][black]は [/black][blue]すし [/blue][black]を [/black][green]たべる[/green]
+line4=[red]私[/red][black]は [/black][blue]寿司 [/blue][black]を [/black][green]食べる[/green]
+
 
 # ---------------------------------------------------------
 
 [dialog]
 portrait=thinking
 name=Sensei
-text=Eso significa que el verbo\nnormalmente va al final.
-
-# =========================================================
-# COMPARACION VISUAL
-# =========================================================
-
-[compare]
-
-text= Observa el ejemplo.
-
-left_title=Español
-left=Yo como sushi
-
-right_title=Japonés
-right=Yo sushi como
-
-# ---------------------------------------------------------
-
-[example]
-jp=私は寿司を食べる
-romaji=watashi wa sushi o taberu
-es=Yo sushi como
+text=Esta estructura es llamada SOV\n(Sujeto-> Objeto -> Verbo)
+line1=[red]Yo [/red][green] como [/green][blue]  sushi[/blue]
+line2=[red]watashi    [/red][black]wa  [/black][blue]sushi  [/blue][black] o [/black][green] taberu[/green]
+line3=[red]わたし [/red][black]は [/black][blue]すし [/blue][black]を [/black][green]たべる[/green]
+line4=[red]私[/red][black]は [/black][blue]寿司 [/blue][black]を [/black][green]食べる[/green]
 
 # ---------------------------------------------------------
 
 [dialog]
 portrait=focused
 name=Sensei
-text=Observa cómo la acción aparece al\nfinal de la oración.
-
-# =========================================================
-# PARTICULAS BASICAS
-# =========================================================
-
-[particle]
-symbol=私
-name=watashi
-function= Pronombre Yo (universal)
-
-
-[particle]
-symbol=は
-name=wa
-function=Marca el tema
+text=Ahora veamos cada una de las palabras.
+line1=[red]Yo [/red][green] como [/green][blue]  sushi[/blue]
+line2=[red]watashi    [/red][black]wa  [/black][blue]sushi  [/blue][black] o [/black][green] taberu[/green]
+line3=[red]わたし [/red][black]は [/black][blue]すし [/blue][black]を [/black][green]たべる[/green]
+line4=[red]私[/red][black]は [/black][blue]寿司 [/blue][black]を [/black][green]食べる[/green]
 
 # ---------------------------------------------------------
 
-[particle]
-symbol=を
-name=o
-function=Marca el objeto directo
+[dialog]
+portrait=focused
+name=Sensei
+text=Ahora veamos cada una de las palabras.
+line1=[black]Romaji: watashi[/black]
+line2=[black]Hiragana: わたし[/black]
+line3=[black]Kanji: 私[/black]
+line4=[black]Sig: Yo (universal)[/black]
 
 # ---------------------------------------------------------
 
-[particle]
-symbol=食べる
-name=taberu
-function=Forma diccionario del verbo comer
+[dialog]
+portrait=focused
+name=Sensei
+text=Ahora veamos cada una de las palabras.
+line1=[black]Romaji: wa[/black]
+line2=[black]Hiragana: は - Se escribe 'ha'[/black]
+line3=[black]pero se pronuncia como 'wa'[/black]
+line4=[black]Sig: Marca el tema[/black]
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=focused
+name=Sensei
+text=Ahora veamos cada una de las palabras.
+line1=[black]Romaji: Sushi[/black]
+line2=[black]Hiragana: すし[/black]
+line3=[black]Kanji: 寿司 [/black]
+
+# ---------------------------------------------------------
+
+[dialog]
+portrait=focused
+name=Sensei
+text=Ahora veamos cada una de las palabras.
+line1=[black]Romaji: taberu[/black]
+line2=[black]Hiragana: たべる[/black]
+line3=[black]Kanji: 食べる [/black]
+line4=[black]Sig: comer (Forma diccionario)[/black]
 
 # ---------------------------------------------------------
 
@@ -104,49 +115,54 @@ function=Forma diccionario del verbo comer
 portrait=focused
 name=Sensei
 text=Ahora otro ejemplo.
+line1=[red]Yo [/red][green] bebo [/green][blue]  agua[/blue]
+line2=[red]watashi    [/red][black]wa  [/black][blue]mizu  [/blue][black] o [/black][green] nomu[/green]
+line3=[red]わたし [/red][black]は [/black][blue]みず [/blue][black]を [/black][green]のむ[/green]
+line4=[red]私[/red][black]は [/black][blue]水 [/blue][black]を [/black][green]飲む[/green]
 
 # ---------------------------------------------------------
 
-# =========================================================
-# Ejemplo 2
-# =========================================================
+[dialog]
+portrait=focused
+name=Sensei
+text=Observa cómo la acción aparece al\nfinal de la oración.
+line1=[red]Yo [/red][green] bebo [/green][blue]  agua[/blue]
+line2=[red]watashi    [/red][black]wa  [/black][blue]mizu  [/blue][black] o [/black][green] nomu[/green]
+line3=[red]わたし [/red][black]は [/black][blue]みず [/blue][black]を [/black][green]のむ[/green]
+line4=[red]私[/red][black]は [/black][blue]水 [/blue][black]を [/black][green]飲む[/green]
 
-[example]
-jp=私は水を飲む
-romaji=watashi wa mizu o nomu
-es=Yo agua bebo
+# ---------------------------------------------------------
 
-[particle]
-symbol=私は
-name=watashi wa
-function= Yo + (tema)
+[dialog]
+portrait=focused
+name=Sensei
+text=Veamos las nuevas palabras
+line1=[black]Romaji: mizu[/black]
+line2=[black]Hiragana: みず[/black]
+line3=[black]Kanji: 水 [/black]
+line4=[black]Sig: Agua[/black]
 
-[particle]
-symbol=水 を
-name=mizu o
-function=Agua + (objeto)
+# ---------------------------------------------------------
 
-[particle]
-symbol=飲む
-name=nomu
-function=Forma diccionario del verbo beber
+[dialog]
+portrait=focused
+name=Sensei
+text=Veamos las nuevas palabras
+line1=[black]Romaji: nomu[/black]
+line2=[black]Hiragana: のむ[/black]
+line3=[black]Kanji: 飲む [/black]
+line4=[black]Sig: beber (Forma diccionario)[/black]
 
-# =========================================================
-# MINI ANALISIS (lo dejaremos para posibles necesidades futuras)
-# =========================================================
+# ---------------------------------------------------------
 
-#[breakdown]
-#jp=私は水を飲む
-
-#line1=私 は
-#line1_es=Yo
-
-#line2=水 を
-#line2_es=Agua
-
-#line3=飲む
-#line3_es=Beber
-
+[dialog]
+portrait=thinking
+name=Sensei
+text=Observa cómo la acción aparece al\nfinal de la oración
+line1=[black]Yo sushi  [/black][blue]  comer[/blue]
+line2=[black]私は寿司を [/black][blue]食べる[/blue]
+line3=[black]Yo agua  [/black][blue]  beber[/blue]
+line4=[black]私は水を [/black][blue]飲む[/blue]
 
 # =========================================================
 # CORTINA
@@ -163,17 +179,48 @@ text=Reforcemos lo aprendido.
 # QUIZ 1
 # =========================================================
 
+[dialog]
+portrait=thinking
+name=Sensei
+text=¿Dónde va normalmente el verbo\nen japonés?
+line1=[black]A) Al inicio[/black]
+line2=[black]B) Al medio[/black]
+line3=[black]X) Al final[/black]
+
+#correct=c
+#success_text=¡Correcto! El verbo normalmente va al final.
+#fail_text=No exactamente. En japonés el verbo suele ir al final.
+
+# ---------------------------------------------------------
+
+
+
 [quiz]
+name=Sensei
 question=¿Dónde va normalmente el verbo\nen japonés?
-
-a=Al inicio
-b=Al medio
-c=Al final
-
+a=[black]A) Al inicio[/black]
+b=[black]B) Al medio[/black]
+c=[black]X) Al final[/black]
 correct=c
-
 success_text=¡Correcto! El verbo normalmente va al final.
 fail_text=No exactamente. En japonés el verbo suele ir al final.
+
+# =========================================================
+# QUIZ 2
+# =========================================================
+
+[dialog]
+portrait=thinking
+name=Sensei
+text=¿Cuál de estas sigue el orden\njaponés?
+line1=[black]Ⓐ Yo como sushi[/black]
+line2=[black]B) Yo sushi como[/black]
+line3=[black]X) Como yo sushi[/black]
+
+
+#correct=b
+#success_text=¡Exacto!
+#fail_text=Recuerda: sujeto → objeto → verbo.
 
 # ---------------------------------------------------------
 
@@ -182,48 +229,27 @@ portrait=happy
 name=Sensei
 text=¡Muy bien!
 
-# =========================================================
-# QUIZ 2
-# =========================================================
+# ---------------------------------------------------------
 
-[quiz]
-question=¿Cuál de estas sigue el orden japonés?
-
-a=Yo como sushi
-b=Yo sushi como
-c=Como yo sushi
-
-correct=b
-
-success_text=¡Exacto!
-fail_text=Recuerda: sujeto → objeto → verbo.
-
-# =========================================================
-# RESUMEN FINAL
-# =========================================================
-
-[summary]
-line1=El japonés usa estructura SOV.
-line2=El verbo normalmente va al final.
-line3=Las partículas ayudan a identificar funciones.
+[dialog]
+portrait=focused
+name=Sensei
+text=Sumario:
+line1=[black]El japonés usa estructura SOV.[/black]
+line2=[black]El verbo va al final.[/black]
+line3=[black]Las partículas ayudan a [/black]
+line4=[black]identificar funciones.[/black]
 
 # ---------------------------------------------------------
 
 [dialog]
-portrait=triumphant
+portrait=triunfante
 name=Sensei
 text=¡Ya aprendiste la estructura\nbásica japonesa!
+line1=[black]Haz ganado  [/black][blue]   +50XP[/blue]
+line2=[black] → Siguiente Leccion [/black]
+line3=[black] ↑ Salir [/black]
 
-# ---------------------------------------------------------
-
-#[sfx]
-#id=lesson_complete
-
-# ---------------------------------------------------------
-
-[reward]
-type=xp
-value=50
 
 # ---------------------------------------------------------
 

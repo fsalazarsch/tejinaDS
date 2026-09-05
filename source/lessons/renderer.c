@@ -34,7 +34,7 @@ extern C3D_RenderTarget *bottom;
 #define COL_CYAN    C2D_Color32( 80, 220, 255, 255)
 #define COL_BLUE    C2D_Color32( 0, 0, 255, 255)
 #define COL_RED    C2D_Color32( 255, 0, 0, 255)
-#define COL_GREEN   C2D_Color32(100, 230, 100, 255)
+#define COL_GREEN   C2D_Color32(0, 100, 0, 255)
 #define COL_BLACK   C2D_Color32(0, 0, 0, 255)
 #define COL_GRAY    C2D_Color32(180, 180, 180, 255)
 #define COL_BG_DARK C2D_Color32( 20,  20,  20, 50)
@@ -106,6 +106,7 @@ int obtener_codigo_color(const char *nombre_color, size_t len) {
     if (strncmp(nombre_color, "red", len) == 0) return 1;
     if (strncmp(nombre_color, "blue", len) == 0) return 2;
     if (strncmp(nombre_color, "green", len) == 0) return 3;
+    if (strncmp(nombre_color, "black", len) == 0) return 4;
     return 0; // Color desconocido
 }
 
@@ -166,13 +167,24 @@ void draw_colored_text(const char* str, float x, float y, float sz){
     // Mostrar resultados de los arreglos
     for (int i = 0; i < total; i++) {
         //printf("\"%s\"%s", lista_textos[i], (i == total - 1) ? "" : ", ");
-        if ( lista_colores[i] == 1)
-             color = COL_RED;
-        if ( lista_colores[i] == 2)
-             color = COL_BLUE;
-        if ( lista_colores[i] == 3)
-             color = COL_GREEN;
-         
+        switch(lista_colores[i]){
+        case 1:
+            color = COL_RED;
+            break;
+        case 2:
+            color = COL_BLUE;
+            break;
+        case 3:
+            color = COL_GREEN;
+            break;
+        case 4:
+            color = COL_BLACK;
+            break;
+        default:
+            color = COL_BLACK;
+
+        } 
+
         draw_text(lista_textos[i], x, y, sz, color);
         x += (6 *strlen(lista_textos[i]));
     }
@@ -196,6 +208,7 @@ static int portrait_index(const char* name) {
     if (strcmp(name, "neutral")   == 0) return PORTRAIT_NEUTRAL;
     if (strcmp(name, "happy")     == 0) return PORTRAIT_HAPPY;
     if (strcmp(name, "thinking") == 0) return PORTRAIT_THINKING;
+    if (strcmp(name, "thinking2") == 0) return PORTRAIT_THINKING2;
     if (strcmp(name, "triunfante") == 0) return PORTRAIT_TRIUNFANTE;
     return 0; // neutral por defecto
 }
@@ -242,26 +255,19 @@ static void render_dialog(LessonBlock* b)
     draw_text_f(b->DIALOG_NAME, 10, 10, 0.6f, COL_YELLOW, fontdialog);
 
     draw_typewriter(10, 170, 0.9f, COL_BLACK);
-    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
-    
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);    
     C2D_SceneBegin(bottom);
-
-
-
-    
 
     //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12, pos_y, SCREEN_WIDTH, SCREEN_HEIGHT/8, 10, color);
     //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12+2, pos_y+2, SCREEN_WIDTH-4, SCREEN_HEIGHT/8-4, 10, color2);
 
-
     DrawRoundedRect(15, 15, 290, 150, 10, COL_BLACK);
     DrawRoundedRect(17, 17, 286, 146, 10, COL_BG_DARK2);
-    //C2D_DrawRectSolid(15, 15, 1.0f, 380, 150, COL_BG_DARK);
 
-    draw_text(b->DIALOG_LINE1, 25, 25, 0.9f, COL_RED);
+    draw_colored_text(b->DIALOG_LINE1, 25, 25, 0.9f);
     draw_colored_text(b->DIALOG_LINE2, 25, 55, 0.9f);
-    //draw_text(b->DIALOG_LINE2, 25, 55, 0.9f, COL_BLACK);
-    draw_text(b->DIALOG_LINE3, 25, 85, 0.9f, COL_BLACK);
+    draw_colored_text(b->DIALOG_LINE3, 25, 85, 0.9f);
+    draw_colored_text(b->DIALOG_LINE4, 25, 115, 0.9f);
     
 }
 
@@ -421,7 +427,7 @@ static void render_breakdown(LessonBlock* b)
 
     draw_text(b->BREAKDOWN_LINE3,    10,  94, 0.55f, COL_YELLOW);
     draw_text(b->BREAKDOWN_LINE3_ES, 120, 94, 0.5f,  COL_WHITE);
-}
+} 
 
 /* ---------------------------------------------------------
    QUIZ
@@ -432,8 +438,36 @@ static void render_quiz(LessonBlock* b)
     
     
 
+    if (strcmp(typewriter_buf, b->QUIZ_QUESTION) != 0)
+    {
+        typewriter_set(b->QUIZ_QUESTION);
+        portrait_set(2);
+    }
+    
 
     C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+    //draw_text_f(b->DIALOG_NAME, 10, 10, 0.6f, COL_YELLOW, fontdialog);
+
+    draw_typewriter(10, 170, 0.9f, COL_BLACK);
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);    
+    C2D_SceneBegin(bottom);
+
+    //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12, pos_y, SCREEN_WIDTH, SCREEN_HEIGHT/8, 10, color);
+    //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12+2, pos_y+2, SCREEN_WIDTH-4, SCREEN_HEIGHT/8-4, 10, color2);
+
+    DrawRoundedRect(15, 15, 290, 150, 10, COL_BLACK);
+    DrawRoundedRect(17, 17, 286, 146, 10, COL_BG_DARK2);
+
+    draw_colored_text(b->QUIZ_A, 25, 25, 0.9f);
+    draw_colored_text(b->QUIZ_B, 25, 55, 0.9f);
+    draw_colored_text(b->QUIZ_C, 25, 85, 0.9f);
+    //draw_colored_text(b->DIALOG_LINE4, 25, 115, 0.9f);
+    
+
+
+
+
+    /*C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
     
     draw_text(b->QUIZ_QUESTION, 10,  170,  1.0f, COL_BLACK);
 
@@ -451,7 +485,8 @@ static void render_quiz(LessonBlock* b)
     draw_text(b->QUIZ_B,        30,  68, 0.5f, COL_WHITE);
 
     draw_text("C)",             10,  94, 0.5f, COL_GRAY);
-    draw_text(b->QUIZ_C,        30,  94, 0.5f, COL_WHITE);
+    draw_text(b->QUIZ_C,        30,  94, 0.5f, COL_WHITE);*/
+
 }
 
 /* ---------------------------------------------------------

@@ -71,9 +71,11 @@ static void set_field(LessonBlock* block,
             strcpy(block->DIALOG_TEXT,     value);
             unescape(block->DIALOG_TEXT);
             }
-            else if(strcmp(key, "line1")     == 0) strcpy(block->DIALOG_LINE1,     value);
-            else if(strcmp(key, "line2") == 0) strcpy(block->DIALOG_LINE2, value);
-            else if(strcmp(key, "line3")     == 0) strcpy(block->DIALOG_LINE3,     value);
+            else if(strcmp(key, "line1")     == 0) strcpy(block->DIALOG_LINE1, value);
+            else if(strcmp(key, "line2")     == 0) strcpy(block->DIALOG_LINE2, value);
+            else if(strcmp(key, "line3")     == 0) strcpy(block->DIALOG_LINE3, value);
+            else if(strcmp(key, "line4")     == 0) strcpy(block->DIALOG_LINE4, value);
+            
             
             break;
 
@@ -289,5 +291,5 @@ int lesson_load(const char* filename, Lesson* lesson)
 
     fclose(fp);
 
-    return 1;
+    return lesson->totalBlocks++;
 }
