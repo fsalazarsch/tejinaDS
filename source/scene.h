@@ -6,6 +6,9 @@ typedef enum {
     SCENE_TABLA_HIRAGANA,
     SCENE_TEST_KANA,
     SCENE_GRAMMAR_001,
+    SCENE_GRAMMAR_002,
+    SCENE_GRAMMAR_003,
+    
 
 } SceneID;
 

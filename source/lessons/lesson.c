@@ -8,7 +8,7 @@
 
 #include "lesson.h"
 
-static void unescape(char* str) {
+void unescape(char* str) {
     char* src = str;
     char* dst = str;
     while (*src) {
@@ -155,7 +155,10 @@ static void set_field(LessonBlock* block,
            ----------------------------------------------------- */
         case BLOCK_QUIZ:
 
-            if     (strcmp(key, "question")     == 0) strcpy(block->QUIZ_QUESTION,     value);
+            if     (strcmp(key, "question")     == 0){
+            strcpy(block->QUIZ_QUESTION,     value);
+            unescape(block->QUIZ_QUESTION);
+            }
             else if(strcmp(key, "a")            == 0) strcpy(block->QUIZ_A,            value);
             else if(strcmp(key, "b")            == 0) strcpy(block->QUIZ_B,            value);
             else if(strcmp(key, "c")            == 0) strcpy(block->QUIZ_C,            value);
@@ -196,7 +199,18 @@ static void set_field(LessonBlock* block,
            ----------------------------------------------------- */
         case BLOCK_UNLOCK:
 
-            if(strcmp(key, "lesson") == 0) strcpy(block->UNLOCK_LESSON, value);
+            
+            if     (strcmp(key, "portrait") == 0) strcpy(block->UNLOCK_PORTRAIT, value);
+            else if(strcmp(key, "name")     == 0) strcpy(block->UNLOCK_NAME,     value);
+            else if(strcmp(key, "text")     == 0){
+            strcpy(block->UNLOCK_TEXT,     value);
+            unescape(block->UNLOCK_TEXT);
+            }
+            else if(strcmp(key, "line1")     == 0) strcpy(block->UNLOCK_LINE1, value);
+            else if(strcmp(key, "line2")     == 0) strcpy(block->UNLOCK_LINE2, value);
+            else if(strcmp(key, "line3")     == 0) strcpy(block->UNLOCK_LINE3, value);
+            else if(strcmp(key, "line4")     == 0) strcpy(block->UNLOCK_LINE4, value);
+            
             break;
 
         default:

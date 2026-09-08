@@ -33,7 +33,7 @@ extern C3D_RenderTarget *bottom;
 #define COL_YELLOW  C2D_Color32(255, 220,  80, 255)
 #define COL_CYAN    C2D_Color32( 80, 220, 255, 255)
 #define COL_BLUE    C2D_Color32( 0, 0, 255, 255)
-#define COL_RED    C2D_Color32( 255, 0, 0, 255)
+#define COL_RED    C2D_Color32( 128, 0, 128, 255)
 #define COL_GREEN   C2D_Color32(0, 100, 0, 255)
 #define COL_BLACK   C2D_Color32(0, 0, 0, 255)
 #define COL_GRAY    C2D_Color32(180, 180, 180, 255)
@@ -229,6 +229,46 @@ void typewriter_set(const char* text)
     typewriter_timer = 0;
 }
 
+static void render_dialog_data(
+    const char* portrait,
+    const char* name,
+    const char* text,
+    const char* line1,
+    const char* line2,
+    const char* line3,
+    const char* line4
+)
+{
+    //dibujar a  mai acá
+    /* --- Dibujar portrait --- */
+    //int portrait_current = portrait_index(b->DIALOG_PORTRAIT);
+
+
+    if (strcmp(typewriter_buf, text) != 0)
+    {
+        typewriter_set(text);
+        portrait_set(portrait_index(portrait));
+    }
+
+    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
+
+    draw_text_f(name, 10, 10, 0.6f, COL_YELLOW, fontdialog);
+
+    draw_typewriter(10, 170, 0.9f, COL_BLACK);
+
+    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);
+
+    C2D_SceneBegin(bottom);
+
+    DrawRoundedRect(15, 15, 290, 150, 10, COL_BLACK);
+    DrawRoundedRect(17, 17, 286, 146, 10, COL_BG_DARK2);
+
+    draw_colored_text(line1, 25, 25, 0.9f);
+    draw_colored_text(line2, 25, 55, 0.9f);
+    draw_colored_text(line3, 25, 85, 0.9f);
+    draw_colored_text(line4, 25, 115, 0.9f);
+}
+
 /* =========================================================
    RENDER POR TIPO
    ========================================================= */
@@ -239,36 +279,15 @@ void typewriter_set(const char* text)
    --------------------------------------------------------- */
 static void render_dialog(LessonBlock* b)
 {
-    //dibujar a  mai acá
-    /* --- Dibujar portrait --- */
-    //int portrait_current = portrait_index(b->DIALOG_PORTRAIT);
-
-
-    if (strcmp(typewriter_buf, b->DIALOG_TEXT) != 0)
-    {
-        typewriter_set(b->DIALOG_TEXT);
-        portrait_set(portrait_index(b->DIALOG_PORTRAIT));
-    }
-    
-
-    C2D_DrawRectSolid(3, 157, 1.0f, 393, 3, COL_BLACK);
-    draw_text_f(b->DIALOG_NAME, 10, 10, 0.6f, COL_YELLOW, fontdialog);
-
-    draw_typewriter(10, 170, 0.9f, COL_BLACK);
-    C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);    
-    C2D_SceneBegin(bottom);
-
-    //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12, pos_y, SCREEN_WIDTH, SCREEN_HEIGHT/8, 10, color);
-    //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12+2, pos_y+2, SCREEN_WIDTH-4, SCREEN_HEIGHT/8-4, 10, color2);
-
-    DrawRoundedRect(15, 15, 290, 150, 10, COL_BLACK);
-    DrawRoundedRect(17, 17, 286, 146, 10, COL_BG_DARK2);
-
-    draw_colored_text(b->DIALOG_LINE1, 25, 25, 0.9f);
-    draw_colored_text(b->DIALOG_LINE2, 25, 55, 0.9f);
-    draw_colored_text(b->DIALOG_LINE3, 25, 85, 0.9f);
-    draw_colored_text(b->DIALOG_LINE4, 25, 115, 0.9f);
-    
+    render_dialog_data(
+        b->DIALOG_PORTRAIT,
+        b->DIALOG_NAME,
+        b->DIALOG_TEXT,
+        b->DIALOG_LINE1,
+        b->DIALOG_LINE2,
+        b->DIALOG_LINE3,
+        b->DIALOG_LINE4
+    );
 }
 
 /* ---------------------------------------------------------
@@ -452,9 +471,7 @@ static void render_quiz(LessonBlock* b)
     C2D_DrawRectSolid(3, 160, 1.0f, 393, 78, COL_BG_DARK);    
     C2D_SceneBegin(bottom);
 
-    //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12, pos_y, SCREEN_WIDTH, SCREEN_HEIGHT/8, 10, color);
-    //DrawRoundedRect(pos_x+ SCREEN_HEIGHT/12+2, pos_y+2, SCREEN_WIDTH-4, SCREEN_HEIGHT/8-4, 10, color2);
-
+   
     DrawRoundedRect(15, 15, 290, 150, 10, COL_BLACK);
     DrawRoundedRect(17, 17, 286, 146, 10, COL_BG_DARK2);
 
@@ -553,7 +570,15 @@ static void render_reward(LessonBlock* b)
    --------------------------------------------------------- */
 static void render_unlock(LessonBlock* b)
 {
-    (void)b;
+    render_dialog_data(
+        b->UNLOCK_PORTRAIT,
+        b->UNLOCK_NAME,
+        b->UNLOCK_TEXT,
+        b->UNLOCK_LINE1,
+        b->UNLOCK_LINE2,
+        b->UNLOCK_LINE3,
+        b->UNLOCK_LINE4
+    );
 }
 
 /* =========================================================

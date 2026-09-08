@@ -157,7 +157,13 @@ typedef struct
    UNLOCK
    field1=lesson
    --------------------------------------------------------- */
-#define UNLOCK_LESSON    field1
+#define UNLOCK_PORTRAIT  field1
+#define UNLOCK_NAME      field2
+#define UNLOCK_TEXT      field3
+#define UNLOCK_LINE1     field4
+#define UNLOCK_LINE2     field5
+#define UNLOCK_LINE3     field6
+#define UNLOCK_LINE4     field7
 
 /* ========================================================= */
 
@@ -184,5 +190,6 @@ typedef enum {
 } PortraitID;
 
 int lesson_load(const char* filename, Lesson* lesson);
+void unescape(char* str);
 
 #endif

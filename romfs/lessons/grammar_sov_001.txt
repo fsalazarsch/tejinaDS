@@ -173,54 +173,44 @@ portrait=focused
 name=Sensei
 text=Reforcemos lo aprendido.
 
-# ---------------------------------------------------------
 
 # =========================================================
 # QUIZ 1
 # =========================================================
 
-[dialog]
-portrait=thinking
-name=Sensei
-text=¿Dónde va normalmente el verbo\nen japonés?
-line1=[black]A) Al inicio[/black]
-line2=[black]B) Al medio[/black]
-line3=[black]X) Al final[/black]
-
-#correct=c
-#success_text=¡Correcto! El verbo normalmente va al final.
-#fail_text=No exactamente. En japonés el verbo suele ir al final.
-
-# ---------------------------------------------------------
-
-
-
 [quiz]
 name=Sensei
 question=¿Dónde va normalmente el verbo\nen japonés?
-a=[black]A) Al inicio[/black]
-b=[black]B) Al medio[/black]
-c=[black]X) Al final[/black]
+a=[black](A) Al inicio[/black]
+b=[black](B) Al medio[/black]
+c=[black](X) Al final[/black]
 correct=c
-success_text=¡Correcto! El verbo normalmente va al final.
-fail_text=No exactamente. En japonés el verbo suele ir al final.
+success_text=¡Correcto! El verbo normalmente va\nal final.
+fail_text=No exactamente. En japonés el verbo suele\nir al final.
+
+# ---------------------------------------------------------
+[dialog]
+portrait=happy
+name=Sensei
+text=¡Muy bien!
+line1=[black](A) Al inicio[/black]
+line2=[black](B) Al medio[/black]
+line3=[blue](X) Al final[/blue]
 
 # =========================================================
 # QUIZ 2
 # =========================================================
 
-[dialog]
+[quiz]
 portrait=thinking
 name=Sensei
-text=¿Cuál de estas sigue el orden\njaponés?
-line1=[black]Ⓐ Yo como sushi[/black]
-line2=[black]B) Yo sushi como[/black]
-line3=[black]X) Como yo sushi[/black]
-
-
-#correct=b
-#success_text=¡Exacto!
-#fail_text=Recuerda: sujeto → objeto → verbo.
+question=¿Cuál de estas sigue el orden\njaponés?
+a=[black](A) Yo como sushi[/black]
+b=[black](B) Yo sushi como[/black]
+c=[black](X) Como yo sushi[/black]
+correct=b
+success_text=¡Exacto!
+fail_text=Recuerda: \nsujeto → objeto → verbo.
 
 # ---------------------------------------------------------
 
@@ -228,7 +218,9 @@ line3=[black]X) Como yo sushi[/black]
 portrait=happy
 name=Sensei
 text=¡Muy bien!
-
+line1=[black](A) Yo como sushi[/black]
+line2=[blue](B) Yo sushi como[/blue]
+line3=[black](X) Como yo sushi[/black]
 # ---------------------------------------------------------
 
 [dialog]
@@ -242,7 +234,7 @@ line4=[black]identificar funciones.[/black]
 
 # ---------------------------------------------------------
 
-[dialog]
+[unlock]
 portrait=triunfante
 name=Sensei
 text=¡Ya aprendiste la estructura\nbásica japonesa!
@@ -250,11 +242,6 @@ line1=[black]Haz ganado  [/black][blue]   +50XP[/blue]
 line2=[black] → Siguiente Leccion [/black]
 line3=[black] ↑ Salir [/black]
 
-
-# ---------------------------------------------------------
-
-[unlock]
-lesson=GRAMMAR_PARTICLES_WA
 
 # =========================================================
 # FIN

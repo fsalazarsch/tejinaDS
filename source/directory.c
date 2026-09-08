@@ -47,6 +47,44 @@ static int lessonLoaded = 0;
 int currentBlock = 0;
 int totalBlocks = 0;
 
+
+static const char* getLessonPath(int scene)
+{
+    switch (scene)
+    {
+        case SCENE_GRAMMAR_001:
+            return "romfs:/lessons/grammar_sov_001.txt";
+
+        case SCENE_GRAMMAR_002:
+            return "romfs:/lessons/grammar_particles_001.txt";
+
+        case SCENE_GRAMMAR_003:
+            return "romfs:/lessons/grammar_verbs_001.txt";
+
+        // Aquí agregas todas las lessons
+
+        default:
+            return NULL;
+    }
+}
+
+
+static int isLessonScene(int scene)
+{
+    switch (scene)
+    {
+        case SCENE_GRAMMAR_001:
+        case SCENE_GRAMMAR_002:
+        case SCENE_GRAMMAR_003:
+            return 1;
+
+        // Todas las escenas que sean lessons
+
+        default:
+            return 0;
+    }
+}
+
 static void sceneInit(void)
 {
 	// Create two text buffers: one for static text, and another one for
@@ -62,15 +100,33 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 	//menu = display_menu(g_staticBuf, menusel, font, fontkbd, font2, top, bottom);
 	//flag_display_menu = 1;
 
-	if (currentScene == SCENE_GRAMMAR_001)
+	if (isLessonScene(currentScene))
 	{
-	    
+	//if (currentScene == SCENE_GRAMMAR_001)
+	//{
+		
+		if (kDown & KEY_SELECT)
+	    {
+	        currentBlock = -1;
+	        currentScene = SCENE_MENU;
+	        lessonLoaded = 0;
+	        flag_display_menu = 1;
+	        strcpy(menusel, "main");
+	        return;
+	    }
+
 	    if (lessonLoaded == 0)
 	    {
-	        strcpy(currentLessonPath, "romfs:/lessons/grammar_sov_001.txt");
-	        totalBlocks = lesson_load(currentLessonPath, &lesson);
-	        currentBlock = 0;
-	        lessonLoaded = 1;
+	        const char *path = getLessonPath(currentScene);
+
+	        if (path != NULL)
+	        {
+	            strcpy(currentLessonPath, path);
+	            totalBlocks = lesson_load(currentLessonPath, &lesson);
+	            currentBlock = 0;
+	            lessonLoaded = 1;
+	        }
+
 	    }
 
 	     /* =====================================================
@@ -79,26 +135,57 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 
     if (lesson.blocks[currentBlock].type == BLOCK_QUIZ)
     {
+        char answer = 0;
         /* SOLO A/B/X/Y */
         if (kDown & KEY_A)
         {
-            // respuesta A
+            answer = 'a';
         }
 
         if (kDown & KEY_B)
         {
-            // respuesta B
-        }
+			answer = 'b';        
+		}
 
         if (kDown & KEY_X)
         {
-            // respuesta C
+	    	answer = 'c';
         }
 
         if (kDown & KEY_Y)
         {
-            // respuesta D, si la agregas
+            answer = 'd';
+
         }
+
+	    // Siempre avanza
+	   
+	    
+        /* Si se presionó una respuesta */
+	    if (answer != 0)
+	    {
+	        if (answer == lesson.blocks[currentBlock].QUIZ_CORRECT[0])
+	        {
+	            // CORRECTO
+	            strcpy(lesson.blocks[currentBlock + 1].DIALOG_TEXT, lesson.blocks[currentBlock].QUIZ_SUCCESS_TEXT);
+	            unescape(lesson.blocks[currentBlock + 1].DIALOG_TEXT);
+	        }
+	        else
+	        {
+	            strcpy(lesson.blocks[currentBlock + 1].DIALOG_TEXT, lesson.blocks[currentBlock].QUIZ_FAIL_TEXT);
+	            unescape(lesson.blocks[currentBlock + 1].DIALOG_TEXT);
+	        }
+
+	    
+		currentBlock++;
+	    C2D_SceneBegin(top);
+	    lesson_render_block(&lesson, currentBlock);
+		}
+        //voy adelante independiednte de la respuesta
+	else if (lesson.blocks[currentBlock].type == BLOCK_UNLOCK){
+		//if (kDown & KEY_R)
+    }
+    
     }
     else
     {
@@ -107,25 +194,19 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 	    if (kDown & KEY_RIGHT) 
 	    	if (currentBlock < totalBlocks-1 )
 	    		currentBlock++;
-
+	}
 
 	    if (kDown & KEY_LEFT)  
 	    	if (currentBlock > 0)
 	    		currentBlock--;
-	    
+	
+	
 	    if (currentBlock >= 0){
 	    	C2D_SceneBegin(top);
 	    	lesson_render_block(&lesson, currentBlock);
 		}
 
-	    if (kDown & KEY_B)
-	    {
-	    	currentBlock = -1;    
-	        currentScene = SCENE_MENU;
-	        lessonLoaded = -1;   /* para recargar si vuelves */
-	    }
-
-	}
+	
 	}
 
 
@@ -174,15 +255,7 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
 			//C2D_TextFontParse(&input_text, font, g_staticBuf, input_buffer);
 //C2D_TextOptimize(&input_text);
 //C2D_DrawText(&input_text, C2D_AtBaseline | C2D_WithColor, 10.0f, 20.0f, 0.5f, 0.7f, 0.7f, C2D_Color32(0xFF, 0xFF, 0xFF, 0xFF));
-
-
 		} 
-	else if(currentScene == SCENE_GRAMMAR_001){
-
-    	//lesson_render(&lesson);
-
-
- 		}
 	else {
         	menu = display_menu(g_staticBuf, menusel, font, font2, top, bottom);
         	flag_display_menu = 1;
