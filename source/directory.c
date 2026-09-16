@@ -93,7 +93,7 @@ static void sceneInit(void)
 	g_dynamicBuf = C2D_TextBufNew(4096);
 }
 
-static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *bottom, Keyboard kbd, touchPosition touch, u32 kDown, u32 kHeld, u32 kUp)
+static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *bottom, Keyboard *kbd, touchPosition touch, u32 kDown, u32 kHeld, u32 kUp)
 {
 	C2D_TextBufClear(g_staticBuf);
 
@@ -216,7 +216,7 @@ static void sceneRender(char *menusel, C3D_RenderTarget *top, C3D_RenderTarget *
     else if (currentScene == SCENE_TEST_KANA) {
 
     	
-    	mostrar_tabla_kanji(top, bottom, g_staticBuf, g_dynamicBuf, font2, font, &tablaState, &kbd, &touch, kDown, kHeld, kUp);
+    	mostrar_tabla_kanji(top, bottom, g_staticBuf, g_dynamicBuf, font2, font, &tablaState, kbd, &touch, kDown, kHeld, kUp);
 		C2D_SceneBegin(bottom);
 
 		/*
@@ -562,7 +562,7 @@ int main()
 		DrawRoundedRect(2, 2, SCREEN_WIDTH_BOTTOM-4, SCREEN_HEIGHT_TOP-4, 10, themes[currentTheme].borderCell);
 		DrawRoundedRect(4, 4, SCREEN_WIDTH_BOTTOM-8, SCREEN_HEIGHT_TOP-8, 10, themes[currentTheme].bg);
 		
-		sceneRender(menusel, top, bottom, kbd, touch, kDown, kHeld, kUp);
+		sceneRender(menusel, top, bottom, &kbd, touch, kDown, kHeld, kUp);
 
 		//sceneRender(size);
 		C3D_FrameEnd(0);

@@ -17,7 +17,6 @@ typedef struct {
     char    key_chars[55][8];   
     int     key_count;
     int     kb_mode;            // 0=hiragana, 1=katakana, 2=romaji
-    int     kb_shift;           // 0=normal, 1=shift
 } Keyboard;
 
 #define KANJI_COLOR_BACK themes[currentTheme].bg
@@ -26,7 +25,7 @@ typedef struct {
 #define KANJI_COLOR_PRESSED themes[currentTheme].hintText
 
 void kbd_init();
-void kbd_render(C2D_TextBuf g_staticBuf, Keyboard *kbd);
+void kbd_render(C2D_TextBuf g_staticBuf, Keyboard *kbd, int mode);
 const char* kbd_update(Keyboard *kbd, touchPosition *touch, u32 kDown, u32 kHeld, u32 kUp);
 void kbd_exit();
 

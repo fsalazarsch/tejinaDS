@@ -153,31 +153,31 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
 
     if(tab_search_selected == 1){
 
-                //kayboard
-            C2D_TextBufClear(g_staticBuf);
-            kbd_render(g_staticBuf, kbd);
-            const char *pressed = kbd_update(kbd, touch, kDown, kHeld, kUp);
-            if (pressed != NULL) {
-                if (strcmp(pressed, "←") == 0) {
-                    
-                    int len = strlen(input_buffer);
-                    if (len > 0) {
-                        do { len--; } while (len > 0 && (input_buffer[len] & 0xC0) == 0x80);
-                        input_buffer[len] = '\0';
-                    }
+    kbd_render(g_staticBuf, kbd, kbd->kb_mode);
+    const char *pressed = kbd_update(kbd, touch, kDown, kHeld, kUp);
 
-                }else if (strcmp(pressed, "↑") == 0) {
-                    //kbd->kb_shift = 1;
-                    //kbd_render(g_staticBuf, kbd);
-                    }
-
-                else if (strcmp(pressed, "↵") == 0) {
-                    // enter
-                } else {
-                    // agregar pressed al string de input
-                    strncat(input_buffer, pressed, sizeof(input_buffer) - strlen(input_buffer) - 1);
-                }
+    if (pressed != NULL) {
+        if (strcmp(pressed, "←") == 0) {
+            int len = strlen(input_buffer);
+            if (len > 0) {
+                // Retrocede de forma segura manejando caracteres multibyte UTF-8
+                do { len--; } while (len > 0 && (input_buffer[len] & 0xC0) == 0x80);
+                input_buffer[len] = '\0';
             }
+        } 
+        else if (strcmp(pressed, "↑") == 0) {
+            // Lógica de Shift si decides implementarla
+        } 
+        else if (strcmp(pressed, "↵") == 0) {
+            // Lógica de Enter/Confirmar búsqueda
+        } 
+        else {
+            // Si es un carácter normal (Hiragana, Katakana o Romaji), se añade al buffer
+            if (strlen(input_buffer) + strlen(pressed) < sizeof(input_buffer) - 1) {
+                strcat(input_buffer, pressed);
+            }
+        }
+    }
 
 
         C2D_TextBufClear(g_dynamicBuf);  // usa el buffer dinámico para esto
