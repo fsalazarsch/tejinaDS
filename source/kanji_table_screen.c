@@ -1,6 +1,7 @@
 #include "kanji_table_screen.h"
 
 int tab_search_selected = 1;
+static C2D_Font font_input = NULL;
 
 
 int unicode_to_utf8(unsigned int codepoint, char* out) {
@@ -100,6 +101,8 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     //PANTALLA SUPERIOR
     C2D_SceneBegin(top);
 
+    if (font_input == NULL) font_input = C2D_FontLoad("romfs:/MPLUS1p-Medium.bcfnt");
+
     int max_filas = 5;
     int max_columnas = 10;
     int ancho_celda = ANCHO_CELDA;
@@ -182,12 +185,12 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
 
         C2D_TextBufClear(g_dynamicBuf);  // usa el buffer dinámico para esto
         C2D_Text dyn_input;
-        C2D_TextFontParse(&dyn_input, font1, g_dynamicBuf, 
+        C2D_TextFontParse(&dyn_input, font_input, g_dynamicBuf, 
                       strlen(input_buffer) > 0 ? input_buffer : "...");
         C2D_TextOptimize(&dyn_input);
         C2D_DrawText(&dyn_input, C2D_AtBaseline | C2D_WithColor,
                  20.0f, 60.0f, 0.5f,
-                 0.7f, 0.7f,
+                 0.8f, 0.9f,
                  themes[currentTheme].kanaText);
 
     }
