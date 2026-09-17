@@ -25,6 +25,7 @@ typedef struct {
 #define KANJI_COLOR_PRESSED themes[currentTheme].hintText
 
 void kbd_init();
+C2D_Font kbd_get_font(void);
 void kbd_render(C2D_TextBuf g_staticBuf, Keyboard *kbd, int mode);
 const char* kbd_update(Keyboard *kbd, touchPosition *touch, u32 kDown, u32 kHeld, u32 kUp);
 void kbd_exit();

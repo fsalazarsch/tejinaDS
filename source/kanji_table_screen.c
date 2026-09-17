@@ -101,7 +101,7 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     //PANTALLA SUPERIOR
     C2D_SceneBegin(top);
 
-    if (font_input == NULL) font_input = C2D_FontLoad("romfs:/MPLUS1p-Medium.bcfnt");
+    if (font_input == NULL) font_input = kbd_get_font();
 
     int max_filas = 5;
     int max_columnas = 10;
@@ -189,7 +189,7 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
                       strlen(input_buffer) > 0 ? input_buffer : "...");
         C2D_TextOptimize(&dyn_input);
         C2D_DrawText(&dyn_input, C2D_AtBaseline | C2D_WithColor,
-                 20.0f, 60.0f, 0.5f,
+                 20.0f, 60.0f, 1.0f,
                  0.8f, 0.9f,
                  themes[currentTheme].kanaText);
 

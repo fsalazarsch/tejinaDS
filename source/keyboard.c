@@ -37,6 +37,10 @@ void    kbd_init() {
     buf_kbd = C2D_TextBufNew(4096);
 }
 
+C2D_Font kbd_get_font(void) {
+    return font_kbd;
+}
+
 void draw_kbdt(float pos_x, float pos_y, u32 color, u32 color2, u32 colorText, C2D_Text* g_staticText, float span, const char *text, float* out_coords) {
     // Dimensiones del rectángulo interior
     float rect_x = pos_x + 1;
