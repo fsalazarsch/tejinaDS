@@ -5,7 +5,7 @@
 #include "themes.h"
 #include "kanji_data.h"
 #include "drawing.h"
-#include "keyboard.h"
+#include "keyboard/keyboard.h"
 
 
 

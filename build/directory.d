@@ -112,7 +112,9 @@ directory.o: C:/laragon/www/personal/tejinaDS/source/directory.c \
  C:/devkitPro/libctru/include/c2d/font.h \
  C:/laragon/www/personal/tejinaDS/source/menu.h \
  C:/laragon/www/personal/tejinaDS/source/functions.h \
- C:/laragon/www/personal/tejinaDS/source/keyboard.h \
+ C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.h \
+ C:/laragon/www/personal/tejinaDS/source/functions.h \
+ C:/laragon/www/personal/tejinaDS/source/themes.h \
  C:/laragon/www/personal/tejinaDS/source/themes.h \
  C:/laragon/www/personal/tejinaDS/source/kana_table_screen.h \
  C:/laragon/www/personal/tejinaDS/source/tabla.h \
@@ -240,7 +242,9 @@ C:/devkitPro/libctru/include/c2d/text.h:
 C:/devkitPro/libctru/include/c2d/font.h:
 C:/laragon/www/personal/tejinaDS/source/menu.h:
 C:/laragon/www/personal/tejinaDS/source/functions.h:
-C:/laragon/www/personal/tejinaDS/source/keyboard.h:
+C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.h:
+C:/laragon/www/personal/tejinaDS/source/functions.h:
+C:/laragon/www/personal/tejinaDS/source/themes.h:
 C:/laragon/www/personal/tejinaDS/source/themes.h:
 C:/laragon/www/personal/tejinaDS/source/kana_table_screen.h:
 C:/laragon/www/personal/tejinaDS/source/tabla.h:

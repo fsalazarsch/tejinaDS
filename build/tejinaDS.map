@@ -566,8 +566,6 @@ Discarded input sections
  .text.draw_kanji_detail
                 0x00000000      0x36c kanji_table_screen.o
  .comment       0x00000000       0x19 kanji_table_screen.o
- .text          0x00000000        0x0 keyboard.o
- .comment       0x00000000       0x19 keyboard.o
  .text          0x00000000        0x0 menu.o
  .data          0x00000000        0x0 menu.o
  .text.free_menu
@@ -585,6 +583,8 @@ Discarded input sections
  .text.typewriter_set
                 0x00000000       0x30 renderer.o
  .comment       0x00000000       0x19 renderer.o
+ .text          0x00000000        0x0 keyboard.o
+ .comment       0x00000000       0x19 keyboard.o
  .data          0x00000000        0x0 C:/laragon/www/personal/tejinaDS/lib/lib\libHTSEngine.a(HTS_engine.o)
  .bss           0x00000000        0x0 C:/laragon/www/personal/tejinaDS/lib/lib\libHTSEngine.a(HTS_engine.o)
  .comment       0x00000000       0x19 C:/laragon/www/personal/tejinaDS/lib/lib\libHTSEngine.a(HTS_engine.o)
@@ -14801,67 +14801,67 @@ Linker script and memory map
  .text.handle_tabla_touch_kanji
                 0x0016c938       0xb0 kanji_table_screen.o
                 0x0016c938                handle_tabla_touch_kanji
- .text.kbd_init
-                0x0016c9e8       0x2c keyboard.o
-                0x0016c9e8                kbd_init
- .text.kbd_get_font
-                0x0016ca14       0x10 keyboard.o
-                0x0016ca14                kbd_get_font
- .text.draw_kbdt
-                0x0016ca24      0x220 keyboard.o
-                0x0016ca24                draw_kbdt
- .text.kbd_render
-                0x0016cc44      0x174 keyboard.o
-                0x0016cc44                kbd_render
- .text.kbd_update
-                0x0016cdb8      0x11c keyboard.o
-                0x0016cdb8                kbd_update
- .text.kbd_exit
-                0x0016ced4       0x20 keyboard.o
-                0x0016ced4                kbd_exit
  .text.draw_btn
-                0x0016cef4      0x128 menu.o
-                0x0016cef4                draw_btn
+                0x0016c9e8      0x128 menu.o
+                0x0016c9e8                draw_btn
  .text.build_menu
-                0x0016d01c      0x2bc menu.o
-                0x0016d01c                build_menu
+                0x0016cb10      0x2bc menu.o
+                0x0016cb10                build_menu
  .text.display_menu
-                0x0016d2d8      0xa40 menu.o
-                0x0016d2d8                display_menu
+                0x0016cdcc      0xa40 menu.o
+                0x0016cdcc                display_menu
  .text.unescape
-                0x0016dd18       0x64 lesson.o
-                0x0016dd18                unescape
+                0x0016d80c       0x64 lesson.o
+                0x0016d80c                unescape
  .text.lesson_load
-                0x0016dd7c      0xb00 lesson.o
-                0x0016dd7c                lesson_load
+                0x0016d870      0xb00 lesson.o
+                0x0016d870                lesson_load
  .text.draw_text
-                0x0016e87c       0x84 renderer.o
+                0x0016e370       0x84 renderer.o
  .text.portrait_index
-                0x0016e900       0x9c renderer.o
+                0x0016e3f4       0x9c renderer.o
  .text.draw_typewriter.constprop.0
-                0x0016e99c       0xb0 renderer.o
+                0x0016e490       0xb0 renderer.o
  .text.render_term
-                0x0016ea4c      0x194 renderer.o
+                0x0016e540      0x194 renderer.o
  .text.render_reward
-                0x0016ebe0      0x198 renderer.o
+                0x0016e6d4      0x198 renderer.o
  .text.render_particle
-                0x0016ed78      0x1c0 renderer.o
+                0x0016e86c      0x1c0 renderer.o
  .text.render_compare
-                0x0016ef38      0x1dc renderer.o
+                0x0016ea2c      0x1dc renderer.o
  .text.obtener_codigo_color
-                0x0016f114       0x98 renderer.o
-                0x0016f114                obtener_codigo_color
+                0x0016ec08       0x98 renderer.o
+                0x0016ec08                obtener_codigo_color
  .text.separar_tags_y_texto
-                0x0016f1ac       0xd0 renderer.o
-                0x0016f1ac                separar_tags_y_texto
+                0x0016eca0       0xd0 renderer.o
+                0x0016eca0                separar_tags_y_texto
  .text.draw_colored_text
-                0x0016f27c       0xa4 renderer.o
-                0x0016f27c                draw_colored_text
+                0x0016ed70       0xa4 renderer.o
+                0x0016ed70                draw_colored_text
  .text.render_dialog_data
-                0x0016f320      0x254 renderer.o
+                0x0016ee14      0x254 renderer.o
  .text.lesson_render_block
-                0x0016f574      0x724 renderer.o
-                0x0016f574                lesson_render_block
+                0x0016f068      0x724 renderer.o
+                0x0016f068                lesson_render_block
+ .text.kbd_init
+                0x0016f78c       0x2c keyboard.o
+                0x0016f78c                kbd_init
+ .text.kbd_get_font
+                0x0016f7b8       0x10 keyboard.o
+                0x0016f7b8                kbd_get_font
+ .text.draw_kbdt
+                0x0016f7c8      0x220 keyboard.o
+                0x0016f7c8                draw_kbdt
+ .text.kbd_render
+                0x0016f9e8      0x174 keyboard.o
+                0x0016f9e8                kbd_render
+ .text.kbd_update
+                0x0016fb5c      0x11c keyboard.o
+                0x0016fb5c                kbd_update
+ .text.kbd_exit
+                0x0016fc78       0x20 keyboard.o
+                0x0016fc78                kbd_exit
  .text.C2Di_FrameEndHook
                 0x0016fc98       0x44 C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
  .text.C2D_Init
@@ -16605,11 +16605,11 @@ Linker script and memory map
  .rodata        0x001f213c    0xca59c kanji_data.o
                 0x001f213c                kanji_data
  .rodata        0x002bc6d8       0x70 kanji_table_screen.o
- .rodata        0x002bc748       0x90 keyboard.o
- .rodata        0x002bc7d8       0xc4 menu.o
- .rodata        0x002bc89c       0x1a lesson.o
- *fill*         0x002bc8b6        0x2 
- .rodata        0x002bc8b8       0x28 renderer.o
+ .rodata        0x002bc748       0xc4 menu.o
+ .rodata        0x002bc80c       0x1a lesson.o
+ *fill*         0x002bc826        0x2 
+ .rodata        0x002bc828       0x28 renderer.o
+ .rodata        0x002bc850       0x90 keyboard.o
  .rodata        0x002bc8e0       0xa8 C:/laragon/www/personal/tejinaDS/lib/lib\libHTSEngine.a(HTS_vocoder.o)
  .rodata        0x002bc988        0x8 C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
  .rodata        0x002bc990       0x68 C:/devkitPro/libctru/lib\libcitro2d.a(text.o)
@@ -16630,9 +16630,6 @@ Linker script and memory map
                 0x008446f5        0x0 kanji_table_screen.o
                                  0x44 (size before relaxing)
  .rodata.str1.4
-                0x008446f5        0x0 keyboard.o
-                                0x25a (size before relaxing)
- .rodata.str1.4
                 0x008446f5        0x0 menu.o
                                 0x79b (size before relaxing)
  .rodata.str1.4
@@ -16641,6 +16638,9 @@ Linker script and memory map
  .rodata.str1.4
                 0x008446f5        0x0 renderer.o
                                  0x9e (size before relaxing)
+ .rodata.str1.4
+                0x008446f5        0x0 keyboard.o
+                                0x25a (size before relaxing)
  .rodata.str1.4
                 0x008446f5        0x0 C:/laragon/www/personal/tejinaDS/lib/lib\libHTSEngine.a(HTS_engine.o)
                                 0x83b (size before relaxing)
@@ -16925,9 +16925,9 @@ Linker script and memory map
                 0x0084c06c                noptn
  .data          0x0084c070        0x4 kanji_table_screen.o
                 0x0084c070                tab_search_selected
- .data          0x0084c074      0x2d0 keyboard.o
-                0x0084c074                dsplay_kbtabs
- .data          0x0084c344        0xc renderer.o
+ .data          0x0084c074        0xc renderer.o
+ .data          0x0084c080      0x2d0 keyboard.o
+                0x0084c080                dsplay_kbtabs
  *(.data.*)
  .data.framerateCounter
                 0x0084c350        0x8 C:/devkitPro/libctru/lib\libcitro3d.a(renderqueue.o)
@@ -17083,10 +17083,10 @@ Linker script and memory map
                 0x008cf158                k2
                 0x008df1dc                k
  .bss           0x008f0a60      0x104 kanji_table_screen.o
- .bss           0x008f0b64        0x8 keyboard.o
- .bss           0x008f0b6c        0x8 menu.o
-                0x008f0b6c                result
- .bss           0x008f0b74      0x208 renderer.o
+ .bss           0x008f0b64        0x8 menu.o
+                0x008f0b64                result
+ .bss           0x008f0b6c      0x208 renderer.o
+ .bss           0x008f0d74        0x8 keyboard.o
  *fill*         0x008f0d7c        0x4 
  .bss           0x008f0d80      0x630 C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
                 0x008f0d80                __C2Di_Context
@@ -17531,13 +17531,13 @@ Linker script and memory map
  .debug_aranges
                 0x0000b680       0x40 kanji_table_screen.o
  .debug_aranges
-                0x0000b6c0       0x48 keyboard.o
+                0x0000b6c0       0x38 menu.o
  .debug_aranges
-                0x0000b708       0x38 menu.o
+                0x0000b6f8       0x28 lesson.o
  .debug_aranges
-                0x0000b740       0x28 lesson.o
+                0x0000b720       0x90 renderer.o
  .debug_aranges
-                0x0000b768       0x90 renderer.o
+                0x0000b7b0       0x48 keyboard.o
  .debug_aranges
                 0x0000b7f8       0xf8 C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
  .debug_aranges
@@ -17711,10 +17711,10 @@ Linker script and memory map
  .debug_info    0x00016a4a    0x9d658 kana_table_screen.o
  .debug_info    0x000b40a2      0x187 kanji_data.o
  .debug_info    0x000b4229     0x1b09 kanji_table_screen.o
- .debug_info    0x000b5d32      0xdb1 keyboard.o
- .debug_info    0x000b6ae3    0x13628 menu.o
- .debug_info    0x000ca10b     0x14c4 lesson.o
- .debug_info    0x000cb5cf     0x3fb3 renderer.o
+ .debug_info    0x000b5d32    0x13628 menu.o
+ .debug_info    0x000c935a     0x14c4 lesson.o
+ .debug_info    0x000ca81e     0x3fb3 renderer.o
+ .debug_info    0x000ce7d1      0xdb1 keyboard.o
  .debug_info    0x000cf582     0x5c9b C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
  .debug_info    0x000d521d     0x1fdc C:/devkitPro/libctru/lib\libcitro2d.a(font.o)
  .debug_info    0x000d71f9     0x114e C:/devkitPro/libctru/lib\libcitro2d.a(spritesheet.o)
@@ -17804,10 +17804,10 @@ Linker script and memory map
  .debug_abbrev  0x0000093f      0x72e kana_table_screen.o
  .debug_abbrev  0x0000106d       0xce kanji_data.o
  .debug_abbrev  0x0000113b      0x46c kanji_table_screen.o
- .debug_abbrev  0x000015a7      0x2ca keyboard.o
- .debug_abbrev  0x00001871      0x400 menu.o
- .debug_abbrev  0x00001c71      0x3ac lesson.o
- .debug_abbrev  0x0000201d      0x5e2 renderer.o
+ .debug_abbrev  0x000015a7      0x400 menu.o
+ .debug_abbrev  0x000019a7      0x3ac lesson.o
+ .debug_abbrev  0x00001d53      0x5e2 renderer.o
+ .debug_abbrev  0x00002335      0x2ca keyboard.o
  .debug_abbrev  0x000025ff      0x66f C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
  .debug_abbrev  0x00002c6e      0x4dc C:/devkitPro/libctru/lib\libcitro2d.a(font.o)
  .debug_abbrev  0x0000314a      0x38e C:/devkitPro/libctru/lib\libcitro2d.a(spritesheet.o)
@@ -17890,98 +17890,98 @@ Linker script and memory map
  .debug_abbrev  0x000104d0       0xf1 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixunsdfdi.o)
  .debug_abbrev  0x000105c1      0x110 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivmoddi4.o)
 
-.debug_line     0x00000000    0x9eaf9
+.debug_line     0x00000000    0x9ebbd
  *(.debug_line)
- .debug_line    0x00000000     0x14a8 directory.o
- .debug_line    0x000014a8      0x3a6 functions.o
- .debug_line    0x0000184e    0x65ba9 kana_table_screen.o
- .debug_line    0x000673f7       0x65 kanji_data.o
- .debug_line    0x0006745c      0x978 kanji_table_screen.o
- .debug_line    0x00067dd4      0x658 keyboard.o
- .debug_line    0x0006842c      0xe48 menu.o
- .debug_line    0x00069274      0x922 lesson.o
- .debug_line    0x00069b96     0x110b renderer.o
- .debug_line    0x0006aca1     0x2b3f C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
- .debug_line    0x0006d7e0      0xb1d C:/devkitPro/libctru/lib\libcitro2d.a(font.o)
- .debug_line    0x0006e2fd      0x5a9 C:/devkitPro/libctru/lib\libcitro2d.a(spritesheet.o)
- .debug_line    0x0006e8a6     0x1c18 C:/devkitPro/libctru/lib\libcitro2d.a(text.o)
- .debug_line    0x000704be      0x4f1 C:/devkitPro/libctru/lib\libcitro3d.a(attribs.o)
- .debug_line    0x000709af      0xf7c C:/devkitPro/libctru/lib\libcitro3d.a(base.o)
- .debug_line    0x0007192b      0x470 C:/devkitPro/libctru/lib\libcitro3d.a(buffers.o)
- .debug_line    0x00071d9b      0x4e4 C:/devkitPro/libctru/lib\libcitro3d.a(drawElements.o)
- .debug_line    0x0007227f      0x801 C:/devkitPro/libctru/lib\libcitro3d.a(effect.o)
- .debug_line    0x00072a80      0x7f8 C:/devkitPro/libctru/lib\libcitro3d.a(framebuffer.o)
- .debug_line    0x00073278      0x492 C:/devkitPro/libctru/lib\libcitro3d.a(immediate.o)
- .debug_line    0x0007370a      0x8cf C:/devkitPro/libctru/lib\libcitro3d.a(proctex.o)
- .debug_line    0x00073fd9     0x1518 C:/devkitPro/libctru/lib\libcitro3d.a(renderqueue.o)
- .debug_line    0x000754f1      0x92b C:/devkitPro/libctru/lib\libcitro3d.a(tex3ds.o)
- .debug_line    0x00075e1c      0x4c7 C:/devkitPro/libctru/lib\libcitro3d.a(texenv.o)
- .debug_line    0x000762e3      0xedd C:/devkitPro/libctru/lib\libcitro3d.a(texture.o)
- .debug_line    0x000771c0      0x641 C:/devkitPro/libctru/lib\libcitro3d.a(uniforms.o)
- .debug_line    0x00077801      0x24e C:/devkitPro/libctru/lib\libcitro3d.a(mtx_ortho.o)
- .debug_line    0x00077a4f      0x252 C:/devkitPro/libctru/lib\libcitro3d.a(mtx_orthotilt.o)
- .debug_line    0x00077ca1      0x672 C:/devkitPro/libctru/lib\libctru.a(linear.o)
- .debug_line    0x00078313      0x851 C:/devkitPro/libctru/lib\libctru.a(mem_pool.o)
- .debug_line    0x00078b64      0x8a9 C:/devkitPro/libctru/lib\libctru.a(vram.o)
- .debug_line    0x0007940d      0x738 C:/devkitPro/libctru/lib\libctru.a(font.o)
- .debug_line    0x00079b45      0x8fe C:/devkitPro/libctru/lib\libctru.a(gfx.o)
- .debug_line    0x0007a443      0x49b C:/devkitPro/libctru/lib\libctru.a(os.o)
- .debug_line    0x0007a8de     0x1697 C:/devkitPro/libctru/lib\libctru.a(romfs_dev.o)
- .debug_line    0x0007bf75     0x180a C:/devkitPro/libctru/lib\libctru.a(synchronization.o)
- .debug_line    0x0007d77f      0x693 C:/devkitPro/libctru/lib\libctru.a(thread.o)
- .debug_line    0x0007de12      0x673 C:/devkitPro/libctru/lib\libctru.a(gpu.o)
- .debug_line    0x0007e485      0x588 C:/devkitPro/libctru/lib\libctru.a(gx.o)
- .debug_line    0x0007ea0d      0x659 C:/devkitPro/libctru/lib\libctru.a(gxqueue.o)
- .debug_line    0x0007f066     0x129c C:/devkitPro/libctru/lib\libctru.a(shaderProgram.o)
- .debug_line    0x00080302      0x73c C:/devkitPro/libctru/lib\libctru.a(shbin.o)
- .debug_line    0x00080a3e     0x39e6 C:/devkitPro/libctru/lib\libctru.a(apt.o)
- .debug_line    0x00084424     0x115d C:/devkitPro/libctru/lib\libctru.a(cfgu.o)
- .debug_line    0x00085581     0x15a5 C:/devkitPro/libctru/lib\libctru.a(csnd.o)
- .debug_line    0x00086b26     0x1080 C:/devkitPro/libctru/lib\libctru.a(dsp.o)
- .debug_line    0x00087ba6     0x6d10 C:/devkitPro/libctru/lib\libctru.a(fs.o)
- .debug_line    0x0008e8b6     0x3678 C:/devkitPro/libctru/lib\libctru.a(gspgpu.o)
- .debug_line    0x00091f2e      0xf87 C:/devkitPro/libctru/lib\libctru.a(hid.o)
- .debug_line    0x00092eb5      0x91c C:/devkitPro/libctru/lib\libctru.a(irrst.o)
- .debug_line    0x000937d1      0xbda C:/devkitPro/libctru/lib\libctru.a(ptmsysm.o)
- .debug_line    0x000943ab     0x1abe C:/devkitPro/libctru/lib\libctru.a(decompress.o)
- .debug_line    0x00095e69      0x254 C:/devkitPro/libctru/lib\libctru.a(rbtree_find.o)
- .debug_line    0x000960bd      0x1f5 C:/devkitPro/libctru/lib\libctru.a(rbtree_init.o)
- .debug_line    0x000962b2      0x592 C:/devkitPro/libctru/lib\libctru.a(rbtree_insert.o)
- .debug_line    0x00096844      0x80f C:/devkitPro/libctru/lib\libctru.a(rbtree_remove.o)
- .debug_line    0x00097053      0x330 C:/devkitPro/libctru/lib\libctru.a(rbtree_rotate.o)
- .debug_line    0x00097383      0x26a C:/devkitPro/libctru/lib\libctru.a(decode_utf8.o)
- .debug_line    0x000975ed      0x2da C:/devkitPro/libctru/lib\libctru.a(utf16_to_utf8.o)
- .debug_line    0x000978c7      0x2ab C:/devkitPro/libctru/lib\libctru.a(utf8_to_utf16.o)
- .debug_line    0x00097b72      0x35c C:/devkitPro/libctru/lib\libctru.a(allocateHeaps.o)
- .debug_line    0x00097ece      0x1d4 C:/devkitPro/libctru/lib\libctru.a(ctru_init.o)
- .debug_line    0x000980a2      0x436 C:/devkitPro/libctru/lib\libctru.a(initArgv.o)
- .debug_line    0x000984d8      0x99d C:/devkitPro/libctru/lib\libctru.a(syscalls.o)
- .debug_line    0x00098e75      0x78f C:/devkitPro/libctru/lib\libctru.a(svc.o)
- .debug_line    0x00099604       0x49 C:/devkitPro/libctru/lib\libctru.a(readtp.o)
- .debug_line    0x0009964d       0x6f C:/devkitPro/libctru/lib\libctru.a(stack_adjust.o)
- .debug_line    0x000996bc      0x43d C:/devkitPro/libctru/lib\libctru.a(3dslink.o)
- .debug_line    0x00099af9      0x282 C:/devkitPro/libctru/lib\libctru.a(env.o)
- .debug_line    0x00099d7b      0x11c C:/devkitPro/libctru/lib\libctru.a(path_buf.o)
- .debug_line    0x00099e97     0x1026 C:/devkitPro/libctru/lib\libctru.a(srv.o)
- .debug_line    0x0009aebd      0x2f2 C:/devkitPro/libctru/lib\libctru.a(mappable.o)
- .debug_line    0x0009b1af      0x6bc C:/devkitPro/libctru/lib\libctru.a(srvpm.o)
- .debug_line    0x0009b86b      0x2ec C:/devkitPro/libctru/lib\libctru.a(rbtree_iterator.o)
- .debug_line    0x0009bb57      0x190 C:/devkitPro/libctru/lib\libctru.a(decode_utf16.o)
- .debug_line    0x0009bce7      0x18f C:/devkitPro/libctru/lib\libctru.a(encode_utf16.o)
- .debug_line    0x0009be76      0x221 C:/devkitPro/libctru/lib\libctru.a(encode_utf8.o)
- .debug_line    0x0009c097      0x246 C:/devkitPro/libctru/lib\libctru.a(appExit.o)
- .debug_line    0x0009c2dd      0x243 C:/devkitPro/libctru/lib\libctru.a(appInit.o)
- .debug_line    0x0009c520      0x1c9 C:/devkitPro/libctru/lib\libctru.a(ctru_exit.o)
- .debug_line    0x0009c6e9     0x1d75 C:/devkitPro/libctru/lib\libctru.a(archive_dev.o)
- .debug_line    0x0009e45e       0x67 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivsi3.o)
- .debug_line    0x0009e4c5       0x73 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_divsi3.o)
- .debug_line    0x0009e538       0x4a C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_dvmd_tls.o)
- .debug_line    0x0009e582      0x14b C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_arm_addsubdf3.o)
- .debug_line    0x0009e6cd       0x6c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_aeabi_ldivmod.o)
- .debug_line    0x0009e739       0x4e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_aeabi_uldivmod.o)
- .debug_line    0x0009e787       0xe0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixdfdi.o)
- .debug_line    0x0009e867       0xd9 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixunsdfdi.o)
- .debug_line    0x0009e940      0x1b9 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivmoddi4.o)
+ .debug_line    0x00000000     0x14d9 directory.o
+ .debug_line    0x000014d9      0x3a6 functions.o
+ .debug_line    0x0000187f    0x65ba9 kana_table_screen.o
+ .debug_line    0x00067428       0x65 kanji_data.o
+ .debug_line    0x0006748d      0x9a9 kanji_table_screen.o
+ .debug_line    0x00067e36      0xe79 menu.o
+ .debug_line    0x00068caf      0x922 lesson.o
+ .debug_line    0x000695d1     0x110b renderer.o
+ .debug_line    0x0006a6dc      0x689 keyboard.o
+ .debug_line    0x0006ad65     0x2b3f C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
+ .debug_line    0x0006d8a4      0xb1d C:/devkitPro/libctru/lib\libcitro2d.a(font.o)
+ .debug_line    0x0006e3c1      0x5a9 C:/devkitPro/libctru/lib\libcitro2d.a(spritesheet.o)
+ .debug_line    0x0006e96a     0x1c18 C:/devkitPro/libctru/lib\libcitro2d.a(text.o)
+ .debug_line    0x00070582      0x4f1 C:/devkitPro/libctru/lib\libcitro3d.a(attribs.o)
+ .debug_line    0x00070a73      0xf7c C:/devkitPro/libctru/lib\libcitro3d.a(base.o)
+ .debug_line    0x000719ef      0x470 C:/devkitPro/libctru/lib\libcitro3d.a(buffers.o)
+ .debug_line    0x00071e5f      0x4e4 C:/devkitPro/libctru/lib\libcitro3d.a(drawElements.o)
+ .debug_line    0x00072343      0x801 C:/devkitPro/libctru/lib\libcitro3d.a(effect.o)
+ .debug_line    0x00072b44      0x7f8 C:/devkitPro/libctru/lib\libcitro3d.a(framebuffer.o)
+ .debug_line    0x0007333c      0x492 C:/devkitPro/libctru/lib\libcitro3d.a(immediate.o)
+ .debug_line    0x000737ce      0x8cf C:/devkitPro/libctru/lib\libcitro3d.a(proctex.o)
+ .debug_line    0x0007409d     0x1518 C:/devkitPro/libctru/lib\libcitro3d.a(renderqueue.o)
+ .debug_line    0x000755b5      0x92b C:/devkitPro/libctru/lib\libcitro3d.a(tex3ds.o)
+ .debug_line    0x00075ee0      0x4c7 C:/devkitPro/libctru/lib\libcitro3d.a(texenv.o)
+ .debug_line    0x000763a7      0xedd C:/devkitPro/libctru/lib\libcitro3d.a(texture.o)
+ .debug_line    0x00077284      0x641 C:/devkitPro/libctru/lib\libcitro3d.a(uniforms.o)
+ .debug_line    0x000778c5      0x24e C:/devkitPro/libctru/lib\libcitro3d.a(mtx_ortho.o)
+ .debug_line    0x00077b13      0x252 C:/devkitPro/libctru/lib\libcitro3d.a(mtx_orthotilt.o)
+ .debug_line    0x00077d65      0x672 C:/devkitPro/libctru/lib\libctru.a(linear.o)
+ .debug_line    0x000783d7      0x851 C:/devkitPro/libctru/lib\libctru.a(mem_pool.o)
+ .debug_line    0x00078c28      0x8a9 C:/devkitPro/libctru/lib\libctru.a(vram.o)
+ .debug_line    0x000794d1      0x738 C:/devkitPro/libctru/lib\libctru.a(font.o)
+ .debug_line    0x00079c09      0x8fe C:/devkitPro/libctru/lib\libctru.a(gfx.o)
+ .debug_line    0x0007a507      0x49b C:/devkitPro/libctru/lib\libctru.a(os.o)
+ .debug_line    0x0007a9a2     0x1697 C:/devkitPro/libctru/lib\libctru.a(romfs_dev.o)
+ .debug_line    0x0007c039     0x180a C:/devkitPro/libctru/lib\libctru.a(synchronization.o)
+ .debug_line    0x0007d843      0x693 C:/devkitPro/libctru/lib\libctru.a(thread.o)
+ .debug_line    0x0007ded6      0x673 C:/devkitPro/libctru/lib\libctru.a(gpu.o)
+ .debug_line    0x0007e549      0x588 C:/devkitPro/libctru/lib\libctru.a(gx.o)
+ .debug_line    0x0007ead1      0x659 C:/devkitPro/libctru/lib\libctru.a(gxqueue.o)
+ .debug_line    0x0007f12a     0x129c C:/devkitPro/libctru/lib\libctru.a(shaderProgram.o)
+ .debug_line    0x000803c6      0x73c C:/devkitPro/libctru/lib\libctru.a(shbin.o)
+ .debug_line    0x00080b02     0x39e6 C:/devkitPro/libctru/lib\libctru.a(apt.o)
+ .debug_line    0x000844e8     0x115d C:/devkitPro/libctru/lib\libctru.a(cfgu.o)
+ .debug_line    0x00085645     0x15a5 C:/devkitPro/libctru/lib\libctru.a(csnd.o)
+ .debug_line    0x00086bea     0x1080 C:/devkitPro/libctru/lib\libctru.a(dsp.o)
+ .debug_line    0x00087c6a     0x6d10 C:/devkitPro/libctru/lib\libctru.a(fs.o)
+ .debug_line    0x0008e97a     0x3678 C:/devkitPro/libctru/lib\libctru.a(gspgpu.o)
+ .debug_line    0x00091ff2      0xf87 C:/devkitPro/libctru/lib\libctru.a(hid.o)
+ .debug_line    0x00092f79      0x91c C:/devkitPro/libctru/lib\libctru.a(irrst.o)
+ .debug_line    0x00093895      0xbda C:/devkitPro/libctru/lib\libctru.a(ptmsysm.o)
+ .debug_line    0x0009446f     0x1abe C:/devkitPro/libctru/lib\libctru.a(decompress.o)
+ .debug_line    0x00095f2d      0x254 C:/devkitPro/libctru/lib\libctru.a(rbtree_find.o)
+ .debug_line    0x00096181      0x1f5 C:/devkitPro/libctru/lib\libctru.a(rbtree_init.o)
+ .debug_line    0x00096376      0x592 C:/devkitPro/libctru/lib\libctru.a(rbtree_insert.o)
+ .debug_line    0x00096908      0x80f C:/devkitPro/libctru/lib\libctru.a(rbtree_remove.o)
+ .debug_line    0x00097117      0x330 C:/devkitPro/libctru/lib\libctru.a(rbtree_rotate.o)
+ .debug_line    0x00097447      0x26a C:/devkitPro/libctru/lib\libctru.a(decode_utf8.o)
+ .debug_line    0x000976b1      0x2da C:/devkitPro/libctru/lib\libctru.a(utf16_to_utf8.o)
+ .debug_line    0x0009798b      0x2ab C:/devkitPro/libctru/lib\libctru.a(utf8_to_utf16.o)
+ .debug_line    0x00097c36      0x35c C:/devkitPro/libctru/lib\libctru.a(allocateHeaps.o)
+ .debug_line    0x00097f92      0x1d4 C:/devkitPro/libctru/lib\libctru.a(ctru_init.o)
+ .debug_line    0x00098166      0x436 C:/devkitPro/libctru/lib\libctru.a(initArgv.o)
+ .debug_line    0x0009859c      0x99d C:/devkitPro/libctru/lib\libctru.a(syscalls.o)
+ .debug_line    0x00098f39      0x78f C:/devkitPro/libctru/lib\libctru.a(svc.o)
+ .debug_line    0x000996c8       0x49 C:/devkitPro/libctru/lib\libctru.a(readtp.o)
+ .debug_line    0x00099711       0x6f C:/devkitPro/libctru/lib\libctru.a(stack_adjust.o)
+ .debug_line    0x00099780      0x43d C:/devkitPro/libctru/lib\libctru.a(3dslink.o)
+ .debug_line    0x00099bbd      0x282 C:/devkitPro/libctru/lib\libctru.a(env.o)
+ .debug_line    0x00099e3f      0x11c C:/devkitPro/libctru/lib\libctru.a(path_buf.o)
+ .debug_line    0x00099f5b     0x1026 C:/devkitPro/libctru/lib\libctru.a(srv.o)
+ .debug_line    0x0009af81      0x2f2 C:/devkitPro/libctru/lib\libctru.a(mappable.o)
+ .debug_line    0x0009b273      0x6bc C:/devkitPro/libctru/lib\libctru.a(srvpm.o)
+ .debug_line    0x0009b92f      0x2ec C:/devkitPro/libctru/lib\libctru.a(rbtree_iterator.o)
+ .debug_line    0x0009bc1b      0x190 C:/devkitPro/libctru/lib\libctru.a(decode_utf16.o)
+ .debug_line    0x0009bdab      0x18f C:/devkitPro/libctru/lib\libctru.a(encode_utf16.o)
+ .debug_line    0x0009bf3a      0x221 C:/devkitPro/libctru/lib\libctru.a(encode_utf8.o)
+ .debug_line    0x0009c15b      0x246 C:/devkitPro/libctru/lib\libctru.a(appExit.o)
+ .debug_line    0x0009c3a1      0x243 C:/devkitPro/libctru/lib\libctru.a(appInit.o)
+ .debug_line    0x0009c5e4      0x1c9 C:/devkitPro/libctru/lib\libctru.a(ctru_exit.o)
+ .debug_line    0x0009c7ad     0x1d75 C:/devkitPro/libctru/lib\libctru.a(archive_dev.o)
+ .debug_line    0x0009e522       0x67 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivsi3.o)
+ .debug_line    0x0009e589       0x73 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_divsi3.o)
+ .debug_line    0x0009e5fc       0x4a C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_dvmd_tls.o)
+ .debug_line    0x0009e646      0x14b C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_arm_addsubdf3.o)
+ .debug_line    0x0009e791       0x6c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_aeabi_ldivmod.o)
+ .debug_line    0x0009e7fd       0x4e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_aeabi_uldivmod.o)
+ .debug_line    0x0009e84b       0xe0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixdfdi.o)
+ .debug_line    0x0009e92b       0xd9 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixunsdfdi.o)
+ .debug_line    0x0009ea04      0x1b9 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivmoddi4.o)
 
 .debug_frame    0x00000000    0x2f180
  *(.debug_frame)
@@ -17989,10 +17989,10 @@ Linker script and memory map
  .debug_frame   0x000000c0       0xc8 functions.o
  .debug_frame   0x00000188    0x27e80 kana_table_screen.o
  .debug_frame   0x00028008       0xf0 kanji_table_screen.o
- .debug_frame   0x000280f8      0x108 keyboard.o
- .debug_frame   0x00028200       0xc8 menu.o
- .debug_frame   0x000282c8       0x4c lesson.o
- .debug_frame   0x00028314      0x2b8 renderer.o
+ .debug_frame   0x000280f8       0xc8 menu.o
+ .debug_frame   0x000281c0       0x4c lesson.o
+ .debug_frame   0x0002820c      0x2b8 renderer.o
+ .debug_frame   0x000284c4      0x108 keyboard.o
  .debug_frame   0x000285cc      0x36c C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
  .debug_frame   0x00028938      0x1ac C:/devkitPro/libctru/lib\libcitro2d.a(font.o)
  .debug_frame   0x00028ae4       0xd4 C:/devkitPro/libctru/lib\libcitro2d.a(spritesheet.o)
@@ -18074,187 +18074,187 @@ Linker script and memory map
  .debug_frame   0x0002f0e8       0x30 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivmoddi4.o)
  .debug_frame   0x0002f118       0x68 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/armv6k/fpu\libg.a(libc_a-strcmp.o)
 
-.debug_str      0x00000000    0x4c43f
+.debug_str      0x00000000    0x4c448
  *(.debug_str)
- .debug_str     0x00000000    0x4c43f directory.o
+ .debug_str     0x00000000    0x4c448 directory.o
                               0x1cc77 (size before relaxing)
- .debug_str     0x0004c43f        0x0 functions.o
+ .debug_str     0x0004c448        0x0 functions.o
                                 0x3c0 (size before relaxing)
- .debug_str     0x0004c43f        0x0 kana_table_screen.o
+ .debug_str     0x0004c448        0x0 kana_table_screen.o
                               0x3cc33 (size before relaxing)
- .debug_str     0x0004c43f        0x0 kanji_data.o
+ .debug_str     0x0004c448        0x0 kanji_data.o
                                 0x192 (size before relaxing)
- .debug_str     0x0004c43f        0x0 kanji_table_screen.o
+ .debug_str     0x0004c448        0x0 kanji_table_screen.o
                                 0xd77 (size before relaxing)
- .debug_str     0x0004c43f        0x0 keyboard.o
-                                0x9c9 (size before relaxing)
- .debug_str     0x0004c43f        0x0 menu.o
+ .debug_str     0x0004c448        0x0 menu.o
                               0x1bff5 (size before relaxing)
- .debug_str     0x0004c43f        0x0 lesson.o
+ .debug_str     0x0004c448        0x0 lesson.o
                                 0x729 (size before relaxing)
- .debug_str     0x0004c43f        0x0 renderer.o
+ .debug_str     0x0004c448        0x0 renderer.o
                                 0xc63 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
+ .debug_str     0x0004c448        0x0 keyboard.o
+                                0x9d2 (size before relaxing)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
                                0x1d63 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro2d.a(font.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro2d.a(font.o)
                                0x114e (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro2d.a(spritesheet.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro2d.a(spritesheet.o)
                                 0x912 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro2d.a(text.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro2d.a(text.o)
                                0x16cc (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(attribs.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(attribs.o)
                                0x111a (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(base.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(base.o)
                                0x1bff (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(buffers.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(buffers.o)
                                0x1102 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(drawElements.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(drawElements.o)
                                0x1102 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(effect.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(effect.o)
                                0x1568 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(framebuffer.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(framebuffer.o)
                                0x1547 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(immediate.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(immediate.o)
                                0x1111 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(proctex.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(proctex.o)
                                0x1252 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(renderqueue.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(renderqueue.o)
                                0x1a76 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(tex3ds.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(tex3ds.o)
                                 0xafa (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(texenv.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(texenv.o)
                                0x1232 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(texture.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(texture.o)
                                0x1416 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(uniforms.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(uniforms.o)
                                 0x794 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(mtx_ortho.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(mtx_ortho.o)
                                 0x274 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(mtx_orthotilt.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libcitro3d.a(mtx_orthotilt.o)
                                 0x27c (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(linear.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(linear.o)
                                 0x7b3 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(mem_pool.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(mem_pool.o)
                                 0x61e (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(vram.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(vram.o)
                                0x11ba (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(font.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(font.o)
                                 0x6bc (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(gfx.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(gfx.o)
                                 0x6db (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(os.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(os.o)
                                 0x598 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(romfs_dev.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(romfs_dev.o)
                                0x17f8 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(synchronization.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(synchronization.o)
                                 0x983 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(thread.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(thread.o)
                                 0x8d6 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(gpu.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(gpu.o)
                                 0x3df (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(gx.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(gx.o)
                                 0x4aa (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(gxqueue.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(gxqueue.o)
                                 0x554 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(shaderProgram.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(shaderProgram.o)
                                 0x84e (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(shbin.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(shbin.o)
                                 0x598 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(apt.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(apt.o)
                                0x1c36 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(cfgu.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(cfgu.o)
                                 0x6aa (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(csnd.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(csnd.o)
                                 0xbbf (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(dsp.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(dsp.o)
                                 0x7ca (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(fs.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(fs.o)
                                0x1d31 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(gspgpu.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(gspgpu.o)
                                 0xcf0 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(hid.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(hid.o)
                                 0x93c (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(irrst.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(irrst.o)
                                 0x595 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(ptmsysm.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(ptmsysm.o)
                                 0x691 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(decompress.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(decompress.o)
                                 0x968 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_find.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_find.o)
                                 0x29d (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_init.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_init.o)
                                 0x293 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_insert.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_insert.o)
                                 0x355 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_remove.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_remove.o)
                                 0x373 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_rotate.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_rotate.o)
                                 0x2ea (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(decode_utf8.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(decode_utf8.o)
                                 0x257 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(utf16_to_utf8.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(utf16_to_utf8.o)
                                 0x297 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(utf8_to_utf16.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(utf8_to_utf16.o)
                                 0x297 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(allocateHeaps.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(allocateHeaps.o)
                                 0x5f4 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(ctru_init.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(ctru_init.o)
                                 0x2b3 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(initArgv.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(initArgv.o)
                                 0x2f6 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(syscalls.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(syscalls.o)
                                 0xc99 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(svc.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(svc.o)
                                  0xc5 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(readtp.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(readtp.o)
                                  0xcf (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(stack_adjust.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(stack_adjust.o)
                                  0xd5 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(3dslink.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(3dslink.o)
                                 0x6ac (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(env.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(env.o)
                                 0x2a4 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(path_buf.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(path_buf.o)
                                 0x22d (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(srv.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(srv.o)
                                 0xaf5 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(mappable.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(mappable.o)
                                 0x3c2 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(srvpm.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(srvpm.o)
                                 0x580 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_iterator.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(rbtree_iterator.o)
                                 0x29d (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(decode_utf16.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(decode_utf16.o)
                                 0x24f (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(encode_utf16.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(encode_utf16.o)
                                 0x243 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(encode_utf8.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(encode_utf8.o)
                                 0x23f (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(appExit.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(appExit.o)
                                 0x269 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(appInit.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(appInit.o)
                                 0x268 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(ctru_exit.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(ctru_exit.o)
                                 0x40a (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/libctru/lib\libctru.a(archive_dev.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/libctru/lib\libctru.a(archive_dev.o)
                                0x1628 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivsi3.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivsi3.o)
                                  0xfb (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_divsi3.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_divsi3.o)
                                  0xf9 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_dvmd_tls.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_dvmd_tls.o)
                                  0xfc (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_arm_addsubdf3.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_arm_addsubdf3.o)
                                 0x18d (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_aeabi_ldivmod.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_aeabi_ldivmod.o)
                                  0xdc (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_aeabi_uldivmod.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_aeabi_uldivmod.o)
                                  0xdc (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixdfdi.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixdfdi.o)
                                 0x6af (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixunsdfdi.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_fixunsdfdi.o)
                                 0x698 (size before relaxing)
- .debug_str     0x0004c43f        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivmoddi4.o)
+ .debug_str     0x0004c448        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/15.2.0/armv6k/fpu\libgcc.a(_udivmoddi4.o)
                                 0x6a1 (size before relaxing)
 
 .debug_loc
@@ -18270,10 +18270,10 @@ LOAD functions.o
 LOAD kana_table_screen.o
 LOAD kanji_data.o
 LOAD kanji_table_screen.o
-LOAD keyboard.o
 LOAD menu.o
 LOAD lesson.o
 LOAD renderer.o
+LOAD keyboard.o
 LOAD C:/laragon/www/personal/tejinaDS/lib/lib\libHTSEngine.a
 LOAD C:/devkitPro/libctru/lib\libcitro2d.a
 LOAD C:/devkitPro/libctru/lib\libcitro3d.a
@@ -18309,13 +18309,13 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000012a       0x30 kanji_table_screen.o
  .ARM.attributes
-                0x0000015a       0x30 keyboard.o
+                0x0000015a       0x30 menu.o
  .ARM.attributes
-                0x0000018a       0x30 menu.o
+                0x0000018a       0x30 lesson.o
  .ARM.attributes
-                0x000001ba       0x30 lesson.o
+                0x000001ba       0x30 renderer.o
  .ARM.attributes
-                0x000001ea       0x30 renderer.o
+                0x000001ea       0x30 keyboard.o
  .ARM.attributes
                 0x0000021a       0x30 C:/laragon/www/personal/tejinaDS/lib/lib\libHTSEngine.a(HTS_engine.o)
  .ARM.attributes
@@ -18808,13 +18808,13 @@ LOAD linker stubs
  .debug_loclists
                 0x00047341      0x4b1 kanji_table_screen.o
  .debug_loclists
-                0x000477f2      0x3d4 keyboard.o
+                0x000477f2      0x21c menu.o
  .debug_loclists
-                0x00047bc6      0x21c menu.o
+                0x00047a0e      0x4b8 lesson.o
  .debug_loclists
-                0x00047de2      0x4b8 lesson.o
+                0x00047ec6     0x1289 renderer.o
  .debug_loclists
-                0x0004829a     0x1289 renderer.o
+                0x0004914f      0x3d4 keyboard.o
  .debug_loclists
                 0x00049523     0x25dc C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
  .debug_loclists
@@ -18963,13 +18963,13 @@ LOAD linker stubs
  .debug_rnglists
                 0x00009b61       0x9e kanji_table_screen.o
  .debug_rnglists
-                0x00009bff       0x8b keyboard.o
+                0x00009bff       0x34 menu.o
  .debug_rnglists
-                0x00009c8a       0x34 menu.o
+                0x00009c33       0xd3 lesson.o
  .debug_rnglists
-                0x00009cbe       0xd3 lesson.o
+                0x00009d06      0x1c2 renderer.o
  .debug_rnglists
-                0x00009d91      0x1c2 renderer.o
+                0x00009ec8       0x8b keyboard.o
  .debug_rnglists
                 0x00009f53      0x793 C:/devkitPro/libctru/lib\libcitro2d.a(base.o)
  .debug_rnglists

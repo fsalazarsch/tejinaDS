@@ -7,7 +7,7 @@
 #include <3ds.h>
 #include <citro2d.h>
 #include "functions.h"
-#include "keyboard.h"
+#include "keyboard/keyboard.h"
 #include "themes.h"
 #include "kana_table_screen.h"
 #include "kanji_table_screen.h"

@@ -7,8 +7,8 @@
 #include <3ds.h>
 #include <citro2d.h>
 #include <wchar.h>
-#include "functions.h"
-#include "themes.h"
+#include "..\functions.h"
+#include "..\themes.h"
 
 extern ThemeID currentTheme;
 

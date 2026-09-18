@@ -1,5 +1,5 @@
-keyboard.o: C:/laragon/www/personal/tejinaDS/source/keyboard.c \
- C:/laragon/www/personal/tejinaDS/source/keyboard.h \
+keyboard.o: C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.c \
+ C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.h \
  C:/devkitPro/libctru/include/3ds.h \
  C:/devkitPro/libctru/include/3ds/types.h \
  C:/devkitPro/libctru/include/3ds/result.h \
@@ -113,7 +113,7 @@ keyboard.o: C:/laragon/www/personal/tejinaDS/source/keyboard.c \
  C:/devkitPro/libctru/include/c2d/font.h \
  C:/laragon/www/personal/tejinaDS/source/functions.h \
  C:/laragon/www/personal/tejinaDS/source/themes.h
-C:/laragon/www/personal/tejinaDS/source/keyboard.h:
+C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.h:
 C:/devkitPro/libctru/include/3ds.h:
 C:/devkitPro/libctru/include/3ds/types.h:
 C:/devkitPro/libctru/include/3ds/result.h:
