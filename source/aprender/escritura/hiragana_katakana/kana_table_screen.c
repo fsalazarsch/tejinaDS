@@ -223,6 +223,12 @@ void draw_kana_detail(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Fon
     C2D_TextOptimize(&romajiText);
     C2D_DrawText(&romajiText, C2D_AtBaseline | C2D_AlignCenter, 160.0f, 24.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
 
+    DrawRoundedRect(10, 10, 30, 30, 6, themes[currentTheme].cellIdle);
+    C2D_Text btnClear;
+    C2D_TextFontParse(&btnClear, font2, g_staticBuf, "X");
+    C2D_TextOptimize(&btnClear);
+    C2D_DrawText(&btnClear, C2D_AtBaseline | C2D_AlignCenter, 25.0f, 30.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
+
     DrawRoundedRect(270, 10, 30, 30, 6, themes[currentTheme].cellIdle);
     C2D_Text btnHelp;
     C2D_TextFontParse(&btnHelp, font2, g_staticBuf, "?");
@@ -356,9 +362,81 @@ if (isTouchInRect(tx, ty, 210, 197, 95, 36)) {
     }
 }
 
+    // --- BOTÓN BORRAR TRAZOS ---
+    if (isTouchInRect(tx, ty, 10, 10, 30, 30)) {
+        drawing_clear();
+    }
+
     // --- BOTÓN HELP ---
     if (isTouchInRect(tx, ty, 270, 10, 30, 30)) {
+        drawing_clear();
         showHelp = !showHelp;
     }
 
+}
+
+int kana_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
+{
+    handle_tabla_touch(kDown, kHeld, kUp, tx, ty, &tablaState);
+
+    tablaState.seleccionado = true;
+    int max_columnas = 0;
+    int max_filas = 0;
+
+    if (kDown & KEY_L){ 
+        tablaState.fila = 0;
+        tablaState.col = 0;
+        tablaState.categoria = (tablaState.categoria - 1 + 6) % 6;
+        drawing_clear();
+    }
+    if (kDown & KEY_R){ 
+        tablaState.fila = 0;
+        tablaState.col = 0;
+        tablaState.categoria = (tablaState.categoria + 1) % 6;
+        drawing_clear();
+    }
+    if (kDown & KEY_UP) {
+        max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
+
+        tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
+        if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
+            tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
+        drawing_clear();
+    }
+    if (kDown & KEY_DOWN) {
+        max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
+
+        tablaState.fila = (tablaState.fila + 1) % max_filas;
+        if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
+            tablaState.fila = (tablaState.fila + 1) % max_filas;
+        drawing_clear();
+    }
+    if (kDown & KEY_LEFT) {
+        max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
+                       (tablaState.categoria == 1 || tablaState.categoria == 4) ? 5 : 10;
+
+        tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
+        if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
+            tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
+        drawing_clear();
+    }
+    if (kDown & KEY_RIGHT) {
+        max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
+                       (tablaState.categoria == 1 || tablaState.categoria == 4) ? 5 : 10;
+
+        tablaState.col = (tablaState.col + 1) % max_columnas;
+        if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
+            tablaState.col = (tablaState.col + 1) % max_columnas;
+        drawing_clear();
+    }
+    if (kDown & KEY_A){
+        //tts_engine_speak("はな", "HL");  // flor
+        //tts_engine_speak("はな", "LH");  // nariz
+        //tts_engine_speak("あたらしい", NULL);  // neutro
+    }
+    if (kDown & KEY_SELECT) {
+        return 1;
+    }
+
+    return 0;
 }

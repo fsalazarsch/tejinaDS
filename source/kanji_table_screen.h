@@ -33,6 +33,7 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
                    touchPosition *touch, u32 kDown, u32 kHeld, u32 kUp); //user la categoria como paginador
 
 void handle_tabla_touch_kanji(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, TablaState *estado);
+int kanji_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty);
 
 
 #endif

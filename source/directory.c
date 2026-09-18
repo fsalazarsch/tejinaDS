@@ -402,110 +402,13 @@ int main()
 
 		if (currentScene == SCENE_TEST_KANA) {
     		
-    		handle_tabla_touch_kanji(kDown, kHeld, kUp, lastTouchX, lastTouchY, &tablaState);
-    		
-
-    		if (kDown & KEY_L){ 
-    			if (tablaState.categoria == 0)
-    				tablaState.categoria =60;
-    			else
-    				tablaState.categoria = (tablaState.categoria - 1);
-		    	drawing_clear();
-			}
-
-    		if (kDown & KEY_R){ 
-		    	tablaState.categoria = (tablaState.categoria + 1) % 61;
-		    	drawing_clear();
-			}
-
-			if (kDown & KEY_RIGHT) {
-			    tablaState.col = (tablaState.col + 1) % 10;
-			    drawing_clear();
-			}
-
-			if (kDown & KEY_LEFT) {
-			    tablaState.col = (tablaState.col - 1 + 10) % 10;
-			    drawing_clear();
-			}
-
-		    if (kDown & KEY_UP) {
-			    tablaState.fila = (tablaState.fila - 1 + 5) % 5;
-			    drawing_clear();
-			}
-
-			if (kDown & KEY_DOWN) {
-			    tablaState.fila = (tablaState.fila + 1) % 5;
-			    drawing_clear();
-			}
-
-    		if (kDown & KEY_B)
+    		if (kanji_handle_input(kDown, kHeld, kUp, lastTouchX, lastTouchY))
         		currentScene = SCENE_MENU;
 		}
 
 		if (currentScene == SCENE_TABLA_HIRAGANA) {
 
-
-		    handle_tabla_touch(kDown, kHeld, kUp, lastTouchX, lastTouchY, &tablaState);
-
-			tablaState.seleccionado = true;
-			int max_columnas = 0;
-			int max_filas = 0;
-
-
-		    if (kDown & KEY_L){ 
-				tablaState.fila = 0;
-				tablaState.col = 0;
-		    	tablaState.categoria = (tablaState.categoria - 1 + 6) % 6;
-		    	drawing_clear();
-			}
-		    if (kDown & KEY_R){ 
-				tablaState.fila = 0;
-				tablaState.col = 0;
-		    	tablaState.categoria = (tablaState.categoria + 1) % 6;
-		    	drawing_clear();
-			}
-		    if (kDown & KEY_UP) {
-		    	max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
-
-			    tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
-			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
-			        tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
-			    drawing_clear();
-			}
-			if (kDown & KEY_DOWN) {
-				max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
-
-			    tablaState.fila = (tablaState.fila + 1) % max_filas;
-			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
-			        tablaState.fila = (tablaState.fila + 1) % max_filas;
-			    drawing_clear();
-			}
-			if (kDown & KEY_LEFT) {
-				max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
-               				(tablaState.categoria == 1 || tablaState.categoria == 4) ? 5 : 10;
-
-			    tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
-			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
-			        tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
-			    drawing_clear();
-			}
-			if (kDown & KEY_RIGHT) {
-				max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
-               (tablaState.categoria == 1 || tablaState.categoria == 4) ? 5 : 10;
-
-			    tablaState.col = (tablaState.col + 1) % max_columnas;
-			    if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
-			        tablaState.col = (tablaState.col + 1) % max_columnas;
-			    drawing_clear();
-			}
-			if (kDown & KEY_A){
-			    //tablaState.seleccionado = !tablaState.seleccionado;
-			    //tts_engine_speak("はな", "HL");  // flor
-				//tts_engine_speak("はな", "LH");  // nariz
-				//tts_engine_speak("あたらしい", NULL);  // neutro
-			}
-				
-		    if (kDown & KEY_B) {
+			if (kana_handle_input(kDown, kHeld, kUp, lastTouchX, lastTouchY)) {
 		        currentScene = SCENE_MENU;
 		        strcpy(menusel, "  Ⓐ Hiragana Katakana"); // vuelve al menú anterior
 		    }

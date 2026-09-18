@@ -33,9 +33,9 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/lessons source/keyboard
+SOURCES		:=	source source/lessons source/keyboard source/aprender/escritura/hiragana_katakana
 DATA		:=	data
-INCLUDES	:=	include
+INCLUDES	:=	include source
 GRAPHICS	:=	gfx
 ROMFS		:=	romfs
 GFXBUILD	:=	$(ROMFS)

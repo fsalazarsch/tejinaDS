@@ -1,6 +1,6 @@
 kana_table_screen.o: \
- C:/laragon/www/personal/tejinaDS/source/kana_table_screen.c \
- C:/laragon/www/personal/tejinaDS/source/kana_table_screen.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/hiragana_katakana/kana_table_screen.c \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/hiragana_katakana/kana_table_screen.h \
  C:/laragon/www/personal/tejinaDS/source/tabla.h \
  C:/laragon/www/personal/tejinaDS/source/themes.h \
  C:/devkitPro/libctru/include/3ds.h \
@@ -116,13 +116,14 @@ kana_table_screen.o: \
  C:/devkitPro/libctru/include/c2d/font.h \
  C:/laragon/www/personal/tejinaDS/source/kanji_stroke_data.h \
  C:/laragon/www/personal/tejinaDS/source/kanji_stroke.h \
+ C:/laragon/www/personal/tejinaDS/source/themes.h \
  C:/laragon/www/personal/tejinaDS/source/tts_engine.h \
  C:/laragon/www/personal/tejinaDS/source/tts_3ds.h \
  C:/laragon/www/personal/tejinaDS/source/HTS_engine.h \
  C:/laragon/www/personal/tejinaDS/source/hiragana_phoneme.h \
  C:/laragon/www/personal/tejinaDS/source/drawing.h \
  C:/laragon/www/personal/tejinaDS/source/functions.h
-C:/laragon/www/personal/tejinaDS/source/kana_table_screen.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/hiragana_katakana/kana_table_screen.h:
 C:/laragon/www/personal/tejinaDS/source/tabla.h:
 C:/laragon/www/personal/tejinaDS/source/themes.h:
 C:/devkitPro/libctru/include/3ds.h:
@@ -238,6 +239,7 @@ C:/devkitPro/libctru/include/c2d/text.h:
 C:/devkitPro/libctru/include/c2d/font.h:
 C:/laragon/www/personal/tejinaDS/source/kanji_stroke_data.h:
 C:/laragon/www/personal/tejinaDS/source/kanji_stroke.h:
+C:/laragon/www/personal/tejinaDS/source/themes.h:
 C:/laragon/www/personal/tejinaDS/source/tts_engine.h:
 C:/laragon/www/personal/tejinaDS/source/tts_3ds.h:
 C:/laragon/www/personal/tejinaDS/source/HTS_engine.h:

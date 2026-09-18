@@ -246,4 +246,47 @@ void handle_tabla_touch_kanji(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, Tab
     }
 }
 
+int kanji_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
+{
+    handle_tabla_touch_kanji(kDown, kHeld, kUp, tx, ty, &tablaState);
+
+    if (kDown & KEY_L){ 
+        if (tablaState.categoria == 0)
+            tablaState.categoria =60;
+        else
+            tablaState.categoria = (tablaState.categoria - 1);
+        drawing_clear();
+    }
+
+    if (kDown & KEY_R){ 
+        tablaState.categoria = (tablaState.categoria + 1) % 61;
+        drawing_clear();
+    }
+
+    if (kDown & KEY_RIGHT) {
+        tablaState.col = (tablaState.col + 1) % 10;
+        drawing_clear();
+    }
+
+    if (kDown & KEY_LEFT) {
+        tablaState.col = (tablaState.col - 1 + 10) % 10;
+        drawing_clear();
+    }
+
+    if (kDown & KEY_UP) {
+        tablaState.fila = (tablaState.fila - 1 + 5) % 5;
+        drawing_clear();
+    }
+
+    if (kDown & KEY_DOWN) {
+        tablaState.fila = (tablaState.fila + 1) % 5;
+        drawing_clear();
+    }
+
+    if (kDown & KEY_B)
+        return 1;
+
+    return 0;
+}
+
 
