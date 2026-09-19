@@ -1,4 +1,5 @@
 #include "kana_table_screen.h"
+#include "lessons\help_screen.h"
 
 Kanji k;
 KanjiAnimState anim;
@@ -6,7 +7,6 @@ Kanji k2;
 KanjiAnimState anim2;
 
 extern ThemeID currentTheme;
-bool showHelp = false;
 bool kanaOculto = false;
 bool mostrandoTrazos = false;
 
@@ -252,21 +252,6 @@ void draw_kana_detail(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Fon
     C2D_TextFontParse(&btnTrazos, font2, g_staticBuf, "Trazos");
     C2D_TextOptimize(&btnTrazos);
     C2D_DrawText(&btnTrazos, C2D_AtBaseline | C2D_AlignCenter, 257.0f, 222.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
-
-    if (showHelp) {
-        DrawRoundedRect(20, 40, 280, 140, 10, themes[currentTheme].cellIdle);
-        C2D_Text helpText;
-        C2D_TextFontParse(&helpText, font2, g_staticBuf,
-            "Uso:\n\n"
-            "- Kana grande: lectura principal\n"
-            "- Boton Audio: escuchar\n"
-            "- Trazos: orden de escritura\n"
-            "- L/R: cambiar tabla\n"
-            "- D-Pad: mover cursor\n"
-        );
-        C2D_TextOptimize(&helpText);
-        C2D_DrawText(&helpText, C2D_AtBaseline, 30, 60, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
-    }
 }
 
 
@@ -369,8 +354,17 @@ if (isTouchInRect(tx, ty, 210, 197, 95, 36)) {
 
     // --- BOTÓN HELP ---
     if (isTouchInRect(tx, ty, 270, 10, 30, 30)) {
-        drawing_clear();
-        showHelp = !showHelp;
+        help_toggle(
+            "Ponte Comodo, aqui estudias kana\n"
+            "Puedes ir seleccionando con el D-Pad\n"
+            "Con L/R puedes ir cambiando de tabla\n"
+            "Hiragana, katakana y sus dakuon\n"
+            "En cada kana puedes ver su lectura\n"
+            "Con trazos puedes ver el orden de escritura\n"
+            "En audio puedes escuchar cono se pronuncia\n"
+            "Puedes ocultar/mostrar sus trazos\n"
+            "Si quieres borrar lo que haz hecho pulsa X\n"
+        );
     }
 
 }

@@ -15,6 +15,20 @@ void DrawRoundedRect(float x, float y, float w, float h, float radius, u32 color
     C2D_DrawCircleSolid(x + w - radius, y + h - radius, 0, radius, color);   // Esquina inferior derecha
 }
 
+void DrawRoundedRectZ(float x, float y, float w, float h, float r,
+                             u32 color, float z)
+{
+    if (r * 2.0f > w) r = w * 0.5f;
+    if (r * 2.0f > h) r = h * 0.5f;
+
+    C2D_DrawRectSolid(x + r, y,     z, w - 2.0f * r, h,            color);
+    C2D_DrawRectSolid(x,     y + r, z, w,            h - 2.0f * r, color);
+    C2D_DrawCircleSolid(x + r,     y + r,     z, r, color);
+    C2D_DrawCircleSolid(x + w - r, y + r,     z, r, color);
+    C2D_DrawCircleSolid(x + r,     y + h - r, z, r, color);
+    C2D_DrawCircleSolid(x + w - r, y + h - r, z, r, color);
+}
+
 
 void draw_axis(){
 	u32 clrBlack = C2D_Color32(0x00, 0x00, 0x00, 0xFF);

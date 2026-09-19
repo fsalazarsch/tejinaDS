@@ -1,4 +1,8 @@
-directory.o: C:/laragon/www/personal/tejinaDS/source/directory.c \
+help_screen.o: \
+ C:/laragon/www/personal/tejinaDS/source/lessons/help_screen.c \
+ C:/devkitPro/libctru/include/citro2d.h \
+ C:/devkitPro/libctru/include/citro3d.h \
+ C:/devkitPro/libctru/include/c3d/types.h \
  C:/devkitPro/libctru/include/3ds.h \
  C:/devkitPro/libctru/include/3ds/types.h \
  C:/devkitPro/libctru/include/3ds/result.h \
@@ -86,9 +90,6 @@ directory.o: C:/laragon/www/personal/tejinaDS/source/directory.c \
  C:/devkitPro/libctru/include/3ds/font.h \
  C:/devkitPro/libctru/include/3ds/gdbhio_dev.h \
  C:/devkitPro/libctru/include/3ds/3dslink.h \
- C:/devkitPro/libctru/include/citro2d.h \
- C:/devkitPro/libctru/include/citro3d.h \
- C:/devkitPro/libctru/include/c3d/types.h \
  C:/devkitPro/libctru/include/c3d/maths.h \
  C:/devkitPro/libctru/include/c3d/mtxstack.h \
  C:/devkitPro/libctru/include/c3d/uniforms.h \
@@ -110,29 +111,12 @@ directory.o: C:/laragon/www/personal/tejinaDS/source/directory.c \
  C:/devkitPro/libctru/include/c2d/sprite.h \
  C:/devkitPro/libctru/include/c2d/text.h \
  C:/devkitPro/libctru/include/c2d/font.h \
- C:/laragon/www/personal/tejinaDS/source/menu.h \
+ C:/laragon/www/personal/tejinaDS/source/lessons/help_screen.h \
  C:/laragon/www/personal/tejinaDS/source/functions.h \
- C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.h \
- C:/laragon/www/personal/tejinaDS/source/functions.h \
- C:/laragon/www/personal/tejinaDS/source/themes.h \
- C:/laragon/www/personal/tejinaDS/source/themes.h \
- C:/laragon/www/personal/tejinaDS/source/aprender/escritura/hiragana_katakana/kana_table_screen.h \
- C:/laragon/www/personal/tejinaDS/source/tabla.h \
- C:/laragon/www/personal/tejinaDS/source/themes.h \
- C:/laragon/www/personal/tejinaDS/source/kanji_stroke_data.h \
- C:/laragon/www/personal/tejinaDS/source/kanji_stroke.h \
- C:/laragon/www/personal/tejinaDS/source/tts_engine.h \
- C:/laragon/www/personal/tejinaDS/source/tts_3ds.h \
- C:/laragon/www/personal/tejinaDS/source/HTS_engine.h \
- C:/laragon/www/personal/tejinaDS/source/hiragana_phoneme.h \
- C:/laragon/www/personal/tejinaDS/source/drawing.h \
- C:/laragon/www/personal/tejinaDS/source/kanji_table_screen.h \
- C:/laragon/www/personal/tejinaDS/source/tabla.h \
- C:/laragon/www/personal/tejinaDS/source/kanji_data.h \
- C:/laragon/www/personal/tejinaDS/source/drawing.h \
- C:/laragon/www/personal/tejinaDS/source/scene.h \
- C:/laragon/www/personal/tejinaDS/source/lessons/lesson.h \
- C:/laragon/www/personal/tejinaDS/source/lessons/help_screen.h
+ C:/laragon/www/personal/tejinaDS/source/themes.h
+C:/devkitPro/libctru/include/citro2d.h:
+C:/devkitPro/libctru/include/citro3d.h:
+C:/devkitPro/libctru/include/c3d/types.h:
 C:/devkitPro/libctru/include/3ds.h:
 C:/devkitPro/libctru/include/3ds/types.h:
 C:/devkitPro/libctru/include/3ds/result.h:
@@ -220,9 +204,6 @@ C:/devkitPro/libctru/include/3ds/romfs.h:
 C:/devkitPro/libctru/include/3ds/font.h:
 C:/devkitPro/libctru/include/3ds/gdbhio_dev.h:
 C:/devkitPro/libctru/include/3ds/3dslink.h:
-C:/devkitPro/libctru/include/citro2d.h:
-C:/devkitPro/libctru/include/citro3d.h:
-C:/devkitPro/libctru/include/c3d/types.h:
 C:/devkitPro/libctru/include/c3d/maths.h:
 C:/devkitPro/libctru/include/c3d/mtxstack.h:
 C:/devkitPro/libctru/include/c3d/uniforms.h:
@@ -244,26 +225,6 @@ C:/devkitPro/libctru/include/c2d/spritesheet.h:
 C:/devkitPro/libctru/include/c2d/sprite.h:
 C:/devkitPro/libctru/include/c2d/text.h:
 C:/devkitPro/libctru/include/c2d/font.h:
-C:/laragon/www/personal/tejinaDS/source/menu.h:
-C:/laragon/www/personal/tejinaDS/source/functions.h:
-C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.h:
-C:/laragon/www/personal/tejinaDS/source/functions.h:
-C:/laragon/www/personal/tejinaDS/source/themes.h:
-C:/laragon/www/personal/tejinaDS/source/themes.h:
-C:/laragon/www/personal/tejinaDS/source/aprender/escritura/hiragana_katakana/kana_table_screen.h:
-C:/laragon/www/personal/tejinaDS/source/tabla.h:
-C:/laragon/www/personal/tejinaDS/source/themes.h:
-C:/laragon/www/personal/tejinaDS/source/kanji_stroke_data.h:
-C:/laragon/www/personal/tejinaDS/source/kanji_stroke.h:
-C:/laragon/www/personal/tejinaDS/source/tts_engine.h:
-C:/laragon/www/personal/tejinaDS/source/tts_3ds.h:
-C:/laragon/www/personal/tejinaDS/source/HTS_engine.h:
-C:/laragon/www/personal/tejinaDS/source/hiragana_phoneme.h:
-C:/laragon/www/personal/tejinaDS/source/drawing.h:
-C:/laragon/www/personal/tejinaDS/source/kanji_table_screen.h:
-C:/laragon/www/personal/tejinaDS/source/tabla.h:
-C:/laragon/www/personal/tejinaDS/source/kanji_data.h:
-C:/laragon/www/personal/tejinaDS/source/drawing.h:
-C:/laragon/www/personal/tejinaDS/source/scene.h:
-C:/laragon/www/personal/tejinaDS/source/lessons/lesson.h:
 C:/laragon/www/personal/tejinaDS/source/lessons/help_screen.h:
+C:/laragon/www/personal/tejinaDS/source/functions.h:
+C:/laragon/www/personal/tejinaDS/source/themes.h:

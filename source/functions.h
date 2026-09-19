@@ -35,6 +35,7 @@ struct menu_btn {
 
 // ===== FUNCIONES =====
 void DrawRoundedRect(float x, float y, float w, float h, float radius, u32 color);
+void DrawRoundedRectZ(float x, float y, float w, float h, float r, u32 color, float z);
 void draw_axis();
 void draw_opts(C2D_TextBuf g_dynamicBuf, const char* alt1, const char* alt2, const char* alt3, const char* alt4);
 bool isTouchInRect(int touchX, int touchY, int x, int y, int w, int h);

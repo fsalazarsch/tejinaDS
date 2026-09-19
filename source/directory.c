@@ -8,6 +8,7 @@
 #include "scene.h"
 #include "drawing.h"
 #include "lessons/lesson.h"
+#include "lessons/help_screen.h"
 
 void lesson_render_block(Lesson* lesson, int index);
 
@@ -467,7 +468,7 @@ int main()
 		
 		sceneRender(menusel, top, bottom, &kbd, touch, kDown, kHeld, kUp);
 
-		//sceneRender(size);
+		help_render();
 		C3D_FrameEnd(0);
 
 	}
