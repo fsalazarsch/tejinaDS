@@ -429,6 +429,7 @@ int kana_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
         //tts_engine_speak("あたらしい", NULL);  // neutro
     }
     if (kDown & KEY_SELECT) {
+        help_hide();
         return 1;
     }
 
