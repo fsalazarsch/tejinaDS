@@ -10,7 +10,7 @@
 #include "keyboard/keyboard.h"
 #include "themes.h"
 #include "aprender/escritura/hiragana_katakana/kana_table_screen.h"
-#include "kanji_table_screen.h"
+#include "aprender/escritura/kanji/kanji_table_screen.h"
 #include "tabla.h"
 #include "scene.h"
 

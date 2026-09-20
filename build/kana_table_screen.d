@@ -114,9 +114,8 @@ kana_table_screen.o: \
  C:/devkitPro/libctru/include/c2d/sprite.h \
  C:/devkitPro/libctru/include/c2d/text.h \
  C:/devkitPro/libctru/include/c2d/font.h \
- C:/laragon/www/personal/tejinaDS/source/kanji_stroke_data.h \
- C:/laragon/www/personal/tejinaDS/source/kanji_stroke.h \
- C:/laragon/www/personal/tejinaDS/source/themes.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke_data.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke.h \
  C:/laragon/www/personal/tejinaDS/source/tts_engine.h \
  C:/laragon/www/personal/tejinaDS/source/tts_3ds.h \
  C:/laragon/www/personal/tejinaDS/source/HTS_engine.h \
@@ -238,9 +237,8 @@ C:/devkitPro/libctru/include/c2d/spritesheet.h:
 C:/devkitPro/libctru/include/c2d/sprite.h:
 C:/devkitPro/libctru/include/c2d/text.h:
 C:/devkitPro/libctru/include/c2d/font.h:
-C:/laragon/www/personal/tejinaDS/source/kanji_stroke_data.h:
-C:/laragon/www/personal/tejinaDS/source/kanji_stroke.h:
-C:/laragon/www/personal/tejinaDS/source/themes.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke_data.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke.h:
 C:/laragon/www/personal/tejinaDS/source/tts_engine.h:
 C:/laragon/www/personal/tejinaDS/source/tts_3ds.h:
 C:/laragon/www/personal/tejinaDS/source/HTS_engine.h:

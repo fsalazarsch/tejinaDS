@@ -4,7 +4,7 @@
 
 #include "tabla.h"
 #include "themes.h"
-#include "kanji_stroke_data.h"
+#include "aprender/escritura/kanji/kanji_stroke_data.h"
 #include "tts_engine.h"
 #include "drawing.h"
 

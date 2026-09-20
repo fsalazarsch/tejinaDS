@@ -1,6 +1,6 @@
 kanji_table_screen.o: \
- C:/laragon/www/personal/tejinaDS/source/kanji_table_screen.c \
- C:/laragon/www/personal/tejinaDS/source/kanji_table_screen.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_table_screen.c \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_table_screen.h \
  C:/laragon/www/personal/tejinaDS/source/tabla.h \
  C:/laragon/www/personal/tejinaDS/source/themes.h \
  C:/devkitPro/libctru/include/3ds.h \
@@ -114,13 +114,18 @@ kanji_table_screen.o: \
  C:/devkitPro/libctru/include/c2d/sprite.h \
  C:/devkitPro/libctru/include/c2d/text.h \
  C:/devkitPro/libctru/include/c2d/font.h \
- C:/laragon/www/personal/tejinaDS/source/kanji_data.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_data.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke_data.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke.h \
  C:/laragon/www/personal/tejinaDS/source/drawing.h \
  C:/laragon/www/personal/tejinaDS/source/functions.h \
  C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.h \
  C:/laragon/www/personal/tejinaDS/source/functions.h \
- C:/laragon/www/personal/tejinaDS/source/themes.h
-C:/laragon/www/personal/tejinaDS/source/kanji_table_screen.h:
+ C:/laragon/www/personal/tejinaDS/source/themes.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_sort.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_radical.h \
+ C:/laragon/www/personal/tejinaDS/source/lessons\help_screen.h
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_table_screen.h:
 C:/laragon/www/personal/tejinaDS/source/tabla.h:
 C:/laragon/www/personal/tejinaDS/source/themes.h:
 C:/devkitPro/libctru/include/3ds.h:
@@ -234,9 +239,14 @@ C:/devkitPro/libctru/include/c2d/spritesheet.h:
 C:/devkitPro/libctru/include/c2d/sprite.h:
 C:/devkitPro/libctru/include/c2d/text.h:
 C:/devkitPro/libctru/include/c2d/font.h:
-C:/laragon/www/personal/tejinaDS/source/kanji_data.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_data.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke_data.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke.h:
 C:/laragon/www/personal/tejinaDS/source/drawing.h:
 C:/laragon/www/personal/tejinaDS/source/functions.h:
 C:/laragon/www/personal/tejinaDS/source/keyboard/keyboard.h:
 C:/laragon/www/personal/tejinaDS/source/functions.h:
 C:/laragon/www/personal/tejinaDS/source/themes.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_sort.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_radical.h:
+C:/laragon/www/personal/tejinaDS/source/lessons\help_screen.h:

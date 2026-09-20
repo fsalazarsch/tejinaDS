@@ -4,6 +4,7 @@
 #include "tabla.h"
 #include "themes.h"
 #include "kanji_data.h"
+#include "kanji_stroke_data.h"
 #include "drawing.h"
 #include "keyboard/keyboard.h"
 
