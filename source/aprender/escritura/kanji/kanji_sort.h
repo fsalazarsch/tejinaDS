@@ -13,5 +13,9 @@ int  kanji_sort_at(int absIndex);
 int  kanji_active_size(void);
 void kanji_filter_set(int tipo, int valor);
 void kanji_filter_get(int *tipo, int *valor);
+void kanji_search_set(const char *query);
+void kanji_search_clear(void);
+int  kanji_search_has(void);
+void kanji_search_get(char *out, int cap);
 
 #endif

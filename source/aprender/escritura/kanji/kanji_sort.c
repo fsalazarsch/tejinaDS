@@ -14,6 +14,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "kanji_sort.h"
 #include "kanji_data.h"
@@ -28,6 +29,11 @@ static int active_ready = 0;
 
 static int filter_tipo = FILTRO_NINGUNO;
 static int filter_valor = 0;
+
+static char search_query[256] = "";
+
+static void fold_to_lower_hira(const char* s, char* out, int cap);
+static int  kanji_search_match(const KanjiEntryTable* e, const char* qf);
 
 /* ---------------------------------------------------------
    comparador (modo por defecto: JLPT)
@@ -62,6 +68,9 @@ static void rebuild_active(void)
 {
     if (!sort_ready) kanji_sort_init();
 
+    char qf[256];
+    fold_to_lower_hira(search_query, qf, sizeof(qf));
+
     int n = 0;
     for (int i = 0; i < KANJI_TOTAL; i++) {
         int dk = sort_order[i];
@@ -79,6 +88,9 @@ static void rebuild_active(void)
         } else {
             match = 1;
         }
+
+        if (match && search_query[0] != '\0')
+            match = kanji_search_match(e, qf);
 
         if (match)
             active_list[n++] = dk;
@@ -115,4 +127,99 @@ int kanji_sort_at(int absIndex)
         return -1;
 
     return active_list[absIndex];
+}
+
+// Normaliza a minúsculas + hiragana para que el usuario pueda
+// escribir onyomi en katakana, kunyomi en hiragana o significado
+// en romaji indistintamente.
+static int utf8_decode(const unsigned char* p, unsigned int* cp)
+{
+    if ((*p & 0x80) == 0) { *cp = *p; return 1; }
+
+    int n = 0;
+    unsigned int code = 0;
+    if      ((*p & 0xE0) == 0xC0) { n = 2; code = *p & 0x1F; }
+    else if ((*p & 0xF0) == 0xE0) { n = 3; code = *p & 0x0F; }
+    else if ((*p & 0xF8) == 0xF0) { n = 4; code = *p & 0x07; }
+    else { *cp = *p; return 1; }
+
+    for (int i = 1; i < n; i++) {
+        if ((p[i] & 0xC0) != 0x80) { *cp = p[0]; return 1; }
+        code = (code << 6) | (p[i] & 0x3F);
+    }
+    *cp = code;
+    return n;
+}
+
+static void fold_to_lower_hira(const char* s, char* out, int cap)
+{
+    const unsigned char* p = (const unsigned char*)s;
+    int o = 0;
+    while (*p && o < cap - 4) {
+        unsigned int cp;
+        int adv = utf8_decode(p, &cp);
+
+        if (cp >= 0x30A1 && cp <= 0x30F6) cp -= 0x60;   /* katakana -> hiragana */
+
+        if (cp >= 0x3041 && cp <= 0x3096) {             /* hiragana */
+            out[o++] = (char)0xE3;
+            out[o++] = (char)(0x80 | ((cp >> 6) & 0x3F));
+            out[o++] = (char)(0x80 | (cp & 0x3F));
+        } else if (cp < 0x80) {                          /* ascii lowercase */
+            out[o++] = (cp >= 'A' && cp <= 'Z') ? (char)(cp + 32) : (char)cp;
+        } else {
+            for (int i = 0; i < adv; i++) out[o++] = (char)p[i];
+        }
+        p += adv;
+    }
+    out[o] = '\0';
+}
+
+static int field_contains(const char* field, const char* qf)
+{
+    char fold[128];
+    fold_to_lower_hira(field, fold, sizeof(fold));
+    return strstr(fold, qf) != NULL;
+}
+
+// Un kanji coincide si el texto buscado aparece en su onyomi,
+// kunyomi o significado (cualquier escritura).
+static int kanji_search_match(const KanjiEntryTable* e, const char* qf)
+{
+    for (int i = 0; i < e->on_len; i++)
+        if (field_contains(e->on[i], qf)) return 1;
+    for (int i = 0; i < e->kun_len; i++)
+        if (field_contains(e->kun[i], qf)) return 1;
+    for (int i = 0; i < e->meanings_len; i++)
+        if (field_contains(e->meanings[i], qf)) return 1;
+    return 0;
+}
+
+void kanji_search_set(const char* query)
+{
+    if (!query) query = "";
+    int len = strlen(query);
+    if (len >= (int)sizeof(search_query)) len = sizeof(search_query) - 1;
+    memcpy(search_query, query, len);
+    search_query[len] = '\0';
+    active_ready = 0;
+}
+
+void kanji_search_clear(void)
+{
+    search_query[0] = '\0';
+    active_ready = 0;
+}
+
+int kanji_search_has(void)
+{
+    return search_query[0] != '\0';
+}
+
+void kanji_search_get(char* out, int cap)
+{
+    if (!out || cap <= 0) return;
+    if (cap > (int)sizeof(search_query)) cap = sizeof(search_query);
+    memcpy(out, search_query, cap);
+    out[cap - 1] = '\0';
 }

@@ -125,7 +125,8 @@ menu.o: C:/laragon/www/personal/tejinaDS/source/menu.c \
  C:/laragon/www/personal/tejinaDS/source/tts_3ds.h \
  C:/laragon/www/personal/tejinaDS/source/HTS_engine.h \
  C:/laragon/www/personal/tejinaDS/source/hiragana_phoneme.h \
- C:/laragon/www/personal/tejinaDS/source/drawing.h \
+ C:/laragon/www/personal/tejinaDS/source/aprender/escritura/drawing_view/drawing_view.h \
+ C:/laragon/www/personal/tejinaDS/source/functions.h \
  C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_table_screen.h \
  C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_data.h \
  C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke_data.h \
@@ -258,7 +259,8 @@ C:/laragon/www/personal/tejinaDS/source/tts_engine.h:
 C:/laragon/www/personal/tejinaDS/source/tts_3ds.h:
 C:/laragon/www/personal/tejinaDS/source/HTS_engine.h:
 C:/laragon/www/personal/tejinaDS/source/hiragana_phoneme.h:
-C:/laragon/www/personal/tejinaDS/source/drawing.h:
+C:/laragon/www/personal/tejinaDS/source/aprender/escritura/drawing_view/drawing_view.h:
+C:/laragon/www/personal/tejinaDS/source/functions.h:
 C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_table_screen.h:
 C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_data.h:
 C:/laragon/www/personal/tejinaDS/source/aprender/escritura/kanji/kanji_stroke_data.h:

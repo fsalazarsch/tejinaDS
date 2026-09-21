@@ -170,91 +170,64 @@ void mostrar_ideograma(bool animar, float x, float y, float size) {
 
 void draw_kana_detail(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Font font1, C2D_Font font2, TablaState *estado)
 {
-   if(estado->categoria != 2 && estado->categoria != 5){
-    DrawRoundedRect(80, 32, 160, 150, 4, themes[currentTheme].cellIdle);
-    DrawRoundedRect(80, 32, 160, 150, 4, 0x00000000);
-    DrawRoundedRect(159, 32, 2, 150, 0, themes[currentTheme].borderCell);
-    DrawRoundedRect(80, 106, 160, 2, 0, themes[currentTheme].borderCell);
+    int wide = (estado->categoria == 2 || estado->categoria == 5);
+
+    DrawingViewGeom g;
+    g.x = wide ? 20 : 80;
+    g.y = 32;
+    g.w = wide ? 270 : 160;
+    g.h = 150;
+    g.vdiv1 = wide ? 99 : 159;
+    g.vdiv2 = wide ? 220 : -1;
+    g.hdiv = 106;
+    g.clear_x = 10; g.clear_y = 10;
+    g.help_x = 270; g.help_y = 10;
+
+    DrawingViewButton kb[3];
+    kb[0] = (DrawingViewButton){ 10, 197, 95, 36, 3, "Audio", 1, 1 };
+    kb[1] = (DrawingViewButton){ 110, 197, 95, 36, 4, kanaOculto ? "Mostrar" : "Ocultar", 0, 0 };
+    kb[2] = (DrawingViewButton){ 210, 197, 95, 36, 5, "Trazos", 1, 0 };
+    g.buttons = kb;
+    g.n_buttons = 3;
+
+    DrawingViewColors c;
+    c.cellIdle     = themes[currentTheme].cellIdle;
+    c.borderCell   = themes[currentTheme].borderCell;
+    c.kanaText     = themes[currentTheme].kanaText;
+    c.btnAudio     = themes[currentTheme].btnAudio;
+    c.btnAudioText = themes[currentTheme].btnAudioText;
+
+    drawing_view_render_panel(&g, c);
 
     if (!kanaOculto) {
         if (mostrandoTrazos) {
-            int done = animate_kanji_at(&k, &anim, 90.0f, 35.0f, 130.0f);
-            if (done) mostrandoTrazos = false;
-        } else {
-            // carga estática solo cuando NO está animando
-            KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
-            kanji_load(entry.codepoints[0], &k);
-            draw_kanji_static_at(&k, 90.0f, 35.0f, 130.0f);
-        }
-    }
-    
-    drawing_draw(themes[currentTheme].kanaText);
-
-   } else {
-    DrawRoundedRect(20, 32, 270, 150, 4, themes[currentTheme].cellIdle);
-    DrawRoundedRect(20, 32, 270, 150, 4, 0x00000000);
-    DrawRoundedRect(99, 32, 2, 150, 0, themes[currentTheme].borderCell);
-    DrawRoundedRect(20, 106, 270, 2, 0, themes[currentTheme].borderCell);
-    DrawRoundedRect(220, 32, 2, 150, 0, themes[currentTheme].borderCell);
-
-    if (!kanaOculto) {
-        if (mostrandoTrazos) {
-            int done1 = animate_kanji_at(&k,  &anim,  30.0f, 35.0f, 130.0f);
+            int done1 = animate_kanji_at(&k, &anim, wide ? 30.0f : 90.0f, 35.0f, 130.0f);
             int done2 = 0;
-            if (done1) {
-                done2 = animate_kanji_at(&k2, &anim2, 150.0f, 50.0f, 100.0f);
+            if (wide) {
+                if (done1) done2 = animate_kanji_at(&k2, &anim2, 150.0f, 50.0f, 100.0f);
             }
-
-            if (done1 && done2) mostrandoTrazos = false;
+            if (done1 && (!wide || done2)) mostrandoTrazos = false;
         } else {
             KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
             kanji_load(entry.codepoints[0], &k);
-            kanji_load(entry.codepoints[1], &k2);
-            draw_kanji_static_at(&k,  30.0f, 35.0f, 130.0f);
-            draw_kanji_static_at(&k2, 150.0f, 50.0f, 100.0f);
+            if (wide) {
+                kanji_load(entry.codepoints[1], &k2);
+                draw_kanji_static_at(&k,  30.0f, 35.0f, 130.0f);
+                draw_kanji_static_at(&k2, 150.0f, 50.0f, 100.0f);
+            } else {
+                draw_kanji_static_at(&k, 90.0f, 35.0f, 130.0f);
+            }
         }
     }
-    drawing_draw(themes[currentTheme].kanaText);
-   }
+
+    drawing_view_render_tail(g_staticBuf, font2, &g, c);
 
     // --- TÍTULO ROMAJI ---
     C2D_Text romajiText;
     C2D_TextFontParse(&romajiText, font2, g_staticBuf, get_tabla(estado->categoria, estado->fila)[estado->col].romaji);
     C2D_TextOptimize(&romajiText);
     C2D_DrawText(&romajiText, C2D_AtBaseline | C2D_AlignCenter, 160.0f, 24.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
-
-    DrawRoundedRect(10, 10, 30, 30, 6, themes[currentTheme].cellIdle);
-    C2D_Text btnClear;
-    C2D_TextFontParse(&btnClear, font2, g_staticBuf, "X");
-    C2D_TextOptimize(&btnClear);
-    C2D_DrawText(&btnClear, C2D_AtBaseline | C2D_AlignCenter, 25.0f, 30.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
-
-    DrawRoundedRect(270, 10, 30, 30, 6, themes[currentTheme].cellIdle);
-    C2D_Text btnHelp;
-    C2D_TextFontParse(&btnHelp, font2, g_staticBuf, "?");
-    C2D_TextOptimize(&btnHelp);
-    C2D_DrawText(&btnHelp, C2D_AtBaseline | C2D_AlignCenter, 285.0f, 30.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
-
-    DrawRoundedRect(10, 197, 95, 36, 8, themes[currentTheme].btnAudio);
-    C2D_Text btnAudio;
-    C2D_TextFontParse(&btnAudio, font2, g_staticBuf, "Audio");
-    C2D_TextOptimize(&btnAudio);
-    C2D_DrawText(&btnAudio, C2D_AtBaseline | C2D_AlignCenter, 57.0f, 222.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].btnAudioText);
-
-    DrawRoundedRect(110, 197, 95, 36, 8, themes[currentTheme].cellIdle);
-    C2D_Text btnOcultar;
-    C2D_TextFontParse(&btnOcultar, font2, g_staticBuf, kanaOculto ? "Mostrar" : "Ocultar");
-    C2D_TextOptimize(&btnOcultar);
-    C2D_DrawText(&btnOcultar, C2D_AtBaseline | C2D_AlignCenter, 157.0f, 222.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
-
-    DrawRoundedRect(210, 197, 95, 36, 8, themes[currentTheme].btnAudio);
-    C2D_Text btnTrazos;
-    C2D_TextFontParse(&btnTrazos, font2, g_staticBuf, "Trazos");
-    C2D_TextOptimize(&btnTrazos);
-    C2D_DrawText(&btnTrazos, C2D_AtBaseline | C2D_AlignCenter, 257.0f, 222.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
 }
-
-
 
 void mostrar_tabla(C3D_RenderTarget *top, C3D_RenderTarget *bottom, 
                    C2D_TextBuf g_staticBuf, C2D_Font font1, C2D_Font font2, 
@@ -312,61 +285,71 @@ void mostrar_tabla(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
 
 void handle_tabla_touch(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, TablaState *estado)
 {
-    
     KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
 
-    int ax = (estado->categoria == 2 || estado->categoria == 5) ? 20 : 80;
-    int aw = (estado->categoria == 2 || estado->categoria == 5) ? 270 : 160;
-    //drawing_update(kHeld, tx, ty, ax, 32, aw, 150);
-    drawing_update(kHeld, kUp, tx, ty, ax, 32, aw, 150);
+    int wide = (estado->categoria == 2 || estado->categoria == 5);
+
+    DrawingViewGeom g;
+    g.x = wide ? 20 : 80;
+    g.y = 32;
+    g.w = wide ? 270 : 160;
+    g.h = 150;
+    g.vdiv1 = wide ? 99 : 159;
+    g.vdiv2 = wide ? 220 : -1;
+    g.hdiv = 106;
+    g.clear_x = 10; g.clear_y = 10;
+    g.help_x = 270; g.help_y = 10;
+
+    drawing_view_update(kHeld, kUp, tx, ty, &g);
 
     if (!(kDown & KEY_TOUCH)) return;
-    
-    
-    // --- BOTÓN AUDIO ---
-    if (isTouchInRect(tx, ty, 10, 197, 95, 36)) {
-        tts_engine_speak(entry.kana, NULL);
-    }
 
-    // --- BOTÓN OCULTAR ---
-    if (isTouchInRect(tx, ty, 110, 197, 95, 36)) {
-        kanaOculto = !kanaOculto;
-    }
+    DrawingViewButton kb[3];
+    kb[0] = (DrawingViewButton){ 10, 197, 95, 36, 3, "", 1, 1 };
+    kb[1] = (DrawingViewButton){ 110, 197, 95, 36, 4, "", 0, 0 };
+    kb[2] = (DrawingViewButton){ 210, 197, 95, 36, 5, "", 1, 0 };
+    g.buttons = kb;
+    g.n_buttons = 3;
 
-    // --- BOTÓN TRAZOS ---
-if (isTouchInRect(tx, ty, 210, 197, 95, 36)) {
-    kanaOculto = false;
-    mostrandoTrazos = !mostrandoTrazos;
-    if (mostrandoTrazos) {
-        kanji_load(entry.codepoints[0], &k);
-        kanji_anim_init(&anim);
-        if (estado->categoria == 2 || estado->categoria == 5) {
-            kanji_load(entry.codepoints[1], &k2);
-            kanji_anim_init(&anim2);
-        }
+    int pressed = drawing_view_touch(tx, ty, &g);
+    switch (pressed) {
+        case DRAW_VIEW_TOUCH_CLEAR:
+            drawing_view_clear();
+            break;
+        case DRAW_VIEW_TOUCH_HELP:
+            help_toggle(
+                "Ponte Comodo, aqui estudias kana\n"
+                "Puedes ir seleccionando con el D-Pad\n"
+                "Con L/R puedes ir cambiando de tabla\n"
+                "Hiragana, katakana y sus dakuon\n"
+                "En cada kana puedes ver su lectura\n"
+                "Con trazos puedes ver el orden de escritura\n"
+                "En audio puedes escuchar cono se pronuncia\n"
+                "Puedes ocultar/mostrar sus trazos\n"
+                "Si quieres borrar lo que haz hecho pulsa X\n"
+            );
+            break;
+        case 3:
+            tts_engine_speak(entry.kana, NULL);
+            break;
+        case 4:
+            kanaOculto = !kanaOculto;
+            break;
+        case 5:
+            kanaOculto = false;
+            mostrandoTrazos = !mostrandoTrazos;
+            if (mostrandoTrazos) {
+                kanji_load(entry.codepoints[0], &k);
+                kanji_anim_init(&anim);
+                if (estado->categoria == 2 || estado->categoria == 5) {
+                    kanji_load(entry.codepoints[1], &k2);
+                    kanji_anim_init(&anim2);
+                }
+            }
+            break;
+        default:
+            break;
     }
-}
-
-    // --- BOTÓN BORRAR TRAZOS ---
-    if (isTouchInRect(tx, ty, 10, 10, 30, 30)) {
-        drawing_clear();
-    }
-
-    // --- BOTÓN HELP ---
-    if (isTouchInRect(tx, ty, 270, 10, 30, 30)) {
-        help_toggle(
-            "Ponte Comodo, aqui estudias kana\n"
-            "Puedes ir seleccionando con el D-Pad\n"
-            "Con L/R puedes ir cambiando de tabla\n"
-            "Hiragana, katakana y sus dakuon\n"
-            "En cada kana puedes ver su lectura\n"
-            "Con trazos puedes ver el orden de escritura\n"
-            "En audio puedes escuchar cono se pronuncia\n"
-            "Puedes ocultar/mostrar sus trazos\n"
-            "Si quieres borrar lo que haz hecho pulsa X\n"
-        );
-    }
-
 }
 
 int kana_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
@@ -381,13 +364,13 @@ int kana_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
         tablaState.fila = 0;
         tablaState.col = 0;
         tablaState.categoria = (tablaState.categoria - 1 + 6) % 6;
-        drawing_clear();
+        drawing_view_clear();
     }
     if (kDown & KEY_R){ 
         tablaState.fila = 0;
         tablaState.col = 0;
         tablaState.categoria = (tablaState.categoria + 1) % 6;
-        drawing_clear();
+        drawing_view_clear();
     }
     if (kDown & KEY_UP) {
         max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
@@ -395,7 +378,7 @@ int kana_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
         tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
         if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
             tablaState.fila = (tablaState.fila - 1 + max_filas) % max_filas;
-        drawing_clear();
+        drawing_view_clear();
     }
     if (kDown & KEY_DOWN) {
         max_filas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 : 5;
@@ -403,7 +386,7 @@ int kana_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
         tablaState.fila = (tablaState.fila + 1) % max_filas;
         if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
             tablaState.fila = (tablaState.fila + 1) % max_filas;
-        drawing_clear();
+        drawing_view_clear();
     }
     if (kDown & KEY_LEFT) {
         max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
@@ -412,7 +395,7 @@ int kana_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
         tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
         if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
             tablaState.col = (tablaState.col - 1 + max_columnas) % max_columnas;
-        drawing_clear();
+        drawing_view_clear();
     }
     if (kDown & KEY_RIGHT) {
         max_columnas = (tablaState.categoria == 2 || tablaState.categoria == 5) ? 6 :
@@ -421,7 +404,7 @@ int kana_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
         tablaState.col = (tablaState.col + 1) % max_columnas;
         if (strcmp(hiragana[tablaState.fila][tablaState.col].kana, " ") == 0)
             tablaState.col = (tablaState.col + 1) % max_columnas;
-        drawing_clear();
+        drawing_view_clear();
     }
     if (kDown & KEY_A){
         //tts_engine_speak("はな", "HL");  // flor

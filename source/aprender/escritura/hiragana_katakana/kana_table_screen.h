@@ -6,7 +6,7 @@
 #include "themes.h"
 #include "aprender/escritura/kanji/kanji_stroke_data.h"
 #include "tts_engine.h"
-#include "drawing.h"
+#include "aprender/escritura/drawing_view/drawing_view.h"
 
 
 

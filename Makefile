@@ -33,7 +33,7 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/lessons source/keyboard source/aprender/escritura/hiragana_katakana source/aprender/escritura/kanji
+SOURCES		:=	source source/lessons source/keyboard source/aprender/escritura/hiragana_katakana source/aprender/escritura/kanji source/aprender/escritura/drawing_view
 DATA		:=	data
 INCLUDES	:=	include source
 GRAPHICS	:=	gfx
