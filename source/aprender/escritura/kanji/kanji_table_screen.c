@@ -40,6 +40,62 @@ static DrawingViewColors view_colors(void)
     return c;
 }
 
+/* ─── Modo detalle: info en pantalla superior, trazos en la inferior ─── */
+#define KANJI_DETAIL_PANEL_X  10
+#define KANJI_DETAIL_PANEL_Y  70
+#define KANJI_DETAIL_PANEL_W 300
+#define KANJI_DETAIL_PANEL_H 158
+
+static void kanji_detail_geom(DrawingViewGeom *g)
+{
+    g->x = KANJI_DETAIL_PANEL_X;  g->y = KANJI_DETAIL_PANEL_Y;
+    g->w = KANJI_DETAIL_PANEL_W;  g->h = KANJI_DETAIL_PANEL_H;
+    g->vdiv1 = 160; g->vdiv2 = -1; g->hdiv = 149;
+    g->clear_x = 10;  g->clear_y = 14;
+    g->help_x  = 270; g->help_y  = 14;
+    g->buttons = NULL;
+    g->n_buttons = 0;
+}
+
+/* Junta un campo (on/kun) en una sola cadena separada por ", " */
+static const char* join_field(const char** items, int n, char* out, int cap)
+{
+    int len = 0;
+    out[0] = '\0';
+    for (int i = 0; i < n; i++) {
+        if (!items[i]) continue;
+        int wlen = (int)strlen(items[i]);
+        if (len + wlen + (len ? 2 : 0) >= cap) break;
+        if (len) { strcat(out, ", "); len += 2; }
+        strcat(out, items[i]);
+        len += wlen;
+    }
+    return out;
+}
+
+/* Parte un texto en líneas de hasta maxlen caracteres (en espacios) */
+static int wrap_lines(const char* src, int maxlen, char lines[][80], int maxlines)
+{
+    int n = 0;
+    const char* p = src;
+    while (*p && n < maxlines) {
+        int take = 0;
+        while (p[take] && take < maxlen) take++;
+        if (take == maxlen) {
+            int cut = take;
+            while (cut > 0 && p[cut] != ' ' && p[cut] != ',') cut--;
+            if (cut < maxlen / 2) cut = take;
+            if (cut < take) take = cut;
+        }
+        memcpy(lines[n], p, take);
+        lines[n][take] = '\0';
+        p += take;
+        while (*p == ' ' || *p == ',') p++;
+        n++;
+    }
+    return n;
+}
+
 
 static const char* ind_jlpt_labels[] = { "Todos", "N5", "N4", "N3", "N2", "N1", "Sin JLPT" };
 static const int   ind_jlpt_tipo[]   = { FILTRO_NINGUNO, FILTRO_JLPT, FILTRO_JLPT, FILTRO_JLPT, FILTRO_JLPT, FILTRO_JLPT, FILTRO_JLPT };
@@ -112,24 +168,109 @@ int unicode_to_utf8(unsigned int codepoint, char* out) {
 
 
 
-void draw_kanji_detail(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Font font1, C2D_Font font2, TablaState *estado)
+void draw_kanji_detail(C3D_RenderTarget *top, C2D_TextBuf g_staticBuf, C2D_Font font1, C2D_Font font2, TablaState *estado)
 {
-    int wide = (estado->categoria == 2 || estado->categoria == 5);
+    int global_index = 50 * estado->categoria + (estado->fila * 10 + estado->col);
+    if (global_index >= kanji_active_size()) return;
+    int real = kanji_sort_at(global_index);
+    const KanjiEntryTable *e = &kanji_data[real];
+
+    /* kanji un poco más grande */
+    char kanji_utf8[5];
+    unicode_to_utf8(e->unicode, kanji_utf8);
+
+    C2D_Text glyph;
+    C2D_TextFontParse(&glyph, font1, g_staticBuf, kanji_utf8);
+    C2D_TextOptimize(&glyph);
+    C2D_DrawText(&glyph, C2D_AtBaseline, 30.0f, 130.0f, 0.5f, 2.6f, 2.6f,
+                 themes[currentTheme].kanaText);
+
+    /* lecturas */
+    char on_str[192], kun_str[256];
+    join_field((const char**)e->on, e->on_len, on_str, sizeof(on_str));
+    join_field((const char**)e->kun, e->kun_len, kun_str, sizeof(kun_str));
+
+    char on_lab[224], kun_lab[288];
+    snprintf(on_lab, sizeof(on_lab), "ON: %s", on_str);
+    snprintf(kun_lab, sizeof(kun_lab), "KUN: %s", kun_str);
+
+    C2D_Text onText;
+    C2D_TextFontParse(&onText, font_input, g_staticBuf, on_lab);
+    C2D_TextOptimize(&onText);
+    C2D_DrawText(&onText, C2D_AtBaseline, 160.0f, 50.0f, 0.5f, 0.6f, 0.6f,
+                 themes[currentTheme].kanaText);
+
+    C2D_Text kunText;
+    C2D_TextFontParse(&kunText, font_input, g_staticBuf, kun_lab);
+    C2D_TextOptimize(&kunText);
+    C2D_DrawText(&kunText, C2D_AtBaseline, 160.0f, 90.0f, 0.5f, 0.6f, 0.6f,
+                 themes[currentTheme].kanaText);
+
+    /* grado / JLPT */
+    char grade_lab[64];
+    snprintf(grade_lab, sizeof(grade_lab), "Grado %d%s%s",
+             e->grade,
+             e->jlpt > 0 ? " · JLPT N" : "",
+             e->jlpt > 0 ? (e->jlpt == 5 ? "5" : e->jlpt == 4 ? "4" : e->jlpt == 3 ? "3" : e->jlpt == 2 ? "2" : "1") : "");
+    C2D_Text gradeText;
+    C2D_TextFontParse(&gradeText, font2, g_staticBuf, grade_lab);
+    C2D_TextOptimize(&gradeText);
+    C2D_DrawText(&gradeText, C2D_AtBaseline, 160.0f, 120.0f, 0.5f, 0.5f, 0.5f,
+                 themes[currentTheme].romajiText);
+
+    /* significados */
+    char mean_buf[256];
+    {
+        int len = snprintf(mean_buf, sizeof(mean_buf), "SIG: ");
+        for (int i = 0; i < e->meanings_len; i++) {
+            int need = (int)strlen(e->meanings[i]) + (i ? 2 : 1);
+            if (len + need >= (int)sizeof(mean_buf)) break;
+            if (i) { strcat(mean_buf, ", "); len += 2; }
+            strcat(mean_buf, e->meanings[i]);
+            len = (int)strlen(mean_buf);
+        }
+    }
+
+    char lines[4][80];
+    int nlines = wrap_lines(mean_buf, 55, lines, 4);
+    for (int i = 0; i < nlines; i++) {
+        C2D_Text m;
+        C2D_TextFontParse(&m, font2, g_staticBuf, lines[i]);
+        C2D_TextOptimize(&m);
+        C2D_DrawText(&m, C2D_AtBaseline, 25.0f, 160.0f + i * 16.0f, 0.5f,
+                     0.5f, 0.5f, themes[currentTheme].kanaText);
+    }
+}
+
+static void draw_kanji_detail_bottom(C3D_RenderTarget *bottom, C2D_TextBuf g_staticBuf, C2D_Font font1, C2D_Font font2, TablaState *estado)
+{
+    int global_index = 50 * estado->categoria + (estado->fila * 10 + estado->col);
+    if (global_index >= kanji_active_size()) return;
+    int real = kanji_sort_at(global_index);
+    const KanjiEntryTable *e = &kanji_data[real];
 
     DrawingViewGeom g;
-    g.x = wide ? 20 : 80;
-    g.y = 32;
-    g.w = wide ? 270 : 160;
-    g.h = 150;
-    g.vdiv1 = wide ? 99 : 159;
-    g.vdiv2 = wide ? 220 : -1;
-    g.hdiv = 106;
-    g.clear_x = 10; g.clear_y = 10;
-    g.help_x = 270; g.help_y = 10;
-    g.buttons = NULL;
-    g.n_buttons = 0;
+    kanji_detail_geom(&g);
 
-    drawing_view_render(g_staticBuf, font2, &g, view_colors());
+    DrawingViewButton tb[1];
+    tb[0] = (DrawingViewButton){ 115, 14, 90, 26, 6,
+                                 mostrarKanjiTrazos ? "TRAZOS" : "Trazos",
+                                 mostrarKanjiTrazos, 0 };
+    g.buttons = tb;
+    g.n_buttons = 1;
+
+    drawing_view_render_panel(&g, view_colors());
+
+    if (kanji_load(e->unicode, &k)) {
+        if (mostrarKanjiTrazos) {
+            int done = animate_kanji_at(&k, &kanjAnim, 95.0f, 84.0f, 130.0f);
+            if (done) mostrarKanjiTrazos = false;
+        } else {
+            draw_kanji_static_at(&k, 95.0f, 84.0f, 130.0f);
+        }
+    }
+
+    drawing_view_render_tail(g_staticBuf, font2, &g, view_colors());
 }
 
 void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom, 
@@ -140,6 +281,10 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     C2D_SceneBegin(top);
 
     if (font_input == NULL) font_input = kbd_get_font();
+
+    if (tablaState.seleccionado) {
+        draw_kanji_detail(top, g_staticBuf, font1, font2, estado);
+    } else {
 
     int max_filas = 5;
     int max_columnas = 10;
@@ -221,33 +366,33 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
         C2D_TextOptimize(&busquedaText);
         C2D_DrawText(&busquedaText, C2D_AtBaseline, 10.0f, 226.0f, 0.5f, 0.5f, 0.5f, themes[currentTheme].kanaText);
     }
+    }
 
     static char input_buffer[256] = {0};
     C2D_SceneBegin(bottom);
 
-    DrawRoundedRect(5, 5, 75, 20, 8, tab_search_selected == 1 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
+    if (tablaState.seleccionado) {
+        draw_kanji_detail_bottom(bottom, g_staticBuf, font1, font2, estado);
+        return;
+    }
+
+    DrawRoundedRect(42, 5, 75, 20, 8, tab_search_selected == 1 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
     C2D_Text btnAudio;
     C2D_TextFontParse(&btnAudio, font2, g_staticBuf, tab_search_selected == 1 ? "LECTURA" : "Lectura");
     C2D_TextOptimize(&btnAudio);
-    C2D_DrawText(&btnAudio, C2D_AtBaseline | C2D_AlignCenter, 42.0f, 22.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
+    C2D_DrawText(&btnAudio, C2D_AtBaseline | C2D_AlignCenter, 80.0f, 22.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
 
-    DrawRoundedRect(85, 5, 75, 20, 8, tab_search_selected == 2 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
+    DrawRoundedRect(122, 5, 75, 20, 8, tab_search_selected == 2 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
     C2D_Text btnOcultar;
     C2D_TextFontParse(&btnOcultar, font2, g_staticBuf, tab_search_selected == 2 ? "INDICES" : "Indices");
     C2D_TextOptimize(&btnOcultar);
-    C2D_DrawText(&btnOcultar, C2D_AtBaseline | C2D_AlignCenter, 122.0f, 22.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
+    C2D_DrawText(&btnOcultar, C2D_AtBaseline | C2D_AlignCenter, 160.0f, 22.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
 
-    DrawRoundedRect(165, 5, 75, 20, 8, tab_search_selected == 4 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
+    DrawRoundedRect(202, 5, 75, 20, 8, tab_search_selected == 4 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
     C2D_Text btnBuscar;
     C2D_TextFontParse(&btnBuscar, font2, g_staticBuf, tab_search_selected == 4 ? "BUSCAR" : "Buscar");
     C2D_TextOptimize(&btnBuscar);
-    C2D_DrawText(&btnBuscar, C2D_AtBaseline | C2D_AlignCenter, 202.0f, 22.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
-
-    DrawRoundedRect(245, 5, 70, 20, 8, tab_search_selected == 3 ?  themes[currentTheme].btnAudio : themes[currentTheme].cellIdle);
-    C2D_Text btnTrazos;
-    C2D_TextFontParse(&btnTrazos, font2, g_staticBuf, tab_search_selected == 3 ? "DIBUJAR" : "Dibujar");
-    C2D_TextOptimize(&btnTrazos);
-    C2D_DrawText(&btnTrazos, C2D_AtBaseline | C2D_AlignCenter, 280.0f, 22.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
+    C2D_DrawText(&btnBuscar, C2D_AtBaseline | C2D_AlignCenter, 240.0f, 22.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
 
     if(tab_search_selected == 1){
 
@@ -314,36 +459,6 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
                      KANJI_LECTURA_HELP_Y + KANJI_LECTURA_HELP_H * 0.5f + 7.0f,
                      0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
 
-    }
-
-    // --- PESTAÑA DIBUJAR: panel cuadriculado + stylus ---
-    if (tab_search_selected == 3) {
-
-        DrawingViewGeom g;
-        kanji_panel_geom(&g);
-
-        DrawingViewButton tb[1];
-        tb[0] = (DrawingViewButton){ 115, 38, 90, 24, 6, mostrarKanjiTrazos ? "TRAZOS" : "Trazos", mostrarKanjiTrazos, 0 };
-        g.buttons = tb;
-        g.n_buttons = 1;
-
-        drawing_view_render_panel(&g, view_colors());
-
-        // kanji seleccionado (para calcar)
-        int global_index = 50 * estado->categoria + (estado->fila * 10 + estado->col);
-        if (global_index < kanji_active_size()) {
-            int real = kanji_sort_at(global_index);
-            if (kanji_load(kanji_data[real].unicode, &k)) {
-                if (mostrarKanjiTrazos) {
-                    int done = animate_kanji_at(&k, &kanjAnim, 80.0f, 85.0f, 145.0f);
-                    if (done) mostrarKanjiTrazos = false;
-                } else {
-                    draw_kanji_static_at(&k, 80.0f, 85.0f, 145.0f);
-                }
-            }
-        }
-
-        drawing_view_render_tail(g_staticBuf, font2, &g, view_colors());
     }
 
     // --- PESTAÑA BUSCAR: cuadriculado vacío para buscar por dibujo ---
@@ -433,41 +548,53 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
         C2D_TextOptimize(&countText);
         C2D_DrawText(&countText, C2D_AtBaseline | C2D_AlignCenter, 160.0f, 224.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
     }
-
-
-    if (tablaState.seleccionado) {
-        // mostrar detalle del kana actual
-        //draw_kana_detail(bottom, g_staticBuf, font1, font2, estado);
-    
-    } else {
-    // PANTALLA INFERIOR
-    /*    
-    DrawRoundedRect(10, 10, 30, 30, 6, themes[currentTheme].cellIdle);
-    C2D_Text btnHelp;
-    C2D_TextFontParse(&btnHelp, font2, g_staticBuf, "<<");
-    C2D_TextOptimize(&btnHelp);
-    C2D_DrawText(&btnHelp, C2D_AtBaseline | C2D_AlignCenter, 20.0f, 30.0f, 0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
-
-
-
-    char debug[100];
-    snprintf(debug, sizeof(debug), "fila:%d col:%d cat:%d",
-             estado->fila, estado->col, estado->categoria);
-
-    C2D_Text debugText;
-    C2D_TextFontParse(&debugText, font2, g_staticBuf, debug);
-    C2D_TextOptimize(&debugText);
-    C2D_DrawText(&debugText, C2D_AtBaseline, 20, 50, 0.0f, 0.8f, 0.8f, themes[currentTheme].kanaText);*/
-    }
 }
 
 void handle_tabla_touch_kanji(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, TablaState *estado)
 {
+    /* modo detalle: solo el panel de dibujo + X/?/TRAZOS */
+    if (tablaState.seleccionado) {
+        DrawingViewGeom g;
+        kanji_detail_geom(&g);
+        drawing_view_update(kHeld, kUp, tx, ty, &g);
+
+        if (!(kDown & KEY_TOUCH)) return;
+
+        DrawingViewButton tb[1];
+        tb[0] = (DrawingViewButton){ 115, 14, 90, 26, 6, "", mostrarKanjiTrazos, 0 };
+        g.buttons = tb;
+        g.n_buttons = 1;
+
+        int pressed = drawing_view_touch(tx, ty, &g);
+        switch (pressed) {
+            case DRAW_VIEW_TOUCH_CLEAR:
+                drawing_view_clear();
+                break;
+            case DRAW_VIEW_TOUCH_HELP:
+                help_toggle(
+                    "Detalle del kanji:\n"
+                    "Arriba: lecturas y significado.\n"
+                    "Abajo: practica escribiendolo\n"
+                    "con el stylus sobre el panel.\n\n"
+                    "X borra lo que dibujaste\n"
+                    "TRAZOS muestra los trazos guia\n"
+                    "B cierra el detalle."
+                );
+                break;
+            case 6:
+                mostrarKanjiTrazos = !mostrarKanjiTrazos;
+                if (mostrarKanjiTrazos) kanji_anim_init(&kanjAnim);
+                break;
+            default:
+                break;
+        }
+        return;
+    }
     
     //KanaEntry entry = get_tabla(estado->categoria, estado->fila)[estado->col];
 
     // stylus en las pestañas de dibujo (panel cuadriculado)
-    if (tab_search_selected == 3 || tab_search_selected == 4) {
+    if (tab_search_selected == 4) {
         DrawingViewGeom gum;
         kanji_panel_geom(&gum);
         drawing_view_update(kHeld, kUp, tx, ty, &gum);
@@ -490,38 +617,28 @@ void handle_tabla_touch_kanji(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, Tab
         }
     }
     
-    if (isTouchInRect(tx, ty, 5, 5, 75, 20)) {
+    if (isTouchInRect(tx, ty, 42, 5, 75, 20)) {
          tab_search_selected = 1;
 
 
     }
 
-    if (isTouchInRect(tx, ty, 85, 5, 75, 20)) {
+    if (isTouchInRect(tx, ty, 122, 5, 75, 20)) {
          tab_search_selected = 2;
     }
 
-    if (isTouchInRect(tx, ty, 165, 5, 75, 20)) {
+    if (isTouchInRect(tx, ty, 202, 5, 75, 20)) {
          tab_search_selected = 4;
     }
 
-    if (isTouchInRect(tx, ty, 245, 5, 70, 20)) {
-         tab_search_selected = 3;
-    }
-
-    if (tab_search_selected == 3 || tab_search_selected == 4) {
+    if (tab_search_selected == 4) {
         DrawingViewGeom g;
         kanji_panel_geom(&g);
 
         DrawingViewButton kb[1];
-        if (tab_search_selected == 3) {
-            kb[0] = (DrawingViewButton){ 115, 38, 90, 24, 6, "", mostrarKanjiTrazos, 0 };
-            g.buttons = kb;
-            g.n_buttons = 1;
-        } else {
-            kb[0] = (DrawingViewButton){ 110, 206, 100, 28, 7, "", 1, 1 };
-            g.buttons = kb;
-            g.n_buttons = 1;
-        }
+        kb[0] = (DrawingViewButton){ 110, 206, 100, 28, 7, "", 1, 1 };
+        g.buttons = kb;
+        g.n_buttons = 1;
 
         int pressed = drawing_view_touch(tx, ty, &g);
         switch (pressed) {
@@ -530,20 +647,10 @@ void handle_tabla_touch_kanji(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, Tab
                 break;
             case DRAW_VIEW_TOUCH_HELP:
                 help_toggle(
-                    tab_search_selected == 3
-                    ? "Dibuja el kanji con el stylus\n"
-                      "sobre el cuadriculado.\n\n"
-                      "La X borra lo que hiciste.\n"
-                      "Con D-Pad y L/R cambias\n"
-                      "de kanji a practicar."
-                    : "Dibuja un kanji de memoria\n"
-                      "y pulsa BUSCAR.\n\n"
-                      "La X borra lo que hiciste."
+                    "Dibuja un kanji de memoria\n"
+                    "y pulsa BUSCAR.\n\n"
+                    "La X borra lo que hiciste."
                 );
-                break;
-            case 6:
-                mostrarKanjiTrazos = !mostrarKanjiTrazos;
-                if (mostrarKanjiTrazos) kanji_anim_init(&kanjAnim);
                 break;
             case 7:
                 /* búsqueda por dibujo (se implementa aparte) */
@@ -598,6 +705,27 @@ void handle_tabla_touch_kanji(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty, Tab
 int kanji_handle_input(u32 kDown, u32 kHeld, u32 kUp, int tx, int ty)
 {
     handle_tabla_touch_kanji(kDown, kHeld, kUp, tx, ty, &tablaState);
+
+    /* A: abre el detalle del kanji bajo el cursor */
+    if (kDown & KEY_A) {
+        int gidx = 50 * tablaState.categoria + (tablaState.fila * 10 + tablaState.col);
+        if (!tablaState.seleccionado && gidx < kanji_active_size()) {
+            tablaState.seleccionado = true;
+            mostrarKanjiTrazos = false;
+            drawing_view_clear();
+        }
+        return 0;
+    }
+
+    /* B: cierra el detalle y vuelve a navegar la tabla */
+    if (kDown & KEY_B) {
+        if (tablaState.seleccionado) {
+            tablaState.seleccionado = false;
+            mostrarKanjiTrazos = false;
+            drawing_view_clear();
+        }
+        return 0;
+    }
 
     if (kDown & KEY_L){ 
         int paginas = (kanji_active_size() + 50 - 1) / 50;
