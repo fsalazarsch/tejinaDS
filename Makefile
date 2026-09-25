@@ -200,6 +200,8 @@ $(GFXBUILD)/%.bcfnt :		%.ttf
 		mkbcfnt -s 24 -w $(GRAPHICS)/whitelist.txt -o $(GFXBUILD)/$*.bcfnt $< ; \
 	elif [ "$(notdir $<)" = "MPLUS1p-Regular.ttf" ]; then \
         mkbcfnt -s 24 -o $(GFXBUILD)/$*.bcfnt $< ; \
+	elif [ "$(notdir $<)" = "the-legend-of-zelda-a-link-to-the-past-ext.ttf" ]; then \
+        mkbcfnt -w $(GRAPHICS)/whitelist_zelda.txt -o $(GFXBUILD)/$*.bcfnt $< ; \
     else \
         mkbcfnt -o $(GFXBUILD)/$*.bcfnt $< ; \
     fi \

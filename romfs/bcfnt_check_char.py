@@ -179,8 +179,8 @@ def lookup_glyph_index(data, cmap, codepoint):
         for _ in range(n_entries):
             if pos + 4 > len(data):
                 break
-            cp = struct.unpack_from("<H", data, pos)[0]
-            gi = struct.unpack_from("<H", data, pos + 2)[0]
+            gi = struct.unpack_from("<H", data, pos)[0]
+            cp = struct.unpack_from("<H", data, pos + 2)[0]
             if cp == codepoint:
                 return None if gi == NO_GLYPH else gi
             pos += 4

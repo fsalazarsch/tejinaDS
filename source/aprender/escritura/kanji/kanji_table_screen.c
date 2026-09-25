@@ -45,6 +45,22 @@ static DrawingViewColors view_colors(void)
 #define KANJI_DETAIL_PANEL_Y  70
 #define KANJI_DETAIL_PANEL_W 300
 #define KANJI_DETAIL_PANEL_H 158
+#define KANJI_DETAIL_TEXT_X  20.0f
+#define KANJI_DETAIL_TEXT_Y  103.0f
+#define KANJI_DETAIL_TEXT_W  180.0f
+#define KANJI_DETAIL_LABEL_H  12.0f
+#define KANJI_DETAIL_LINE_H  12.0f
+#define KANJI_DETAIL_FIELD_GAP 7.0f
+#define KANJI_DETAIL_MAX_LINES 3
+#define KANJI_DETAIL_LINE_CAP 96
+#define KANJI_DETAIL_EXAMPLES_X 205.0f
+#define KANJI_DETAIL_EXAMPLES_Y 70.0f
+#define KANJI_DETAIL_EXAMPLE_W 185.0f
+#define KANJI_DETAIL_EXAMPLE_H 16.0f
+#define KANJI_DETAIL_EXAMPLE_GAP 1.0f
+#define KANJI_DETAIL_EXAMPLE_COUNT 9
+#define KANJI_DETAIL_EXAMPLE_BUTTON_W 24.0f
+#define KANJI_DETAIL_EXAMPLE_BUTTON_H 14.0f
 
 static void kanji_detail_geom(DrawingViewGeom *g)
 {
@@ -73,27 +89,131 @@ static const char* join_field(const char** items, int n, char* out, int cap)
     return out;
 }
 
-/* Parte un texto en líneas de hasta maxlen caracteres (en espacios) */
-static int wrap_lines(const char* src, int maxlen, char lines[][80], int maxlines)
+static bool text_fits(C2D_TextBuf text_buf, C2D_Font font, const char* text,
+                      float scale, float max_width)
 {
-    int n = 0;
+    C2D_Text parsed;
+    C2D_TextFontParse(&parsed, font, text_buf, text);
+    float width, height;
+    C2D_TextGetDimensions(&parsed, scale, scale, &width, &height);
+    return width <= max_width;
+}
+
+static int wrap_field_lines(const char* src, C2D_Font font, C2D_TextBuf text_buf,
+                            float scale, float max_width,
+                            char lines[][KANJI_DETAIL_LINE_CAP], int max_lines)
+{
+    int count = 0;
     const char* p = src;
-    while (*p && n < maxlines) {
-        int take = 0;
-        while (p[take] && take < maxlen) take++;
-        if (take == maxlen) {
-            int cut = take;
-            while (cut > 0 && p[cut] != ' ' && p[cut] != ',') cut--;
-            if (cut < maxlen / 2) cut = take;
-            if (cut < take) take = cut;
+
+    while (*p && count < max_lines) {
+        char line[KANJI_DETAIL_LINE_CAP] = {0};
+        int separator = 0;
+        while (*p) {
+            while (*p == ' ' || *p == ',' || *p == '\t') p++;
+            if (!*p) break;
+
+            const char* token = p;
+            while (*p && *p != ' ' && *p != ',' && *p != '\t') p++;
+            int token_len = (int)(p - token);
+            const char* next = p;
+            int next_separator = 0;
+            while (*next == ' ' || *next == ',' || *next == '\t') {
+                if (*next == ',') next_separator = 2;
+                else if (!next_separator) next_separator = 1;
+                next++;
+            }
+
+            int line_len = (int)strlen(line);
+            const char* join = line_len ? (separator == 2 ? ", " : " ") : "";
+            char candidate[KANJI_DETAIL_LINE_CAP];
+            int candidate_len = snprintf(candidate, sizeof(candidate), "%s%s%.*s",
+                                         line, join, token_len, token);
+
+            if (candidate_len < 0 || candidate_len >= (int)sizeof(candidate)) {
+                p = token;
+                break;
+            }
+            if (line_len > 0 && !text_fits(text_buf, font, candidate, scale, max_width)) {
+                p = token;
+                break;
+            }
+            strcpy(line, candidate);
+            p = next;
+            separator = next_separator;
         }
-        memcpy(lines[n], p, take);
-        lines[n][take] = '\0';
-        p += take;
-        while (*p == ' ' || *p == ',') p++;
-        n++;
+
+        if (!line[0]) break;
+        strcpy(lines[count], line);
+        count++;
     }
-    return n;
+
+    return count;
+}
+
+static int draw_wrapped_field(const char* label, const char* value,
+                              C2D_Font label_font, C2D_Font value_font,
+                              C2D_TextBuf text_buf, float value_scale,
+                              float line_height, float field_gap,
+                              u32 color, float* y)
+{
+    C2D_Text label_text;
+    C2D_TextFontParse(&label_text, label_font, text_buf, label);
+    C2D_TextOptimize(&label_text);
+    C2D_DrawText(&label_text, C2D_AtBaseline, KANJI_DETAIL_TEXT_X, *y,
+                 0.5f, 0.5f, 0.5f, color);
+    *y += KANJI_DETAIL_LABEL_H;
+
+    char lines[KANJI_DETAIL_MAX_LINES][KANJI_DETAIL_LINE_CAP];
+    int line_count = wrap_field_lines(value, value_font, text_buf, value_scale,
+                                      KANJI_DETAIL_TEXT_W, lines,
+                                      KANJI_DETAIL_MAX_LINES);
+
+    for (int i = 0; i < line_count; i++) {
+        C2D_Text parsed;
+        C2D_TextFontParse(&parsed, value_font, text_buf, lines[i]);
+        C2D_TextOptimize(&parsed);
+        C2D_DrawText(&parsed, C2D_AtBaseline, KANJI_DETAIL_TEXT_X,
+                     *y + i * line_height, 0.5f, value_scale, value_scale, color);
+    }
+
+    *y += line_count * line_height + field_gap;
+    return line_count;
+}
+
+static void draw_reading_examples_layout(C2D_TextBuf text_buf, C2D_Font font2)
+{
+    for (int i = 0; i < KANJI_DETAIL_EXAMPLE_COUNT; i++) {
+        float y = KANJI_DETAIL_EXAMPLES_Y + i *
+                  (KANJI_DETAIL_EXAMPLE_H + KANJI_DETAIL_EXAMPLE_GAP);
+        float x = KANJI_DETAIL_EXAMPLES_X;
+        char placeholder[32];
+
+        snprintf(placeholder, sizeof(placeholder), "placeholder %d", i + 1);
+        DrawRoundedRect(x, y, KANJI_DETAIL_EXAMPLE_W,
+                        KANJI_DETAIL_EXAMPLE_H, 4, themes[currentTheme].cellIdle);
+
+        C2D_Text text;
+        C2D_TextFontParse(&text, font2, text_buf, placeholder);
+        C2D_TextOptimize(&text);
+        C2D_DrawText(&text, C2D_AtBaseline, x + 5.0f, y + 12.0f,
+                     0.5f, 0.45f, 0.45f, themes[currentTheme].kanaText);
+
+        float button_x = x + KANJI_DETAIL_EXAMPLE_W -
+                         KANJI_DETAIL_EXAMPLE_BUTTON_W - 4.0f;
+        DrawRoundedRect(button_x, y + 1.0f,
+                        KANJI_DETAIL_EXAMPLE_BUTTON_W,
+                        KANJI_DETAIL_EXAMPLE_BUTTON_H, 4,
+                        themes[currentTheme].btnAudio);
+
+        C2D_Text audio;
+        C2D_TextFontParse(&audio, font2, text_buf, "A");
+        C2D_TextOptimize(&audio);
+        C2D_DrawText(&audio, C2D_AtBaseline | C2D_AlignCenter,
+                     button_x + KANJI_DETAIL_EXAMPLE_BUTTON_W * 0.5f,
+                     y + 11.5f, 0.5f, 0.35f, 0.35f,
+                     themes[currentTheme].btnAudioText);
+    }
 }
 
 
@@ -182,63 +302,64 @@ void draw_kanji_detail(C3D_RenderTarget *top, C2D_TextBuf g_staticBuf, C2D_Font 
     C2D_Text glyph;
     C2D_TextFontParse(&glyph, font1, g_staticBuf, kanji_utf8);
     C2D_TextOptimize(&glyph);
-    C2D_DrawText(&glyph, C2D_AtBaseline, 30.0f, 130.0f, 0.5f, 2.6f, 2.6f,
+    C2D_DrawText(&glyph, C2D_AtBaseline, 20.0f, 80.0f, 0.5f, 2.8f, 2.8f,
                  themes[currentTheme].kanaText);
 
-    /* lecturas */
     char on_str[192], kun_str[256];
     join_field((const char**)e->on, e->on_len, on_str, sizeof(on_str));
     join_field((const char**)e->kun, e->kun_len, kun_str, sizeof(kun_str));
 
-    char on_lab[224], kun_lab[288];
-    snprintf(on_lab, sizeof(on_lab), "ON: %s", on_str);
-    snprintf(kun_lab, sizeof(kun_lab), "KUN: %s", kun_str);
-
-    C2D_Text onText;
-    C2D_TextFontParse(&onText, font_input, g_staticBuf, on_lab);
-    C2D_TextOptimize(&onText);
-    C2D_DrawText(&onText, C2D_AtBaseline, 160.0f, 50.0f, 0.5f, 0.6f, 0.6f,
-                 themes[currentTheme].kanaText);
-
-    C2D_Text kunText;
-    C2D_TextFontParse(&kunText, font_input, g_staticBuf, kun_lab);
-    C2D_TextOptimize(&kunText);
-    C2D_DrawText(&kunText, C2D_AtBaseline, 160.0f, 90.0f, 0.5f, 0.6f, 0.6f,
-                 themes[currentTheme].kanaText);
-
-    /* grado / JLPT */
-    char grade_lab[64];
-    snprintf(grade_lab, sizeof(grade_lab), "Grado %d%s%s",
-             e->grade,
-             e->jlpt > 0 ? " · JLPT N" : "",
-             e->jlpt > 0 ? (e->jlpt == 5 ? "5" : e->jlpt == 4 ? "4" : e->jlpt == 3 ? "3" : e->jlpt == 2 ? "2" : "1") : "");
-    C2D_Text gradeText;
-    C2D_TextFontParse(&gradeText, font2, g_staticBuf, grade_lab);
-    C2D_TextOptimize(&gradeText);
-    C2D_DrawText(&gradeText, C2D_AtBaseline, 160.0f, 120.0f, 0.5f, 0.5f, 0.5f,
-                 themes[currentTheme].romajiText);
-
-    /* significados */
     char mean_buf[256];
     {
-        int len = snprintf(mean_buf, sizeof(mean_buf), "SIG: ");
+        mean_buf[0] = '\0';
+        int len = 0;
         for (int i = 0; i < e->meanings_len; i++) {
-            int need = (int)strlen(e->meanings[i]) + (i ? 2 : 1);
+            int need = (int)strlen(e->meanings[i]) + (len ? 2 : 0);
             if (len + need >= (int)sizeof(mean_buf)) break;
-            if (i) { strcat(mean_buf, ", "); len += 2; }
+            if (len) { strcat(mean_buf, ", "); len += 2; }
             strcat(mean_buf, e->meanings[i]);
             len = (int)strlen(mean_buf);
         }
     }
 
-    char lines[4][80];
-    int nlines = wrap_lines(mean_buf, 55, lines, 4);
-    for (int i = 0; i < nlines; i++) {
-        C2D_Text m;
-        C2D_TextFontParse(&m, font2, g_staticBuf, lines[i]);
-        C2D_TextOptimize(&m);
-        C2D_DrawText(&m, C2D_AtBaseline, 25.0f, 160.0f + i * 16.0f, 0.5f,
-                     0.5f, 0.5f, themes[currentTheme].kanaText);
+    float text_y = KANJI_DETAIL_TEXT_Y;
+    draw_wrapped_field("Significado", mean_buf, font2, font2, g_staticBuf, 0.5f,
+                       KANJI_DETAIL_LINE_H, KANJI_DETAIL_FIELD_GAP,
+                       themes[currentTheme].kanaText, &text_y);
+    draw_wrapped_field("Onyomi", on_str, font2, font_input, g_staticBuf, 0.6f,
+                       KANJI_DETAIL_LINE_H, KANJI_DETAIL_FIELD_GAP,
+                       themes[currentTheme].kanaText, &text_y);
+    draw_wrapped_field("Kunyomi", kun_str, font2, font_input, g_staticBuf, 0.6f,
+                       KANJI_DETAIL_LINE_H, KANJI_DETAIL_FIELD_GAP,
+                       themes[currentTheme].kanaText, &text_y);
+
+    draw_reading_examples_layout(g_staticBuf, font2);
+
+    char grade_lab[64];
+    snprintf(grade_lab, sizeof(grade_lab), "Grado %d%s%s",
+             e->grade,
+             e->jlpt > 0 ? " | JLPT N" : "",
+             e->jlpt > 0 ? (e->jlpt == 5 ? "5" : e->jlpt == 4 ? "4" : e->jlpt == 3 ? "3" : e->jlpt == 2 ? "2" : "1") : "");
+    C2D_Text gradeText;
+    C2D_TextFontParse(&gradeText, font2, g_staticBuf, grade_lab);
+    C2D_TextOptimize(&gradeText);
+    C2D_DrawText(&gradeText, C2D_AtBaseline, 200.0f, 28.0f, 0.5f, 0.5f, 0.5f,
+                 themes[currentTheme].romajiText);
+
+    unsigned char radical_id = kanji_radical[real];
+    if (radical_id > 0 && radical_id < 215 && kanji_radical_char[radical_id]) {
+        C2D_Text radical_label;
+        C2D_TextFontParse(&radical_label, font2, g_staticBuf, "Radical:");
+        C2D_TextOptimize(&radical_label);
+        C2D_DrawText(&radical_label, C2D_AtBaseline, 200.0f, 49.0f,
+                     0.5f, 0.45f, 0.45f, themes[currentTheme].romajiText);
+
+        C2D_Text radical_glyph;
+        C2D_TextFontParse(&radical_glyph, font1, g_staticBuf,
+                          kanji_radical_char[radical_id]);
+        C2D_TextOptimize(&radical_glyph);
+        C2D_DrawText(&radical_glyph, C2D_AtBaseline, 250.0f, 64.0f,
+                     0.5f, 0.8f, 0.8f, themes[currentTheme].kanaText);
     }
 }
 
@@ -325,7 +446,7 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
     // indicador de página actual (parte inferior de la pantalla superior)
     char page_indicator[32];
     int total_pages = (gsize + 50 - 1) / 50;
-    snprintf(page_indicator, sizeof(page_indicator), "Pagina %d/%d",
+    snprintf(page_indicator, sizeof(page_indicator), "Pagina %d | %d",
              estado->categoria + 1, total_pages);
 
     C2D_Text pageText;
@@ -362,7 +483,7 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
         snprintf(s_full, sizeof(s_full), "Busqueda: %s", s_ind);
 
         C2D_Text busquedaText;
-        C2D_TextFontParse(&busquedaText, font2, g_staticBuf, s_full);
+        C2D_TextFontParse(&busquedaText, font_input, g_staticBuf, s_full);
         C2D_TextOptimize(&busquedaText);
         C2D_DrawText(&busquedaText, C2D_AtBaseline, 10.0f, 226.0f, 0.5f, 0.5f, 0.5f, themes[currentTheme].kanaText);
     }
@@ -529,13 +650,13 @@ void mostrar_tabla_kanji(C3D_RenderTarget *top, C3D_RenderTarget *bottom,
         if (n > visible) {
             DrawRoundedRect(284, 58, 26, 22, 4, themes[currentTheme].cellIdle);
             C2D_Text upArrow;
-            C2D_TextFontParse(&upArrow, font2, g_staticBuf, "^");
+            C2D_TextFontParse(&upArrow, font2, g_staticBuf, "↑");
             C2D_TextOptimize(&upArrow);
             C2D_DrawText(&upArrow, C2D_AtBaseline | C2D_AlignCenter, 297.0f, 76.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
 
             DrawRoundedRect(284, 186, 26, 22, 4, themes[currentTheme].cellIdle);
             C2D_Text downArrow;
-            C2D_TextFontParse(&downArrow, font2, g_staticBuf, "v");
+            C2D_TextFontParse(&downArrow, font2, g_staticBuf, "↓");
             C2D_TextOptimize(&downArrow);
             C2D_DrawText(&downArrow, C2D_AtBaseline | C2D_AlignCenter, 297.0f, 204.0f, 0.5f, 0.6f, 0.6f, themes[currentTheme].kanaText);
         }
