@@ -23859,52 +23859,52 @@
 0036be88 000000a8 r HTS_pade
 0036bf30 00000008 r s_defaultTint.0
 006f26bc r .LC2
-008f445c R render2d_shbin
-008f45e8 00000004 r depthFmtSizes
-008f45e8 R render2d_shbin_end
-008f45ec 00000005 r colorFmtSizes
-008f45f4 00000010 r CSWTCH.11
-008f4604 00000038 r CSWTCH.19
-008f463c 00000080 r romFS_devoptab
-008f46e4 00000008 r morton_y.2
-008f46ec 00000008 r morton_x.3
-008f46f4 00000008 r s_sleepWakeEvents.4
-008f46fc 0000000c r serviceNameTable.5
-008f472c 00000030 r error_table
-008f475c 00000080 r archive_devoptab
-008f47dc 00000060 R __inv_pio4
-008f4840 000000e0 R __sincosf_table
-008f4920 00000870 R __exp_data
-008f5190 00001048 R __pow_log_data
-008f61d8 00001090 R __log_data
-008f7268 00000080 r npio2_hw
-008f72e8 00000108 r two_over_pi
-008f73f0 00000040 r PIo2
-008f7430 00000010 r init_jk
-008f7594 00000022 r basefix.0
-008f7618 00000014 r fpinan.0
-008f762c 00000014 r fpi.1
-008f7640 00000028 r tinytens
-008f7754 00000010 r zeroes.0
-008f7764 00000010 r blanks.1
-008f7774 0000006c R __action_table
-008f77e0 0000006c R __state_table
-008f784c 00000100 R __chclass
-008f794c 00000100 R __hexdig
-008f7b40 00000010 r zeroes.0
-008f7b50 00000010 r blanks.1
-008f7b60 00000101 R _ctype_
-008f7c64 0000000c r p05.0
-008f7c70 00000028 R __mprec_bigtens
-008f7c98 000000c8 R __mprec_tens
-008f7e4c 00000010 r zeroes.0
-008f7e5c 00000010 r blanks.1
-008f7e6c 000037f8 r categories
-008fb664 00000080 R dotab_stdnull
-008fb6e4 R __tdata_align
-008fb6e8 r __EH_FRAME_BEGIN__
-008fb6e8 R __exidx_end
-008fb6e8 R __exidx_start
+008f4424 R render2d_shbin
+008f45b0 00000004 r depthFmtSizes
+008f45b0 R render2d_shbin_end
+008f45b4 00000005 r colorFmtSizes
+008f45bc 00000010 r CSWTCH.11
+008f45cc 00000038 r CSWTCH.19
+008f4604 00000080 r romFS_devoptab
+008f46ac 00000008 r morton_y.2
+008f46b4 00000008 r morton_x.3
+008f46bc 00000008 r s_sleepWakeEvents.4
+008f46c4 0000000c r serviceNameTable.5
+008f46f4 00000030 r error_table
+008f4724 00000080 r archive_devoptab
+008f47a4 00000060 R __inv_pio4
+008f4808 000000e0 R __sincosf_table
+008f48e8 00000870 R __exp_data
+008f5158 00001048 R __pow_log_data
+008f61a0 00001090 R __log_data
+008f7230 00000080 r npio2_hw
+008f72b0 00000108 r two_over_pi
+008f73b8 00000040 r PIo2
+008f73f8 00000010 r init_jk
+008f755c 00000022 r basefix.0
+008f75e0 00000014 r fpinan.0
+008f75f4 00000014 r fpi.1
+008f7608 00000028 r tinytens
+008f771c 00000010 r zeroes.0
+008f772c 00000010 r blanks.1
+008f773c 0000006c R __action_table
+008f77a8 0000006c R __state_table
+008f7814 00000100 R __chclass
+008f7914 00000100 R __hexdig
+008f7b08 00000010 r zeroes.0
+008f7b18 00000010 r blanks.1
+008f7b28 00000101 R _ctype_
+008f7c2c 0000000c r p05.0
+008f7c38 00000028 R __mprec_bigtens
+008f7c60 000000c8 R __mprec_tens
+008f7e14 00000010 r zeroes.0
+008f7e24 00000010 r blanks.1
+008f7e34 000037f8 r categories
+008fb62c 00000080 R dotab_stdnull
+008fb6ac R __tdata_align
+008fb6b0 r __EH_FRAME_BEGIN__
+008fb6b0 R __exidx_end
+008fb6b0 R __exidx_start
 008fc000 00000004 D lastTouchY
 008fc004 00000064 D menusel
 008fc068 00000001 D currentTheme

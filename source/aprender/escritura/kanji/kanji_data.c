@@ -1928,7 +1928,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x5DFE, 8, -1, 3,
 
-        {"radical textil (n.º 50)", "pergamino colgante", "toalla", "ancho"}, 4,
+        {"radical textil (n. 50)", "pergamino colgante", "toalla", "ancho"}, 4,
 
         {"おお.い", "きれ", "ちきり"}, 3,
 
@@ -3319,7 +3319,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x652F, 5, 3, 4,
 
-        {"rama", "Radical de rama (n.º 65)", "apoyo", "sostener"}, 4,
+        {"rama", "Radical de rama (n. 65)", "apoyo", "sostener"}, 4,
 
         {"か.う", "ささ.える", "つか.える"}, 3,
 
@@ -4606,7 +4606,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x58EB, 4, 1, 3,
 
-        {"hidalgo", "samurai", "radical samurái (n.º 33)", "erudito"}, 4,
+        {"hidalgo", "samurai", "radical samurái (n. 33)", "erudito"}, 4,
 
         {"さむらい"}, 1,
 
@@ -5217,7 +5217,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x6238, 2, 2, 4,
 
-        {"mostrador para casas", "puerta", "puerta radical (n.º 63)"}, 3,
+        {"mostrador para casas", "puerta", "puerta radical (n. 63)"}, 3,
 
         {"と"}, 1,
 
@@ -6491,7 +6491,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x79BE, 9, -1, 5,
 
-        {"radical de árbol de dos ramas (n.º 115)"}, 1,
+        {"radical de árbol de dos ramas (n. 115)"}, 1,
 
         {"いね"}, 1,
 
@@ -7154,7 +7154,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x65A4, 8, 1, 4,
 
-        {"1,32 libras", "hacha", "radical de hacha (n.º 69)", "malicioso", "mostrador para barras de pan"}, 5,
+        {"1,32 libras", "hacha", "radical de hacha (n. 69)", "malicioso", "mostrador para barras de pan"}, 5,
 
         {NULL}, 0,
 
@@ -10066,7 +10066,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x7259, 8, -1, 5,
 
-        {"colmillo", "colmillo", "radical de colmillo (n.º 92)"}, 3,
+        {"colmillo", "colmillo", "radical de colmillo (n. 92)"}, 3,
 
         {"きば", "は"}, 2,
 
@@ -14304,7 +14304,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x5FC3, 2, 4, 4,
 
-        {"corazón", "radical del corazón (n.º 61)", "mente", "espíritu"}, 4,
+        {"corazón", "radical del corazón (n. 61)", "mente", "espíritu"}, 4,
 
         {"-ごころ", "こころ"}, 2,
 
@@ -15604,7 +15604,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x6597, 8, 1, 4,
 
-        {"Osa Mayor", "Puntos y radical de cruz (n.º 68)", "cucharón de sake", "diez sho (vol)"}, 4,
+        {"Osa Mayor", "Puntos y radical de cruz (n. 68)", "cucharón de sake", "diez sho (vol)"}, 4,
 
         {NULL}, 0,
 
@@ -19218,7 +19218,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x7F36, 8, 2, 6,
 
-        {"recipiente", "radical de jarra (n.º 121)", "lata"}, 3,
+        {"recipiente", "radical de jarra (n. 121)", "lata"}, 3,
 
         {"かま"}, 1,
 
@@ -19595,7 +19595,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x7247, 6, 2, 4,
 
-        {"hoja", "unilateral", "radical kata del lado derecho (n.º 91)", "hoja"}, 4,
+        {"hoja", "unilateral", "radical kata del lado derecho (n. 91)", "hoja"}, 4,
 
         {"かた", "かた-"}, 2,
 
@@ -20518,7 +20518,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x5E9A, 9, -1, 8,
 
-        {"7º", "Séptimo signo del calendario"}, 2,
+        {"7o", "Séptimo signo del calendario"}, 2,
 
         {"かのえ"}, 1,
 
@@ -20999,7 +20999,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x4E59, 8, 1, 1,
 
-        {"duplicado", "radical anzuelo (n.º 5)", "extraño", "este último", "ingenioso"}, 5,
+        {"duplicado", "radical anzuelo (n. 5)", "extraño", "este último", "ingenioso"}, 5,
 
         {"おと-", "きのと"}, 2,
 
@@ -21493,7 +21493,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x516B, 1, 5, 2,
 
-        {"ocho", "ocho radicales (n.º 12)"}, 2,
+        {"ocho", "ocho radicales (n. 12)"}, 2,
 
         {"や", "や.つ", "やっ.つ", "よう"}, 4,
 
@@ -22156,7 +22156,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x535C, 9, -1, 2,
 
-        {"adivinación o katakana al radical (n.º 25)", "adivinación", "adivinación"}, 3,
+        {"adivinación o katakana al radical (n. 25)", "adivinación", "adivinación"}, 3,
 
         {"うらな.う", "うらない"}, 2,
 
@@ -23196,7 +23196,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x4E19, 8, 1, 5,
 
-        {"3.º", "tercer signo del calendario", "tercera clase"}, 3,
+        {"3.o", "tercer signo del calendario", "tercera clase"}, 3,
 
         {"ひのえ"}, 1,
 
@@ -23547,7 +23547,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x4E8C, 1, 5, 2,
 
-        {"dos", "dos radicales (nº 7)"}, 2,
+        {"dos", "dos radicales (n. 7)"}, 2,
 
         {"ふた", "ふた.つ", "ふたたび"}, 3,
 
@@ -23898,7 +23898,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x6587, 1, 4, 4,
 
-        {"arte", "decoración", "cifras", "radical literario (n.º 67)", "literatura", "plan", "oración", "estilo"}, 8,
+        {"arte", "decoración", "cifras", "radical literario (n. 67)", "literatura", "plan", "oración", "estilo"}, 8,
 
         {"あや", "ふみ"}, 2,
 
@@ -26381,7 +26381,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x5DE5, 2, 4, 3,
 
-        {"construcción", "artesanía", "katakana e radical (n.º 48)"}, 3,
+        {"construcción", "artesanía", "katakana e radical (n. 48)"}, 3,
 
         {NULL}, 0,
 
@@ -26927,7 +26927,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x961C, 8, -1, 8,
 
-        {"colina", "radical de la izquierda del pueblo (n.º 170)", "montículo"}, 3,
+        {"colina", "radical de la izquierda del pueblo (n. 170)", "montículo"}, 3,
 
         {NULL}, 0,
 
@@ -29462,7 +29462,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x8FB0, 9, 1, 7,
 
-        {"De 7 a 9 de la mañana", "quinto signo del zodiaco chino", "Shin Dragon Radical (n.º 161)", "signo del dragón"}, 4,
+        {"De 7 a 9 de la mañana", "quinto signo del zodiaco chino", "Shin Dragon Radical (n. 161)", "signo del dragón"}, 4,
 
         {"たつ"}, 1,
 
@@ -30463,7 +30463,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x9149, 9, 1, 7,
 
-        {"De 17:00 a 19:00", "pájaro", "radical sake (n.º 164)", "señal del pájaro", "décimo signo del zodiaco chino", "Oeste"}, 6,
+        {"De 17:00 a 19:00", "pájaro", "radical sake (n. 164)", "señal del pájaro", "décimo signo del zodiaco chino", "Oeste"}, 6,
 
         {"とり"}, 1,
 
@@ -32452,7 +32452,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x4E01, 3, 1, 2,
 
-        {"4.º signo del calendario", "mostrador para armas, herramientas, hojas o pasteles de algo", "número par", "calle", "ciudad", "pabellón"}, 6,
+        {"4o signo del calendario", "mostrador para armas, herramientas, hojas o pasteles de algo", "número par", "calle", "ciudad", "pabellón"}, 6,
 
         {"ひのと"}, 1,
 
@@ -33258,7 +33258,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x5DDD, 1, 5, 3,
 
-        {"río", "río o río radical de tres tiempos (n.º 47)", "arroyo"}, 3,
+        {"río", "río o río radical de tres tiempos (n. 47)", "arroyo"}, 3,
 
         {"かわ"}, 1,
 
@@ -34870,7 +34870,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x6B20, 4, 3, 4,
 
-        {"fallar", "brecha", "falta", "radical bostezando (n.º 76)"}, 4,
+        {"fallar", "brecha", "falta", "radical bostezando (n. 76)"}, 4,
 
         {"か.く", "か.ける"}, 2,
 
@@ -36001,7 +36001,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x4E00, 1, 5, 1,
 
-        {"uno", "un radical (nº 1)"}, 2,
+        {"uno", "un radical (n. 1)"}, 2,
 
         {"ひと-", "ひと.つ"}, 2,
 
@@ -37574,7 +37574,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x76AE, 3, 2, 5,
 
-        {"esconder", "cuero", "piel", "piel", "radical cutáneo (n.º 107)"}, 5,
+        {"esconder", "cuero", "piel", "piel", "radical cutáneo (n. 107)"}, 5,
 
         {"かわ"}, 1,
 
@@ -38822,7 +38822,7 @@ const KanjiEntryTable kanji_data[3003] = {
     {
         0x9091, 9, 1, 7,
 
-        {"radical de derecha de pueblo (n.º 163)", "comunidad rural", "aldea"}, 3,
+        {"radical de derecha de pueblo (n. 163)", "comunidad rural", "aldea"}, 3,
 
         {"むら"}, 1,
 
@@ -39035,6 +39035,357 @@ const KanjiEntryTable kanji_data[3003] = {
         {"はて"}, 1,
 
         {"ガイ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+        {
+        0x53EC, 4, 3, 5,
+
+        {"llamar", "convocar"}, 2,
+
+        {"め.す"}, 1,
+
+        {"ショウ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x5CEF, 8, 3, 8,
+
+        {"cabo", "promontorio"}, 2,
+
+        {"みさき"}, 1,
+
+        {"コウ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x634C, 8, 3, 10,
+
+        {"progresar", "avanzar"}, 2,
+
+        {"はど.る"}, 1,
+
+        {"チョク"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x633D, 8, 2, 10,
+
+        {"aserrar", "moler"}, 2,
+
+        {"ひ.く"}, 1,
+
+        {"バン"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x72E1, 8, 2, 9,
+
+        {"astuto", "ladino"}, 2,
+
+        {"ずる.い"}, 1,
+
+        {"コウ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x73C0, 8, 2, 12,
+
+        {"ámbar"}, 1,
+
+        {NULL}, 0,
+
+        {"コ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x79E6, 8, 2, 10,
+
+        {"dinastía Qin"}, 1,
+
+        {"はだ"}, 1,
+
+        {"シン"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x832B, 8, 2, 9,
+
+        {"vasto", "extenso", "borroso"}, 3,
+
+        {NULL}, 0,
+
+        {"ボウ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x4ECE, 8, 1, 4,
+
+        {"seguir"}, 1,
+
+        {"したが.う"}, 1,
+
+        {"ジュウ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x5191, 8, 1, 9,
+
+        {"casco antiguo"}, 1,
+
+        {"よろい"}, 1,
+
+        {"チュウ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x54AC, 8, 1, 9,
+
+        {"morder", "masticar"}, 2,
+
+        {"か.む"}, 1,
+
+        {"コウ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x5769, 8, 1, 8,
+
+        {"crisol"}, 1,
+
+        {NULL}, 0,
+
+        {"カン"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x57A4, 8, 1, 9,
+
+        {"montículo"}, 1,
+
+        {"ありづか"}, 1,
+
+        {"テツ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x57FC, 4, 1, 11,
+
+        {"cabo", "Saitama"}, 2,
+
+        {"さいたま"}, 1,
+
+        {"キ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x5A03, 8, 1, 9,
+
+        {"hermosa", "muñeca"}, 2,
+
+        {NULL}, 0,
+
+        {"アイ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x5CFB, 8, 1, 10,
+
+        {"escarpado", "alto"}, 2,
+
+        {"けわしい"}, 1,
+
+        {"シュン"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x65AB, 8, 1, 9,
+
+        {"cortar", "picar"}, 2,
+
+        {"き.る"}, 1,
+
+        {"シャク"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x67B7, 8, 1, 9,
+
+        {"yugo", "grilletes"}, 2,
+
+        {"かせ"}, 1,
+
+        {"カ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x67E9, 8, 1, 9,
+
+        {"ataúd"}, 1,
+
+        {"ひつぎ"}, 1,
+
+        {"キュウ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x6834, 8, 1, 10,
+
+        {"tipo de roble"}, 1,
+
+        {"くぬぎ"}, 1,
+
+        {"ク"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x6B7F, 8, 1, 8,
+
+        {"morir", "perecer"}, 2,
+
+        {NULL}, 0,
+
+        {"ボツ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x77DC, 8, 1, 9,
+
+        {"orgullo", "respeto"}, 2,
+
+        {"ほこ.る"}, 1,
+
+        {"キン"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x780C, 8, 1, 9,
+
+        {"escalón", "umbral"}, 2,
+
+        {"みぎわ"}, 1,
+
+        {"セイ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x7953, 8, 1, 10,
+
+        {"purificar", "exorcizar"}, 2,
+
+        {"はら.う"}, 1,
+
+        {"ハツ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x80DA, 8, 1, 9,
+
+        {"embrión"}, 1,
+
+        {NULL}, 0,
+
+        {"ハイ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x8317, 8, 1, 9,
+
+        {"brote de té"}, 1,
+
+        {NULL}, 0,
+
+        {"メイ"}, 1,
+
+        {NULL}, 0,
+
+        NULL
+    },
+    {
+        0x9582, 8, 1, 9,
+
+        {"cerrojo"}, 1,
+
+        {"かんぬき"}, 1,
+
+        {"カン"}, 1,
 
         {NULL}, 0,
 

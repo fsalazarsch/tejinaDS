@@ -3,13 +3,9 @@ Seccion aprender
 		kanji:
 		- Hacel la opcion de ir hacia atrás como en hiragana y katakana con SELECT
 		En el detalle:
-			- Lecuras on y kun extensas, formatearlas para que tengaN un cierto largo
 			- Lo mismo con los significados, agregares formato (° y / no existe)
-			- Subir el kanji un poco más arriba
-			- A todo el detalle excepot por el kanji agrandarlo un poco más
-			- Ponerle los radiclaes en el detalle
-			- Agregarles lecturas de ejemplo kanji (ejemplo en hiragana) : significado
-
+		Buscar base de datos para rellenar
+		ver los kanji y los radicales que faltan
 
  - A la font K18X12L, agregarla la ñ, y los signos de acento
 - 
