@@ -3,9 +3,10 @@ Seccion aprender
 		kanji:
 		- Hacel la opcion de ir hacia atrás como en hiragana y katakana con SELECT
 		En el detalle:
-			- Lo mismo con los significados, agregares formato (° y / no existe)
-		Buscar base de datos para rellenar
-		ver los kanji y los radicales que faltan
+
+		chequear kanjis desde la pagina 3
+
+		Buscar base de datos para rellenar con datas de audio
 
  - A la font K18X12L, agregarla la ñ, y los signos de acento
 - 
