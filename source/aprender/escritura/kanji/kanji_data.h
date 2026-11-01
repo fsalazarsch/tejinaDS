@@ -1,29 +1,34 @@
 #ifndef KANJI_DATA_H
 #define KANJI_DATA_H
-#include <stddef.h>
 
-#define TOTAL_KANJI 3003
+#define TOTAL_KANJI 2770
+
+typedef struct {
+    const char *kanji;
+    const char *hiragana;
+    const char *meaning;
+} KanjiWord;
 
 typedef struct {
     unsigned int unicode;
-    unsigned char grade;
-    signed char jlpt;
+    const char *grade;          /* Ej.: "9k", "1", "6" ("" = sin dato) */
+    signed char jlpt;           /* 5=N5 ... 1=N1; 0=sin dato */
     unsigned char stroke_count;
+    const char *radical;
 
-    const char* meanings[14];
-    unsigned char meanings_len;
+    const char *const *meanings;
+    unsigned short meanings_len;
+    const char *const *kun;
+    unsigned short kun_len;
+    const char *const *on;
+    unsigned short on_len;
 
-    const char* kun[18];
-    unsigned char kun_len;
+    const KanjiWord *common_words;
+    unsigned short common_words_len;
+    const KanjiWord *uncommon_words;
+    unsigned short uncommon_words_len;
+} KanjiEntryTable;
 
-    const char* on[5];
-    unsigned char on_len;
-
-    const char* name[25];
-    unsigned char name_len;
-
-    const char* variant;
-}KanjiEntryTable;
-extern const KanjiEntryTable kanji_data[3003];
+extern const KanjiEntryTable kanji_data[TOTAL_KANJI];
 
 #endif

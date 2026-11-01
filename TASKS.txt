@@ -4,9 +4,94 @@ Seccion aprender
 		- Hacel la opcion de ir hacia atrás como en hiragana y katakana con SELECT
 		En el detalle:
 
-		chequear kanjis desde la pagina 3
+		chequear kanjis desde la pagina 59
+
+		KANJIS MALOS EN TRAZOS,  医, 慣, 才, 満,  際, 召, 均, 血, 領, 伶, 峻, 拍, 梧, 玲(?), 璃, 睡, 秦, 膨, 貫, 迫 (detalle), 	離, 俠 (no tinee dibujo pero tiene una version moderna 侠),
+		僅 (detalle), 富 (no tiene dibujo), 凉 ( no tienede dibujo, pero la forma en japones es 涼) 
+
+		Otro mas sin dibujo 
+		• 凜 (15 trazos): Es la forma clásica y oficial.
+		• 凛 (14 trazos): Es su variante simplificada más común en fuentes digitales.
+
+		剥 sin dibujo
+
+		卽 El kanji de tu imagen es 即[BUSCAR POR ESTE KANJI] (con su variante gráfica tradicional 即 / 卽).
+		埜 sin trazos
+		埼 horrible
+		填, la version oficial es 塡
+		增, la version oficial es 増
+		娃 mal dibujado
+		實, la version oficial es 実
+		寬, la version oficial es 寛
+		峯, kanji totalmente incorrecto
+		巢, la version ificial es 巣
+		徠 sin trazos
+		徴, sin trazos
+		徳, sin trazos
+		捲, trazo defectuoso
+		揭, no aprece es un jinmeuiyo kanji pero su version 掲 es un joyo kanji
+		搜, la version oficial es 捜, aunque el janji solo muestra un pequeño defecto en uno de los trazos
+		擊, la version oficial es 撃
+		明. sin traazos
+		晄, la variante  es 晃, ambs son validas 
+		晩, sin trazos
+		暦, sin trazos
+		桧, sin trazos
+		梛, sin trazos
+		椛, está horrible
+		橫, el oficial es este 横
+		檎, está horrible
+		歩, sin trazos
+		歴, sin trazos y sin nada
+		毎, sin trazos 
+		渉, sin trazos
+		淚, sin trazos la veriosn oficial es 涙 (el original antiguo tiene perro en vez de grande)
+		渇, la version moderna 渇 la antigua no se usa
+		溫, sin trazos tiene una variante 温
+		瀨, VERSION MODERNA 瀬 tiene un error en la lectura
+		狀, varainte antigua de 状
+		瘦, la version moderna es 痩
+		祢, faltan trazos
+		祷, ????
+		禽, trazos defectuosos
+		笈, trazos defectuosos
+		緑, faltan trazos
+		緒, faltan trazos
+		縁, faltan trazos
+		芦, faltan trazos
+		萠, sin trazos tien una variante oficial  萌
+		薰, sin trazzos, es una variante a ntigua de 薫 
+		虛, sin trazzos, es una variante a ntigua de 虚
+		蠟, sin trazzos, es una variante a ntigua de 蝋
+		賴, sin trazzos, es una variante a ntigua de 頼
+		郎, sin trazos
+		釜, TIENE UN DETALLE EN UN TRAZO
+		録, sin trazos
+		錬, sin trazos es la version antigua de 錬
+		頬, sin trazos la version nueva es una mas compleja 頰 (ojo es el siguiente que aparece)
+		飜, sin traos es la vaersion antiaua de 翻
+		欄, sin trazos
+		廊, sin trazos
+		朗, sin trazos
+		虜, sin trazos
+
+
+
+
+
+
+
 
 		Buscar base de datos para rellenar con datas de audio
 
+muchos los significados o estan o le faltan lecturas o se repiten, habra que rehacer cierta busqueda
+
  - A la font K18X12L, agregarla la ñ, y los signos de acento
-- 
+- Los grados estan muy mal puestos
+
+https://japonesbasico.com/kanji/%E9%AD%82
+https://japonesbasico.com/kanji/魂 --> aho tines significados y cosas asi
+
+!!! en pag 45 hay un kanji vacio, grado 0
+
+
